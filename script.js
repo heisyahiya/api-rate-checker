@@ -58,7 +58,7 @@ const config = {
     }
   },
   security: {
-    adminApiKey: process.env.ADMIN_API_KEY || null,
+    adminApiKey: process.env.ADMIN_API_KEY || "2ff7697c82b91af96b5722cbb6b066c3",
     corsOrigin: process.env.CORS_ORIGIN || "*",
     trustProxy: process.env.TRUST_PROXY === "true",
   }
