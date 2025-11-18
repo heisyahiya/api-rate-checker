@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon - Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-tertiary: #1a1a1a;
+            --surface: #1e1e1e;
+            --surface-hover: #252525;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --text-tertiary: #666666;
+            --accent: #6b4ef6;
+            --accent-hover: #7d5fff;
+            --accent-light: rgba(107, 78, 246, 0.1);
+            --success: #00d4aa;
+            --warning: #ffa500;
+            --border: #252525;
+            --border-focus: #333333;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 48px;
+            text-align: center;
+            letter-spacing: -0.02em;
+        }
+
+        .progress-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+
+        .progress-step {
+            flex: 1;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-step.active {
+            background: var(--accent);
+        }
+
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 32px 32px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .step-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .card-body {
+            padding: 32px;
+        }
+
+        .amount-display {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .amount-row:last-child {
+            margin-bottom: 0;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .amount-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .amount-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .currency-flag {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            outline: none;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .input-field:focus {
+            border-color: var(--border-focus);
+            background: var(--bg-tertiary);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .select-button {
+            width: 100%;
+            padding: 16px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .select-button:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-focus);
+        }
+
+        .select-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .select-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .select-icon img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .select-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .select-primary {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .select-secondary {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .dropdown-arrow {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .option-card {
+            padding: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .option-card:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-focus);
+        }
+
+        .option-card.selected {
+            background: var(--accent-light);
+            border-color: var(--accent);
+        }
+
+        .option-card.selected::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: white;
+            z-index: 1;
+        }
+
+        .option-icon {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+        }
+
+        .option-icon img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .option-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .option-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .qr-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .qr-button {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .qr-button:hover {
+            border-color: var(--border-focus);
+            color: var(--text-primary);
+            background: var(--surface-hover);
+        }
+
+        .button {
+            width: 100%;
+            padding: 18px;
+            background: var(--accent);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button-secondary {
+            background: var(--surface);
+            color: var(--text-primary);
+            margin-top: 12px;
+        }
+
+        .button-secondary:hover {
+            background: var(--surface-hover);
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-top: 20px;
+            margin-top: 4px;
+            border-top: 1px solid var(--border);
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .warning-box {
+            padding: 16px 20px;
+            background: rgba(255, 165, 0, 0.08);
+            border: 1px solid rgba(255, 165, 0, 0.2);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--warning);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .warning-box a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px;
+            margin-top: 24px;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(20px);
+        }
+
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            padding: 32px;
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--surface-hover);
+            transform: rotate(90deg);
+        }
+
+        .qr-scanner {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #qr-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .qr-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            border: 3px solid var(--accent);
+            border-radius: 16px;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+        }
+
+        .qr-corners {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+        }
+
+        .qr-corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--accent);
+        }
+
+        .qr-corner.top-left {
+            top: 0;
+            left: 0;
+            border-right: none;
+            border-bottom: none;
+            border-radius: 16px 0 0 0;
+        }
+
+        .qr-corner.top-right {
+            top: 0;
+            right: 0;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 16px 0 0;
+        }
+
+        .qr-corner.bottom-left {
+            bottom: 0;
+            left: 0;
+            border-right: none;
+            border-top: none;
+            border-radius: 0 0 0 16px;
+        }
+
+        .qr-corner.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-left: none;
+            border-top: none;
+            border-radius: 0 0 16px 0;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px;
+            }
+
+            .logo {
+                font-size: 24px;
+                margin-bottom: 32px;
+            }
+
+            .card-header,
+            .card-body {
+                padding: 24px;
+            }
+
+            .step-title {
+                font-size: 22px;
+            }
+
+            .qr-scanner {
+                height: 300px;
+            }
+
+            .qr-overlay,
+            .qr-corners {
+                width: 200px;
+                height: 200px;
+            }
+
+            .modal-content {
+                padding: 24px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">horizon</div>
+
+        <div class="progress-bar">
+            <div class="progress-step active"></div>
+            <div class="progress-step" id="progress2"></div>
+        </div>
+
+        <!-- Step 1: Payment Details -->
+        <div class="card" id="step1">
+            <div class="card-header">
+                <h2 class="step-title">Payment Details</h2>
+                <p class="step-subtitle">Enter your payment information</p>
+            </div>
+
+            <div class="card-body">
+                <div class="amount-display">
+                    <div class="amount-row">
+                        <span class="amount-label">You send</span>
+                        <div class="amount-value">
+                            <span class="currency-flag">🇳🇬</span>
+                            <span id="displaySendAmount">NGN 100.00</span>
+                        </div>
+                    </div>
+                    <div class="amount-row">
+                        <span class="amount-label">They receive</span>
+                        <div class="amount-value">
+                            <span class="currency-flag">🇮🇳</span>
+                            <span id="displayReceiveAmount">INR 5.10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Pay with</label>
+                    <button class="select-button" id="payMethodBtn">
+                        <div class="select-content">
+                            <div class="select-icon">
+                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Paystack">
+                            </div>
+                            <div class="select-text">
+                                <span class="select-primary" id="payMethodName">Bank Transfer</span>
+                                <span class="select-secondary">via Paystack</span>
+                            </div>
+                        </div>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+                    
+                    <div class="options-grid hidden" id="payMethodOptions">
+                        <div class="option-card selected" data-method="bank">
+                            <div class="option-icon">
+                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Bank">
+                            </div>
+                            <div class="option-name">Bank Transfer</div>
+                            <div class="option-time">Instant</div>
+                        </div>
+                        <div class="option-card" data-method="card">
+                            <div class="option-icon">
+                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Card">
+                            </div>
+                            <div class="option-name">Debit Card</div>
+                            <div class="option-time">Instant</div>
+                        </div>
+                        <div class="option-card" data-method="ussd">
+                            <div class="option-icon">
+                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="USSD">
+                            </div>
+                            <div class="option-name">USSD</div>
+                            <div class="option-time">2-5 min</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Receive via</label>
+                    <button class="select-button" id="receiveMethodBtn">
+                        <div class="select-content">
+                            <div class="select-icon">
+                                <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI">
+                            </div>
+                            <div class="select-text">
+                                <span class="select-primary" id="receiveMethodName">UPI Transfer</span>
+                                <span class="select-secondary" id="receiveMethodTime">5-10 minutes</span>
+                            </div>
+                        </div>
+                        <span class="dropdown-arrow">▼</span>
+                    </button>
+
+                    <div class="options-grid hidden" id="receiveMethodOptions">
+                        <div class="option-card selected" data-method="upi" data-time="5-10 minutes">
+                            <div class="option-icon">
+                                <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI">
+                            </div>
+                            <div class="option-name">UPI Transfer</div>
+                            <div class="option-time">5-10 min</div>
+                        </div>
+                        <div class="option-card" data-method="bank" data-time="15-30 minutes">
+                            <div class="option-icon">
+                                <img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" alt="Bank">
+                            </div>
+                            <div class="option-name">Bank Transfer</div>
+                            <div class="option-time">15-30 min</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UPI Details -->
+                <div id="upiDetails">
+                    <div class="form-group">
+                        <label class="form-label">UPI ID</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="input-field" placeholder="username@upi" id="upiId">
+                        </div>
+                    </div>
+
+                    <div class="qr-section">
+                        <button class="qr-button" id="scanQrBtn">
+                            Scan QR Code
+                        </button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Receiver Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="input-field" placeholder="Full name as per UPI" id="receiverName">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bank Details -->
+                <div id="bankDetails" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">Account Number</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="input-field" placeholder="Enter account number" id="accountNumber">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">IFSC Code</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="input-field" placeholder="Enter IFSC code" id="ifscCode">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Account Holder Name</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="input-field" placeholder="Full name as per bank" id="accountName">
+                        </div>
+                    </div>
+                </div>
+
+                <button class="button" id="continueBtn">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Payment Summary -->
+        <div class="card hidden" id="step2">
+            <div class="card-header">
+                <h2 class="step-title">Payment Summary</h2>
+                <p class="step-subtitle">Review your transaction</p>
+            </div>
+
+            <div class="card-body">
+                <div class="warning-box">
+                    Payment capped at ₦125,000 for unverified accounts. <a href="#">Sign in</a> to increase limit.
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">You send</span>
+                        <span class="info-value" id="summaryYouSend">NGN 100.00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Exchange rate</span>
+                        <span class="info-value" id="summaryRate">1 NGN = 0.051 INR</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">FX Fee (0.5%)</span>
+                        <span class="info-value" id="summaryFxFee">NGN 0.50</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Processing fee</span>
+                        <span class="info-value">NGN 0.00</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total to pay</span>
+                        <span class="info-value" id="summaryTotal">NGN 100.50</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Recipient receives</span>
+                        <span class="info-value" style="color: var(--success)" id="summaryReceive">INR 5.10</span>
+                    </div>
+                </div>
+
+                <button class="button" id="payBtn">Pay Securely</button>
+                <button class="button button-secondary" id="backBtn">Back</button>
+
+                <div class="security-badge">
+                    🔒 Secured by Paystack • 256-bit encryption
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div class="modal" id="qrModal">
+        <button class="modal-close" id="closeModal">×</button>
+        <div class="modal-content">
+            <h3 class="modal-title">Scan QR Code</h3>
+            <p class="modal-subtitle">Position the QR code within the frame</p>
+            
+            <div class="qr-scanner">
+                <video id="qr-video" autoplay playsinline></video>
+                <div class="qr-overlay"></div>
+                <div class="qr-corners">
+                    <div class="qr-corner top-left"></div>
+                    <div class="qr-corner top-right"></div>
+                    <div class="qr-corner bottom-left"></div>
+                    <div class="qr-corner bottom-right"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State
+        let state = {
+            sendAmount: 100,
+            sendCurrency: 'NGN',
+            receiveCurrency: 'INR',
+            payMethod: 'bank',
+            receiveMethod: 'upi',
+            receiveTime: '5-10 minutes',
+            exchangeRate: 0.051
+        };
+
+        // Elements
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const progress2 = document.getElementById('progress2');
+        const payMethodBtn = document.getElementById('payMethodBtn');
+        const payMethodOptions = document.getElementById('payMethodOptions');
+        const receiveMethodBtn = document.getElementById('receiveMethodBtn');
+        const receiveMethodOptions = document.getElementById('receiveMethodOptions');
+        const upiDetails = document.getElementById('upiDetails');
+        const bankDetails = document.getElementById('bankDetails');
+        const continueBtn = document.getElementById('continueBtn');
+        const backBtn = document.getElementById('backBtn');
+        const payBtn = document.getElementById('payBtn');
+        const qrModal = document.getElementById('qrModal');
+        const scanQrBtn = document.getElementById('scanQrBtn');
+        const closeModal = document.getElementById('closeModal');
+        const qrVideo = document.getElementById('qr-video');
+
+        // Toggle dropdowns
+        payMethodBtn.addEventListener('click', () => {
+            payMethodOptions.classList.toggle('hidden');
+            receiveMethodOptions.classList.add('hidden');
+        });
+
+        receiveMethodBtn.addEventListener('click', () => {
+            receiveMethodOptions.classList.toggle('hidden');
+            payMethodOptions.classList.add('hidden');
+        });
+
+        // Select payment method
+        document.querySelectorAll('#payMethodOptions .option-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('#payMethodOptions .option-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                state.payMethod = card.dataset.method;
+                document.getElementById('payMethodName').textContent = card.querySelector('.option-name').textContent;
+                payMethodOptions.classList.add('hidden');
+            });
+        });
+
+        // Select receive method
+        document.querySelectorAll('#receiveMethodOptions .option-card').forEach(card => {
+            card.addEventListener('click', () => {
+                document.querySelectorAll('#receiveMethodOptions .option-card').forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                state.receiveMethod = card.dataset.method;
+                state.receiveTime = card.dataset.time;
+                document.getElementById('receiveMethodName').textContent = card.querySelector('.option-name').textContent;
+                document.getElementById('receiveMethodTime').textContent = card.dataset.time;
+                receiveMethodOptions.classList.add('hidden');
+
+                // Toggle details sections
+                if (state.receiveMethod === 'upi') {
+                    upiDetails.classList.remove('hidden');
+                    bankDetails.classList.add('hidden');
+                } else {
+                    upiDetails.classList.add('hidden');
+                    bankDetails.classList.remove('hidden');
+                }
+            });
+        });
+
+        // QR Scanner
+        let stream = null;
+
+        scanQrBtn.addEventListener('click', async () => {
+            qrModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                qrVideo.srcObject = stream;
+            } catch (err) {
+                alert('Camera access denied. Please enable camera permissions.');
+                closeQrModal();
+            }
+        });
+
+        closeModal.addEventListener('click', closeQrModal);
+
+        qrModal.addEventListener('click', (e) => {
+            if (e.target === qrModal) {
+                closeQrModal();
+            }
+        });
+
+        function closeQrModal() {
+            qrModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+            }
+        }
+
+        // Continue to summary
+        continueBtn.addEventListener('click', () => {
+            // Validation
+            if (state.receiveMethod === 'upi') {
+                const upiId = document.getElementById('upiId').value;
+                const receiverName = document.getElementById('receiverName').value;
+                if (!upiId || !receiverName) {
+                    alert('Please fill in all UPI details');
+                    return;
+                }
+            } else {
+                const accountNumber = document.getElementById('accountNumber').value;
+                const ifscCode = document.getElementById('ifscCode').value;
+                const accountName = document.getElementById('accountName').value;
+                if (!accountNumber || !ifscCode || !accountName) {
+                    alert('Please fill in all bank details');
+                    return;
+                }
+            }
+
+            // Calculate fees
+            const fxFee = (state.sendAmount * 0.005).toFixed(2);
+            const total = (parseFloat(state.sendAmount) + parseFloat(fxFee)).toFixed(2);
+            const receiveAmount = (state.sendAmount * state.exchangeRate).toFixed(2);
+
+            // Update summary
+            document.getElementById('summaryYouSend').textContent = `${state.sendCurrency} ${state.sendAmount.toFixed(2)}`;
+            document.getElementById('summaryRate').textContent = `1 ${state.sendCurrency} = ${state.exchangeRate} ${state.receiveCurrency}`;
+            document.getElementById('summaryFxFee').textContent = `${state.sendCurrency} ${fxFee}`;
+            document.getElementById('summaryTotal').textContent = `${state.sendCurrency} ${total}`;
+            document.getElementById('summaryReceive').textContent = `${state.receiveCurrency} ${receiveAmount}`;
+
+            // Switch to step 2
+            step1.classList.add('hidden');
+            step2.classList.remove('hidden');
+            progress2.classList.add('active');
+            window.scrollTo(0, 0);
+        });
+
+        // Back button
+        backBtn.addEventListener('click', () => {
+            step2.classList.add('hidden');
+            step1.classList.remove('hidden');
+            progress2.classList.remove('active');
+            window.scrollTo(0, 0);
+        });
+
+        // Pay button
+        payBtn.addEventListener('click', () => {
+            alert('🎉 Payment processing initiated! Redirecting to Paystack...');
+        });
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.select-button') && !e.target.closest('.options-grid')) {
+                payMethodOptions.classList.add('hidden');
+                receiveMethodOptions.classList.add('hidden');
+            }
+        });
+
+        // Initialize display
+        function updateDisplay() {
+            const receiveAmount = (state.sendAmount * state.exchangeRate).toFixed(2);
+            document.getElementById('displaySendAmount').textContent = `${state.sendCurrency} ${state.sendAmount.toFixed(2)}`;
+            document.getElementById('displayReceiveAmount').textContent = `${state.receiveCurrency} ${receiveAmount}`;
+        }
+
+        updateDisplay();
+
+        </script>
+</body>

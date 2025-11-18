@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Horizon</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #222222;
+            --bg-card: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #6b4ef6;
+            --accent-green: #00d4aa;
+            --accent-red: #ff4757;
+            --border-color: #333333;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-app {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .btn-app:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+        }
+
+        .country-flag {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            cursor: pointer;
+        }
+
+        /* Content Container */
+        .content-container {
+            max-width: 900px;
+            margin: 120px auto 80px;
+            padding: 0 24px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .last-updated {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 20px;
+        }
+
+        /* Content Sections */
+        .policy-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .section-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .section-content ul li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .section-content ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: 700;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .warning-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-red);
+            margin-bottom: 12px;
+        }
+
+        .warning-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-purple);
+            margin-bottom: 12px;
+        }
+
+        .info-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .contact-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all var(--transition);
+        }
+
+        .contact-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(107, 78, 246, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .page-title {
+                font-size: 36px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .policy-section {
+                padding: 24px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .section-content p,
+            .section-content ul li {
+                font-size: 15px;
+            }
+
+            .content-container {
+                margin-top: 100px;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">horizon</div>
+            <nav class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Cards</a>
+                <a href="convert/" class="nav-link">Convert</a>
+                <a href="convert/track-payment.html" class="nav-link">Track Payment</a>
+                <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+            </nav>
+            <div class="header-right">
+                <button class="btn-app">Create Account</button>
+                <div class="country-flag">🇮🇳</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content-container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Privacy Policy</h1>
+            <p class="page-subtitle">
+                Your privacy and security are important to us. Please read this policy carefully to understand how Horizon operates.
+            </p>
+            <span class="last-updated">Last Updated: November 17, 2025</span>
+        </div>
+
+        <!-- Service Overview -->
+        <div class="policy-section">
+            <h2 class="section-title">1. Service Overview</h2>
+            <div class="section-content">
+                <p>
+                    Horizon is a <strong>peer-to-peer (P2P) facilitation platform</strong> that connects users with third-party P2P traders on external cryptocurrency exchanges including Binance, Bybit, and other similar platforms. We are <strong>not a licensed financial institution, payment gateway, or money service business</strong>.
+                </p>
+                <p>
+                    Our role is limited to providing a user interface and facilitating connections between users and independent P2P traders. All transactions occur directly between you and third-party traders on external platforms.
+                </p>
+            </div>
+        </div>
+
+        <!-- Critical Disclaimers -->
+        <div class="warning-box">
+            <div class="warning-title">
+                ⚠️ Important Disclaimers
+            </div>
+            <div class="warning-content">
+                <strong>Please read carefully:</strong><br><br>
+                • Horizon does NOT hold, store, or have custody of your funds at any time<br>
+                • We are NOT a payment processor, financial institution, or money transmitter<br>
+                • We do NOT provide any financial, investment, or trading advice<br>
+                • We are UNLICENSED and operate solely as a facilitation tool<br>
+                • All transactions are conducted at YOUR OWN RISK
+            </div>
+        </div>
+
+        <!-- How We Operate -->
+        <div class="policy-section">
+            <h2 class="section-title">2. How Horizon Operates</h2>
+            <div class="section-content">
+                <p>
+                    Horizon acts as a <strong>facilitation tool only</strong>. When you use our platform:
+                </p>
+                <ul>
+                    <li>We connect you with independent P2P traders on platforms like Binance and Bybit</li>
+                    <li>We provide rate information and facilitate communication</li>
+                    <li>All monetary transactions occur directly between you and the third-party trader</li>
+                    <li>We do not process, hold, or transfer any funds on your behalf</li>
+                    <li>We do not have access to your exchange accounts or wallets</li>
+                    <li>We are not a party to your transactions with P2P traders</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- No Custody of Funds -->
+        <div class="policy-section">
+            <h2 class="section-title">3. No Custody or Control of Your Funds</h2>
+            <div class="section-content">
+                <p>
+                    <strong>Horizon NEVER holds your money.</strong> We are not a custodial service. When you initiate a transaction:
+                </p>
+                <ul>
+                    <li>Your funds go directly to the third-party P2P trader's account</li>
+                    <li>We do not act as an intermediary for fund transfers</li>
+                    <li>We have no ability to reverse, cancel, or modify completed transactions</li>
+                    <li>We cannot recover funds sent to incorrect accounts or lost in transactions</li>
+                    <li>All transactions are final and irreversible once executed</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- User Responsibility -->
+        <div class="policy-section">
+            <h2 class="section-title">4. User Responsibility & Risk</h2>
+            <div class="section-content">
+                <p>
+                    <strong>You trade entirely at your own risk.</strong> By using Horizon, you acknowledge and accept:
+                </p>
+                <ul>
+                    <li>All financial risks associated with P2P cryptocurrency trading</li>
+                    <li>The volatility and unpredictability of cryptocurrency markets</li>
+                    <li>Risks of fraud, scams, or dishonest traders on third-party platforms</li>
+                    <li>Technical risks including platform downtime, network delays, or system errors</li>
+                    <li>Regulatory and legal risks in your jurisdiction</li>
+                    <li>The possibility of complete loss of your funds</li>
+                </ul>
+                <p>
+                    <strong>Horizon bears NO responsibility or liability</strong> for any losses, damages, or adverse outcomes resulting from your use of our platform or your transactions with third-party traders.
+                </p>
+            </div>
+        </div>
+
+        <!-- Information We Collect -->
+        <div class="policy-section">
+            <h2 class="section-title">5. Information We Collect</h2>
+            <div class="section-content">
+                <p>
+                    To provide our facilitation services, we may collect:
+                </p>
+                <ul>
+                    <li>Basic account information (email, username)</li>
+                    <li>Transaction preferences and history (for display purposes only)</li>
+                    <li>Device information and usage data</li>
+                    <li>Communication records for support purposes</li>
+                </ul>
+                <p>
+                    We do NOT collect or store sensitive financial information such as bank account numbers, card details, or cryptocurrency wallet private keys.
+                </p>
+            </div>
+        </div>
+
+        <!-- How We Use Information -->
+        <div class="policy-section">
+            <h2 class="section-title">6. How We Use Your Information</h2>
+            <div class="section-content">
+                <p>
+                    We use collected information solely to:
+                </p>
+                <ul>
+                    <li>Facilitate connections between users and P2P traders</li>
+                    <li>Display transaction history and preferences</li>
+                    <li>Provide customer support</li>
+                    <li>Improve our platform functionality and user experience</li>
+                    <li>Comply with legal obligations when required</li>
+                </ul>
+                <p>
+                    We do NOT sell, rent, or share your personal information with third parties for marketing purposes.
+                </p>
+            </div>
+        </div>
+
+        <!-- Communication Policy -->
+        <div class="info-box">
+            <div class="info-title">
+                🛡️ Official Communication Policy
+            </div>
+            <div class="info-content">
+                <strong>Horizon will NEVER:</strong><br><br>
+                • Call you requesting money, passwords, or sensitive information<br>
+                • Request payment outside of the facilitated P2P platform<br>
+                • Ask for your cryptocurrency wallet private keys or seed phrases<br>
+                • Demand urgent payments or threaten account suspension<br>
+                • Guarantee profits, returns, or specific trading outcomes<br><br>
+                If you receive such communications, they are fraudulent. Report them immediately.
+            </div>
+        </div>
+
+        <!-- Third-Party Services -->
+        <div class="policy-section">
+            <h2 class="section-title">7. Third-Party Services</h2>
+            <div class="section-content">
+                <p>
+                    Our platform facilitates connections to third-party services (Binance, Bybit, etc.). These platforms have their own privacy policies, terms of service, and operational procedures. Horizon is not responsible for:
+                </p>
+                <ul>
+                    <li>The privacy practices of third-party platforms</li>
+                    <li>Actions or omissions of independent P2P traders</li>
+                    <li>Security breaches or technical issues on external platforms</li>
+                    <li>Changes to third-party platform policies or availability</li>
+                </ul>
+                <p>
+                    You should review the terms and privacy policies of any third-party service you use through our platform.
+                </p>
+            </div>
+        </div>
+
+        <!-- Limitation of Liability -->
+        <div class="policy-section">
+            <h2 class="section-title">8. Limitation of Liability</h2>
+            <div class="section-content">
+                <p>
+                    <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong>
+                </p>
+                <ul>
+                    <li>Horizon provides services "AS IS" without warranties of any kind</li>
+                    <li>We are NOT liable for any direct, indirect, incidental, or consequential damages</li>
+                    <li>We do NOT guarantee transaction success, accuracy, or security</li>
+                    <li>We are NOT responsible for losses resulting from user error, fraud, or platform issues</li>
+                    <li>We do NOT provide refunds, chargebacks, or dispute resolution for transactions</li>
+                    <li>Users are solely responsible for verifying trader reputation and transaction details</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Regulatory Status -->
+        <div class="policy-section">
+            <h2 class="section-title">9. Regulatory Status</h2>
+            <div class="section-content">
+                <p>
+                    <strong>Horizon is unlicensed and unregulated.</strong> We do not hold licenses as:
+                </p>
+                <ul>
+                    <li>A money services business (MSB)</li>
+                    <li>A payment service provider</li>
+                    <li>A financial institution</li>
+                    <li>A cryptocurrency exchange</li>
+                    <li>An investment advisor or broker</li>
+                </ul>
+                <p>
+                    Our operations are limited to providing a technical facilitation tool. Users are responsible for understanding and complying with all applicable laws and regulations in their jurisdiction.
+                </p>
+            </div>
+        </div>
+
+        <!-- Dispute Resolution -->
+        <div class="policy-section">
+            <h2 class="section-title">10. Complaints & Dispute Resolution</h2>
+            <div class="section-content">
+                <p>
+                    If you experience issues with transactions facilitated through Horizon:
+                </p>
+                <ul>
+                    <li><strong>For payment disputes:</strong> Contact your bank or payment provider directly</li>
+                    <li><strong>For trader disputes:</strong> Use the dispute resolution system on the relevant P2P platform (Binance, Bybit, etc.)</li>
+                    <li><strong>For platform issues:</strong> Contact our support team at support@horizonpay.com</li>
+                </ul>
+                <p>
+                    <strong>Please note:</strong> Horizon cannot resolve financial disputes, reverse transactions, or recover lost funds. We can only provide technical support for platform functionality.
+                </p>
+            </div>
+        </div>
+
+        <!-- Data Security -->
+        <div class="policy-section">
+            <h2 class="section-title">11. Data Security</h2>
+            <div class="section-content">
+                <p>
+                    We implement reasonable security measures to protect your information, including:
+                </p>
+                <ul>
+                    <li>Encryption of data in transit and at rest</li>
+                    <li>Secure authentication protocols</li>
+                    <li>Regular security audits and updates</li>
+                    <li>Limited access to personal information</li>
+                </ul>
+                <p>
+                    However, no system is completely secure. You acknowledge that you provide information at your own risk.
+                </p>
+            </div>
+        </div>
+
+        <!-- Your Rights -->
+        <div class="policy-section">
+            <h2 class="section-title">12. Your Rights & Choices</h2>
+            <div class="section-content">
+                <p>
+                    You have the right to:
+                </p>
+                <ul>
+                    <li>Access the personal information we hold about you</li>
+                    <li>Request correction of inaccurate information</li>
+                    <li>Request deletion of your account and associated data</li>
+                    <li>Opt-out of non-essential communications</li>
+                    <li>Withdraw consent for data processing where applicable</li>
+                </ul>
+                <p>
+                    To exercise these rights, contact us at support@horizonpay.com
+                </p>
+            </div>
+        </div>
+
+        <!-- Changes to Policy -->
+        <div class="policy-section">
+            <h2 class="section-title">13. Changes to This Policy</h2>
+            <div class="section-content">
+                <p>
+                    We may update this Privacy Policy from time to time. Material changes will be communicated through:
+                </p>
+                <ul>
+                    <li>Email notification to registered users</li>
+                    <li>Prominent notice on our platform</li>
+                    <li>Updated "Last Modified" date at the top of this policy</li>
+                </ul>
+                <p>
+                    Continued use of Horizon after policy changes constitutes acceptance of the updated terms.
+                </p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2 class="contact-title">Questions or Concerns?</h2>
+            <p class="contact-text">
+                If you have questions about this Privacy Policy or need support, please contact us:
+            </p>
+            <a href="mailto:support@horizonpay.com" class="contact-email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20,8L12,13L4,8V6L12,11L20,6M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                </svg>
+                support@horizonpay.com
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

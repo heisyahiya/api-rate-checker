@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizon - Send Money Across Borders, Instantly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #222222;
+            --bg-card: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #6b4ef6;
+            --accent-green: #00d4aa;
+            --border-color: #333333;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-app {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .btn-app:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+        }
+
+        .country-flag {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            cursor: pointer;
+        }
+
+        /* Banner */
+        .banner {
+            background: linear-gradient(135deg, #4a3ba8 0%, #6b4ef6 100%);
+            padding: 12px 24px;
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .badge-new {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 24px;
+            display: grid;
+            grid-template-columns: 1fr 480px;
+            gap: 80px;
+            align-items: center;
+            min-height: calc(100vh - 150px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding-right: 40px;
+        }
+
+        .hero-title {
+            font-size: 72px;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+        }
+
+        .swap-text {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 540px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .app-store-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 24px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .app-store-btn:hover {
+            background: var(--bg-card);
+            transform: translateY(-2px);
+        }
+
+        .app-store-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .app-store-text {
+            text-align: left;
+        }
+
+        .app-store-text .small {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: block;
+        }
+
+        .app-store-text .large {
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+        }
+
+        .partnership {
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .partnership-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .partner-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        /* Exchange Card */
+        .exchange-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Currency Input */
+        .currency-section {
+            margin-bottom: 8px;
+        }
+
+        .section-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .currency-input-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition);
+        }
+
+        .currency-input-box:hover {
+            border-color: #444;
+        }
+
+        .currency-input-box.focused {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(107, 78, 246, 0.1);
+        }
+
+        .amount-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 36px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            text-align: left;
+            width: 100%;
+        }
+
+        .amount-input::placeholder {
+            color: #555;
+        }
+
+        .amount-input:disabled {
+            color: var(--text-secondary);
+        }
+
+        /* Currency Selector */
+        .currency-selector {
+            position: relative;
+            margin-left: 16px;
+        }
+
+        .currency-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all var(--transition);
+            min-width: 100px;
+        }
+
+        .currency-button:hover {
+            background: var(--bg-card);
+            border-color: #444;
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .currency-code {
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        .dropdown-arrow {
+            font-size: 10px;
+            color: var(--text-secondary);
+            transition: transform var(--transition);
+            margin-left: 4px;
+        }
+
+        .currency-selector.open .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .currency-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 200px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            z-index: 100;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition);
+        }
+
+        .currency-selector.open .currency-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .currency-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+
+        .currency-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .currency-option.selected {
+            background: rgba(107, 78, 246, 0.1);
+        }
+
+        .option-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option-info {
+            flex: 1;
+        }
+
+        .option-code {
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .option-name {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Swap Divider */
+        .swap-divider {
+            display: flex;
+            justify-content: center;
+            margin: 16px 0;
+        }
+
+        .swap-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .swap-icon:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            transform: rotate(180deg);
+        }
+
+        .swap-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--text-primary);
+        }
+
+        /* Rate & Arrival */
+        .info-section {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .info-value {
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rate-badge {
+            padding: 4px 8px;
+            background: rgba(0, 212, 170, 0.1);
+            border-radius: 6px;
+            color: var(--accent-green);
+            font-size: 12px;
+            font-weight: 700;
+            margin-left: 8px;
+        }
+
+        /* Payment Method Dropdown */
+        .payment-selector {
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .payment-button {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .payment-button:hover {
+            border-color: #444;
+        }
+
+        .payment-selector.open .payment-button {
+            border-color: var(--accent-purple);
+        }
+
+        .payment-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .payment-icon {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            border-radius: 8px;
+        }
+
+        .payment-icon img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .payment-info {
+            text-align: left;
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .payment-time {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .payment-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 8px;
+            z-index: 100;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all var(--transition);
+        }
+
+        .payment-selector.open .payment-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+
+        .payment-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .payment-option.selected {
+            background: rgba(107, 78, 246, 0.1);
+        }
+
+        /* Exchange Button */
+        .exchange-button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 24px;
+            transition: all var(--transition);
+        }
+
+        .exchange-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(107, 78, 246, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                padding: 60px 24px;
+            }
+
+            .hero-section {
+                padding-right: 0;
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 56px;
+            }
+
+            .app-buttons {
+                justify-content: center;
+            }
+
+            .partnership {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 42px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .app-buttons {
+                flex-direction: column;
+            }
+
+            .exchange-card {
+                padding: 24px;
+            }
+
+            .amount-input {
+                font-size: 28px;
+            }
+
+            .main-container {
+                padding: 40px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .amount-input {
+                font-size: 24px;
+            }
+
+            .currency-button {
+                min-width: 80px;
+                padding: 6px 10px;
+            }
+
+            .currency-code {
+                font-size: 14px;
+            }
+        }
+
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">horizon</div>
+            <nav class="nav-links">
+                
+                
+                <a href="convert/" class="nav-link">Convert</a>
+                <a href="convert/track-payment.html" class="nav-link">Track Payment</a>
+                <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+            </nav>
+            <div class="header-right">
+                <button class="btn-app">Create Account</button>
+                <div class="country-flag">🇮🇳</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="banner-content">
+            <span class="badge-new">New</span>
+            <span>We've launched the latest version of our app. Get it on Google Play or on the App Store</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <h1 class="hero-title">
+                Receive, Send, <span class="swap-text">Swap</span>
+            </h1>
+            <p class="hero-subtitle">
+                Take control of your payments with Horizon. Send money across borders instantly with the best rates and zero hidden fees.
+            </p>
+
+            <div class="app-buttons">
+                <div class="app-store-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                    </svg>
+                    <div class="app-store-text">
+                        <span class="small">GET IT ON</span>
+                        <span class="large">Google Play</span>
+                    </div>
+                </div>
+
+                <div class="app-store-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71,19.5C17.88,20.74 17,21.95 15.66,21.97C14.32,22 13.89,21.18 12.37,21.18C10.84,21.18 10.37,21.95 9.1,22C7.79,22.05 6.8,20.68 5.96,19.47C4.25,17 2.94,12.45 4.7,9.39C5.57,7.87 7.13,6.91 8.82,6.88C10.1,6.86 11.32,7.75 12.11,7.75C12.89,7.75 14.37,6.68 15.92,6.84C16.57,6.87 18.39,7.1 19.56,8.82C19.47,8.88 17.39,10.1 17.41,12.63C17.44,15.65 20.06,16.66 20.09,16.67C20.06,16.74 19.67,18.11 18.71,19.5M13,3.5C13.73,2.67 14.94,2.04 15.94,2C16.07,3.17 15.6,4.35 14.9,5.19C14.21,6.04 13.07,6.7 11.95,6.61C11.8,5.46 12.36,4.26 13,3.5Z"/>
+                    </svg>
+                    <div class="app-store-text">
+                        <span class="small">Download on the</span>
+                        <span class="large">App Store</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="partnership">
+                <p class="partnership-title">Our Partnership</p>
+                <div class="partner-logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="8" fill="#4A90E2"/>
+                        <text x="16" y="22" text-anchor="middle" fill="white" font-size="16" font-weight="bold">SH</text>
+                    </svg>
+                    Safe Haven MFB
+                </div>
+            </div>
+        </div>
+
+        <!-- Exchange Card -->
+        <div class="exchange-card">
+            <!-- You Send -->
+            <div class="currency-section">
+                <div class="section-label">You send</div>
+                <div class="currency-input-box" id="sendBox">
+                    <input 
+                        type="number" 
+                        class="amount-input" 
+                        id="sendAmount"
+                        placeholder="100"
+                        value="100"
+                    >
+                    <div class="currency-selector" id="sendSelector">
+                        <div class="currency-button">
+                            <span class="flag-icon" id="sendFlag">🇳🇬</span>
+                            <span class="currency-code" id="sendCode">NGN</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="currency-dropdown">
+                            <div class="currency-option selected" data-currency="NGN" data-flag="🇳🇬">
+                                <span class="option-flag">🇳🇬</span>
+                                <div class="option-info">
+                                    <div class="option-code">NGN</div>
+                                    <div class="option-name">Nigerian Naira</div>
+                                </div>
+                            </div>
+                            <div class="currency-option" data-currency="KES" data-flag="🇰🇪">
+                                <span class="option-flag">🇰🇪</span>
+                                <div class="option-info">
+                                    <div class="option-code">KES</div>
+                                    <div class="option-name">Kenyan Shilling</div>
+                                </div>
+                            </div>
+                            <div class="currency-option" data-currency="TZS" data-flag="🇹🇿">
+                                <span class="option-flag">🇹🇿</span>
+                                <div class="option-info">
+                                    <div class="option-code">TZS</div>
+                                    <div class="option-name">Tanzanian Shilling</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Swap Button -->
+            <div class="swap-divider">
+                <div class="swap-icon" id="swapBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- You Receive -->
+            <div class="currency-section">
+                <div class="section-label">You receive</div>
+                <div class="currency-input-box" id="receiveBox">
+                    <input 
+                        type="text" 
+                        class="amount-input" 
+                        id="receiveAmount"
+                        placeholder="0"
+                        disabled
+                    >
+                    <div class="currency-selector" id="receiveSelector">
+                        <div class="currency-button">
+                            <span class="flag-icon" id="receiveFlag">🇮🇳</span>
+                            <span class="currency-code" id="receiveCode">INR</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="currency-dropdown">
+                            <div class="currency-option selected" data-currency="INR" data-flag="🇮🇳">
+                                <span class="option-flag">🇮🇳</span>
+                                <div class="option-info">
+                                    <div class="option-code">INR</div>
+                                    <div class="option-name">Indian Rupee</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment Method Dropdown -->
+            <div class="payment-selector" id="paymentSelector">
+                <div class="payment-button">
+                    <div class="payment-content">
+                        <div class="payment-icon">
+                            <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI" id="paymentMethodIcon">
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name" id="paymentMethodName">UPI Transfer</div>
+                            <div class="payment-time" id="paymentMethodTime">2-5 minutes</div>
+                        </div>
+                    </div>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="payment-dropdown">
+                    <div class="payment-option selected" data-method="upi" data-time="2-5 minutes">
+                        <div class="payment-icon">
+                            <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI">
+                        </div>
+                        <div class="payment-info">
+                            <div class="payment-name">UPI Transfer</div>
+                            <div class="payment-time">2-5 minutes</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="bank" data-time="15-30 minutes">
+                                    <div class="payment-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M6.5,10H4.5V17H6.5V10M12.5,10H10.5V17H12.5V10M9.5,17H7.5V10H9.5V17M13.5,10V17H15.5V10H13.5M20.5,17V9L12,3L3.5,9V17H20.5Z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">Bank Transfer</div>
+                                        <div class="payment-time">15-30 minutes</div>
+                                    </div>
+                                </div>
+                                <div class="payment-option" data-method="card" data-time="Instant">
+                                    <div class="payment-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M20,8H4V6H20M20,18H4V12H20M20,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V6C22,4.89 21.1,4 20,4Z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">Card Payment</div>
+                                        <div class="payment-time">Instant</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            
+                        <!-- Exchange Rate Info -->
+                        <div class="info-section">
+                            <div class="info-row">
+                                <span class="info-label">Exchange rate</span>
+                                <span class="info-value">
+                                    <span id="rateDisplay">1 NGN = 0.051 INR</span>
+                                    <span class="rate-badge">BEST</span>
+                                </span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Estimated arrival</span>
+                                <span class="info-value" id="arrivalTime">2-5 minutes</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Total fees</span>
+                                <span class="info-value">₦0.00</span>
+                            </div>
+                        </div>
+            
+                        <!-- Exchange Button -->
+                        <button class="exchange-button" id="exchangeBtn">
+                            Continue to Payment
+                        </button>
+                    </div>
+                </div>
+            
+                <script>
+                    // Exchange rates (you can update these from an API)
+                    const exchangeRates = {
+                        'NGN': { 'INR': 0.051, 'KES': 0.083, 'TZS': 1.89 },
+                        'KES': { 'INR': 0.62, 'NGN': 12.05, 'TZS': 22.78 },
+                        'TZS': { 'INR': 0.027, 'NGN': 0.53, 'KES': 0.044 },
+                        'INR': { 'NGN': 19.61, 'KES': 1.61, 'TZS': 36.70 }
+                    };
+            
+                    // Current state
+                    let state = {
+                        sendCurrency: 'NGN',
+                        receiveCurrency: 'INR',
+                        sendAmount: 100,
+                        selectedPaymentMethod: 'upi',
+                        paymentTime: '2-5 minutes'
+                    };
+            
+                    // DOM Elements
+                    const sendAmount = document.getElementById('sendAmount');
+                    const receiveAmount = document.getElementById('receiveAmount');
+                    const sendSelector = document.getElementById('sendSelector');
+                    const receiveSelector = document.getElementById('receiveSelector');
+                    const swapBtn = document.getElementById('swapBtn');
+                    const sendBox = document.getElementById('sendBox');
+                    const receiveBox = document.getElementById('receiveBox');
+                    const paymentSelector = document.getElementById('paymentSelector');
+                    const exchangeBtn = document.getElementById('exchangeBtn');
+            
+                    // Initialize
+                    updateReceiveAmount();
+            
+                    // Input handlers
+                    sendAmount.addEventListener('input', (e) => {
+                        state.sendAmount = parseFloat(e.target.value) || 0;
+                        updateReceiveAmount();
+                    });
+            
+                    sendAmount.addEventListener('focus', () => {
+                        sendBox.classList.add('focused');
+                    });
+            
+                    sendAmount.addEventListener('blur', () => {
+                        sendBox.classList.remove('focused');
+                    });
+            
+                    // Currency selector handlers
+                    sendSelector.addEventListener('click', (e) => {
+                        if (e.target.closest('.currency-button')) {
+                            toggleDropdown(sendSelector);
+                        }
+                    });
+            
+                    receiveSelector.addEventListener('click', (e) => {
+                        if (e.target.closest('.currency-button')) {
+                            toggleDropdown(receiveSelector);
+                        }
+                    });
+            
+                    // Currency option handlers
+                    document.querySelectorAll('#sendSelector .currency-option').forEach(option => {
+                        option.addEventListener('click', (e) => {
+                            const currency = option.dataset.currency;
+                            const flag = option.dataset.flag;
+                            selectCurrency('send', currency, flag);
+                            closeDropdown(sendSelector);
+                        });
+                    });
+            
+                    document.querySelectorAll('#receiveSelector .currency-option').forEach(option => {
+                        option.addEventListener('click', (e) => {
+                            const currency = option.dataset.currency;
+                            const flag = option.dataset.flag;
+                            selectCurrency('receive', currency, flag);
+                            closeDropdown(receiveSelector);
+                        });
+                    });
+            
+                    // Payment method handlers
+                    paymentSelector.addEventListener('click', (e) => {
+                        if (e.target.closest('.payment-button')) {
+                            toggleDropdown(paymentSelector);
+                        }
+                    });
+            
+                    document.querySelectorAll('.payment-option').forEach(option => {
+                        option.addEventListener('click', () => {
+                            const method = option.dataset.method;
+                            const time = option.dataset.time;
+                            selectPaymentMethod(method, time, option);
+                            closeDropdown(paymentSelector);
+                        });
+                    });
+            
+                    // Swap button handler
+                    swapBtn.addEventListener('click', () => {
+                        const tempCurrency = state.sendCurrency;
+                        const tempFlag = document.getElementById('sendFlag').textContent;
+                        
+                        state.sendCurrency = state.receiveCurrency;
+                        state.receiveCurrency = tempCurrency;
+                        
+                        document.getElementById('sendFlag').textContent = document.getElementById('receiveFlag').textContent;
+                        document.getElementById('sendCode').textContent = state.sendCurrency;
+                        document.getElementById('receiveFlag').textContent = tempFlag;
+                        document.getElementById('receiveCode').textContent = state.receiveCurrency;
+                        
+                        updateCurrencySelections();
+                        updateReceiveAmount();
+                    });
+            
+                    // Exchange button handler
+                    exchangeBtn.addEventListener('click', () => {
+                        // Validate amount
+                        if (!state.sendAmount || state.sendAmount <= 0) {
+                            alert('Please enter a valid amount');
+                            return;
+                        }
+            
+                        // Create form data
+                        const formData = {
+                            sendCurrency: state.sendCurrency,
+                            receiveCurrency: state.receiveCurrency,
+                            sendAmount: state.sendAmount,
+                            receiveAmount: parseFloat(receiveAmount.value),
+                            paymentMethod: state.selectedPaymentMethod,
+                            estimatedTime: state.paymentTime,
+                            exchangeRate: getExchangeRate()
+                        };
+            
+                        // Store in sessionStorage for the payment page
+                        sessionStorage.setItem('horizonTransaction', JSON.stringify(formData));
+            
+                        // Redirect to payment page
+                        window.location.href = '/payment.html';
+                    });
+            
+                    // Helper functions
+                    function toggleDropdown(selector) {
+                        const isOpen = selector.classList.contains('open');
+                        closeAllDropdowns();
+                        if (!isOpen) {
+                            selector.classList.add('open');
+                        }
+                    }
+            
+                    function closeDropdown(selector) {
+                        selector.classList.remove('open');
+                    }
+            
+                    function closeAllDropdowns() {
+                        document.querySelectorAll('.currency-selector, .payment-selector').forEach(el => {
+                            el.classList.remove('open');
+                        });
+                    }
+            
+                    function selectCurrency(type, currency, flag) {
+                        if (type === 'send') {
+                            state.sendCurrency = currency;
+                            document.getElementById('sendFlag').textContent = flag;
+                            document.getElementById('sendCode').textContent = currency;
+                        } else {
+                            state.receiveCurrency = currency;
+                            document.getElementById('receiveFlag').textContent = flag;
+                            document.getElementById('receiveCode').textContent = currency;
+                        }
+                        
+                        updateCurrencySelections();
+                        updateReceiveAmount();
+                    }
+            
+                    function selectPaymentMethod(method, time, optionElement) {
+                        state.selectedPaymentMethod = method;
+                        state.paymentTime = time;
+                        
+                        // Update selected state
+                        document.querySelectorAll('.payment-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        optionElement.classList.add('selected');
+                        
+                        // Update button display
+                        const icon = optionElement.querySelector('img, svg').cloneNode(true);
+                        const name = optionElement.querySelector('.payment-name').textContent;
+                        
+                        document.getElementById('paymentMethodIcon').replaceWith(icon);
+                        icon.id = 'paymentMethodIcon';
+                        document.getElementById('paymentMethodName').textContent = name;
+                        document.getElementById('paymentMethodTime').textContent = time;
+                        document.getElementById('arrivalTime').textContent = time;
+                    }
+            
+                    function updateCurrencySelections() {
+                        // Update send currency options
+                        document.querySelectorAll('#sendSelector .currency-option').forEach(opt => {
+                            opt.classList.toggle('selected', opt.dataset.currency === state.sendCurrency);
+                        });
+                        
+                        // Update receive currency options
+                        document.querySelectorAll('#receiveSelector .currency-option').forEach(opt => {
+                            opt.classList.toggle('selected', opt.dataset.currency === state.receiveCurrency);
+                        });
+                    }
+            
+                    function getExchangeRate() {
+                        if (exchangeRates[state.sendCurrency] && exchangeRates[state.sendCurrency][state.receiveCurrency]) {
+                            return exchangeRates[state.sendCurrency][state.receiveCurrency];
+                        }
+                        return 1;
+                    }
+            
+                    function updateReceiveAmount() {
+                        const rate = getExchangeRate();
+                        const received = (state.sendAmount * rate).toFixed(2);
+                        receiveAmount.value = received;
+                        
+                        // Update rate display
+                        document.getElementById('rateDisplay').textContent = 
+                            `1 ${state.sendCurrency} = ${rate.toFixed(3)} ${state.receiveCurrency}`;
+                    }
+            
+                    // Close dropdowns when clicking outside
+                    document.addEventListener('click', (e) => {
+                        if (!e.target.closest('.currency-selector') && !e.target.closest('.payment-selector')) {
+                            closeAllDropdowns();
+                        }
+                    });
+            
+                    // Prevent non-numeric input
+                    sendAmount.addEventListener('keypress', (e) => {
+                        if (e.key === '-' || e.key === '+' || e.key === 'e') {
+                            e.preventDefault();
+                        }
+                    });
+                </script>
+            </body>
+            </html>
