@@ -17,15 +17,15 @@ const config = {
   nodeEnv: process.env.NODE_ENV || "development",
   api: {
     timeout: parseInt(process.env.API_TIMEOUT) || 10000,
-    maxRetries: parseInt(process.env.MAX_RETRIES) || 3,
-    retryDelay: parseInt(process.env.RETRY_DELAY) || 1000,
+    maxRetries: parseInt(process.env.MAX_RETRIES) || 5, // ✅ INCREASED from 3
+    retryDelay: parseInt(process.env.RETRY_DELAY) || 2000, // ✅ INCREASED from 1000
   },
   cache: {
-    ttl: parseInt(process.env.CACHE_TTL) || 300, // 5 minutes
+    ttl: parseInt(process.env.CACHE_TTL) || 1800, // ✅ CHANGED from 300 to 1800 (30 mins)
     checkPeriod: parseInt(process.env.CACHE_CHECK_PERIOD) || 60,
   },
   pricing: {
-    minProfitMargin: parseFloat(process.env.MIN_PROFIT_MARGIN) || 0.5, // 0.5%
+    minProfitMargin: parseFloat(process.env.MIN_PROFIT_MARGIN) || 0.5,
     ngnMarkup: parseFloat(process.env.NGN_MARKUP) || 20,
     discountMin: parseFloat(process.env.DISCOUNT_MIN) || 0.20,
     discountMax: parseFloat(process.env.DISCOUNT_MAX) || 0.40,
@@ -60,7 +60,10 @@ const config = {
   security: {
     adminApiKey: process.env.ADMIN_API_KEY || "2ff7697c82b91af96b5722cbb6b066c3",
     corsOrigin: process.env.CORS_ORIGIN || "*",
-    trustProxy: process.env.TRUST_PROXY === "true",
+    trustProxy: process.env.TRUST_PROXY !== "false", // ✅ CHANGED: Default to TRUE
+  },
+  fallback: {
+    ngnRate: parseFloat(process.env.FALLBACK_NGN_RATE) || 1650, // ✅ NEW: Fallback NGN rate
   }
 };
 
@@ -664,7 +667,7 @@ async function getMarketData(useCache = true) {
     errors.push({ source: "binanceP2P", error: results[2].reason.message });
   }
   
-  // Require P2P data and NGN rate at minimum
+  // ✅ Require P2P data at minimum
   if (!p2pData) {
     throw new ExternalAPIError("Critical: P2P data unavailable", {
       errors,
@@ -672,31 +675,37 @@ async function getMarketData(useCache = true) {
     });
   }
   
-  if (!coinGecko || !coinGecko.ngn) {
-    throw new ExternalAPIError("Critical: NGN rate unavailable", {
-      errors,
-      recommendation: "Try again in a few moments"
+  // ✅ UPDATED: Use fallback NGN rate if CoinGecko fails
+  let ngnRate = config.fallback.ngnRate;
+  if (coinGecko && coinGecko.ngn) {
+    ngnRate = coinGecko.ngn;
+    logger.debug("Using fetched NGN rate from CoinGecko", { ngnRate });
+  } else {
+    logger.warn("CoinGecko NGN unavailable, using fallback rate", { 
+      fallbackRate: config.fallback.ngnRate 
     });
   }
   
+  ngnRate += config.pricing.ngnMarkup;
+  
   const p2pStats = analyzeP2P(p2pData);
-  const ngnRate = coinGecko.ngn + config.pricing.ngnMarkup;
   
   const marketData = {
     timestamp: new Date().toISOString(),
     rates: {
       binanceSpot: spot,
-      coinGeckoInr: coinGecko.inr,
-      coinGeckoNgn: coinGecko.ngn,
+      coinGeckoInr: coinGecko?.inr,
+      coinGeckoNgn: coinGecko?.ngn,
       ngnRateWithMarkup: ngnRate,
-      p2pLowest: p2pStats.lowestRate
+      p2pLowest: p2pStats.lowestRate,
+      usedFallback: !coinGecko?.ngn // ✅ NEW: Track if fallback was used
     },
     p2p: p2pStats,
     errors: errors.length > 0 ? errors : undefined
   };
   
   cache.set(cacheKey, marketData);
-  logger.info("Market data cached", { ttl: config.cache.ttl });
+  logger.info("Market data cached", { ttl: config.cache.ttl, usedFallback: !coinGecko?.ngn });
   
   return marketData;
 }
@@ -707,10 +716,8 @@ async function getMarketData(useCache = true) {
 
 const app = express();
 
-// Trust proxy if configured
-if (config.security.trustProxy) {
-  app.set("trust proxy", 1);
-}
+// ✅ ALWAYS set trust proxy (critical for Render and proxied environments)
+app.set("trust proxy", 1);
 
 // Middleware
 app.use(helmet({
@@ -745,6 +752,10 @@ const limiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   skip: (req) => req.path === "/health", // Skip rate limit for health checks
+  keyGenerator: (req) => {
+    // ✅ IMPROVED: Better IP detection for proxied environments
+    return req.ip || req.connection.remoteAddress || "unknown";
+  }
 });
 
 app.use("/api/", limiter);
@@ -781,7 +792,7 @@ app.get("/health", (req, res) => {
 app.get("/ready", async (req, res) => {
   try {
     // Check if we can fetch market data
-    await getMarketData(true);
+    await getMarketData(false); // Don't use cache for readiness check
     res.json({ status: "ready" });
   } catch (error) {
     logger.error("Readiness check failed", { error: error.message });
@@ -836,7 +847,8 @@ app.get("/api/rates", async (req, res, next) => {
         ourCostPerInr: `₦${competitive.baseCost.toFixed(2)} NGN`,
         totalP2PAds: marketData.p2p.totalAds,
         qualityP2PAds: marketData.p2p.goodAds,
-        topTraders: marketData.p2p.topAds.slice(0, 3)
+        topTraders: marketData.p2p.topAds.slice(0, 3),
+        usedFallbackRate: marketData.rates.usedFallback // ✅ NEW: Inform client if fallback was used
       },
       warnings: marketData.errors
     });
@@ -1006,6 +1018,10 @@ const server = app.listen(config.port, () => {
     environment: config.nodeEnv,
     cacheEnabled: true,
     cacheTTL: config.cache.ttl,
+    trustProxy: true,
+    maxRetries: config.api.maxRetries,
+    retryDelay: config.api.retryDelay,
+    fallbackNgnRate: config.fallback.ngnRate,
     version: process.env.npm_package_version || "1.0.0"
   });
 });
