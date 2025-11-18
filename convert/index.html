@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Horizon - Payment</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css">
     <style>
         *, *::before, *::after {
             margin: 0;
@@ -15,137 +17,322 @@
         }
 
         :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #111111;
-            --bg-tertiary: #1a1a1a;
-            --surface: #1e1e1e;
-            --surface-hover: #252525;
-            --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --text-tertiary: #666666;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --surface: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #6c757d;
+            --text-tertiary: #adb5bd;
             --accent: #6b4ef6;
-            --accent-hover: #7d5fff;
-            --accent-light: rgba(107, 78, 246, 0.1);
+            --accent-hover: #5a3dd9;
+            --accent-light: #f3f0ff;
             --success: #00d4aa;
-            --warning: #ffa500;
-            --border: #252525;
-            --border-focus: #333333;
+            --warning: #ff6b35;
+            --border: #e9ecef;
+            --border-focus: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --header-bg: #0a0a0a;
         }
 
         body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
         }
 
-        .container {
-            max-width: 480px;
-            width: 100%;
+        /* Header */
+        .header {
+            background: var(--header-bg);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .notice-bar {
+            background: linear-gradient(90deg, #6b4ef6 0%, #5a3dd9 100%);
+            padding: 10px 24px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .notice-bar .rate-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .notice-bar .cta-link {
+            color: white;
+            text-decoration: underline;
+            margin-left: 12px;
+            font-weight: 700;
+        }
+
+        .header-main {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 800;
-            margin-bottom: 48px;
-            text-align: center;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.5px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 32px 24px;
         }
 
         .progress-bar {
             display: flex;
             gap: 8px;
-            margin-bottom: 48px;
+            margin-bottom: 32px;
         }
 
         .progress-step {
             flex: 1;
-            height: 3px;
+            height: 4px;
             background: var(--border);
             border-radius: 2px;
-            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: background 0.3s ease;
         }
 
         .progress-step.active {
             background: var(--accent);
         }
 
+        /* Card */
         .card {
-            background: var(--bg-secondary);
+            background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px var(--shadow);
         }
 
         .card-header {
-            padding: 32px 32px 24px;
+            padding: 28px 28px 20px;
             border-bottom: 1px solid var(--border);
         }
 
         .step-title {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
         }
 
         .step-subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
-
-        .card-body {
-            padding: 32px;
-        }
-
-        .amount-display {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-
-        .amount-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .amount-row:last-child {
-            margin-bottom: 0;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .amount-label {
             font-size: 14px;
             color: var(--text-secondary);
             font-weight: 500;
         }
 
-        .amount-value {
-            font-family: 'JetBrains Mono', monospace;
+        .card-body {
+            padding: 28px;
+        }
+
+        /* Amount Input */
+        .amount-section {
+            margin-bottom: 28px;
+        }
+
+        .amount-input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .amount-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .amount-input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
             font-size: 18px;
             font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Dropdown */
+        .custom-select {
+            position: relative;
+            width: 140px;
+        }
+
+        .select-trigger {
+            width: 100%;
+            padding: 16px 12px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
-        .currency-flag {
-            width: 20px;
-            height: 20px;
+        .select-trigger:hover {
+            background: white;
+            border-color: var(--border-focus);
+        }
+
+        .select-trigger.active {
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .flag-icon {
+            width: 24px;
+            height: 24px;
             border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
         }
 
+        .select-arrow {
+            margin-left: auto;
+            font-size: 10px;
+            color: var(--text-secondary);
+            transition: transform 0.2s ease;
+        }
+
+        .select-trigger.active .select-arrow {
+            transform: rotate(180deg);
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--shadow);
+            z-index: 10;
+            display: none;
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .select-dropdown.active {
+            display: block;
+            animation: dropdownFade 0.2s ease;
+        }
+
+        @keyframes dropdownFade {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .select-option {
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .select-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .select-option.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .select-option.disabled:hover {
+            background: transparent;
+        }
+
+        .coming-soon-badge {
+            margin-left: auto;
+            font-size: 10px;
+            padding: 2px 8px;
+            background: var(--accent-light);
+            color: var(--accent);
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Exchange Display */
+        .exchange-display {
+            background: var(--accent-light);
+            border: 1px solid rgba(107, 78, 246, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .exchange-label {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .exchange-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* Form Group */
         .form-group {
             margin-bottom: 24px;
         }
@@ -154,224 +341,178 @@
             display: block;
             font-size: 14px;
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: var(--text-primary);
         }
 
+        /* Payment Method Select */
+        .payment-select {
+            width: 100%;
+            position: relative;
+        }
+
+        .payment-trigger {
+            width: 100%;
+            padding: 16px 18px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .payment-trigger:hover {
+            background: white;
+            border-color: var(--border-focus);
+        }
+
+        .payment-trigger.active {
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+        }
+
+        .payment-icon svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .payment-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .payment-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            width: 100%;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px var(--shadow);
+            z-index: 10;
+            display: none;
+        }
+
+        .payment-dropdown.active {
+            display: block;
+            animation: dropdownFade 0.2s ease;
+        }
+
+        .payment-option {
+            padding: 14px 18px;
+            cursor: pointer;
+            transition: background 0.15s ease;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .payment-option:last-child {
+            border-bottom: none;
+        }
+
+        .payment-option:hover {
+            background: var(--bg-secondary);
+        }
+
+        .payment-option.selected {
+            background: var(--accent-light);
+        }
+
+        /* Input Field */
         .input-wrapper {
             position: relative;
         }
 
         .input-field {
             width: 100%;
-            padding: 16px 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
+            padding: 16px 18px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            color: var(--text-primary);
             font-size: 15px;
             font-weight: 500;
+            color: var(--text-primary);
             transition: all 0.2s ease;
-            outline: none;
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
 
         .input-field:focus {
-            border-color: var(--border-focus);
-            background: var(--bg-tertiary);
+            outline: none;
+            border-color: var(--accent);
+            background: white;
         }
 
         .input-field::placeholder {
             color: var(--text-tertiary);
         }
 
-        .select-button {
-            width: 100%;
-            padding: 16px 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 15px;
-            font-weight: 600;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .select-button:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-focus);
-        }
-
-        .select-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .select-icon {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-        }
-
-        .select-icon img {
-            width: 20px;
-            height: 20px;
-            object-fit: contain;
-        }
-
-        .select-text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .select-primary {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .select-secondary {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .dropdown-arrow {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-secondary);
-            font-size: 12px;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 12px;
-        }
-
-        .option-card {
-            padding: 16px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        /* QR Scan Button */
+        .input-with-icon {
             position: relative;
         }
 
-        .option-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-focus);
-        }
-
-        .option-card.selected {
-            background: var(--accent-light);
-            border-color: var(--accent);
-        }
-
-        .option-card.selected::after {
-            content: '';
+        .qr-scan-btn {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
             background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .option-card.selected::before {
-            content: '✓';
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            color: white;
-            z-index: 1;
-        }
-
-        .option-icon {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg-tertiary);
+            border: none;
             border-radius: 8px;
-        }
-
-        .option-icon img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .option-name {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .option-time {
-            font-size: 12px;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .qr-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .qr-button {
-            width: 100%;
-            padding: 16px;
-            background: transparent;
-            border: 2px dashed var(--border);
-            border-radius: 12px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .qr-button:hover {
-            border-color: var(--border-focus);
-            color: var(--text-primary);
-            background: var(--surface-hover);
+        .qr-scan-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-50%) scale(1.05);
         }
 
+        .qr-scan-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+        }
+
+        .input-with-icon .input-field {
+            padding-right: 58px;
+        }
+
+        /* Button */
         .button {
             width: 100%;
             padding: 18px;
@@ -383,13 +524,13 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: -0.01em;
+            font-family: 'Inter', sans-serif;
         }
 
         .button:hover {
             background: var(--accent-hover);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(107, 78, 246, 0.3);
         }
 
         .button:active {
@@ -397,34 +538,59 @@
         }
 
         .button-secondary {
-            background: var(--surface);
+            background: var(--bg-secondary);
             color: var(--text-primary);
             margin-top: 12px;
+            box-shadow: none;
         }
 
         .button-secondary:hover {
-            background: var(--surface-hover);
+            background: var(--border);
+            box-shadow: none;
         }
 
+        /* Countdown Timer */
+        .countdown-box {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .countdown-label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .countdown-timer {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 2px;
+        }
+
+        /* Info Grid */
         .info-grid {
-            display: grid;
-            gap: 16px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
 
         .info-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 0;
+            padding: 14px 0;
             border-bottom: 1px solid var(--border);
         }
 
         .info-item:last-child {
             border-bottom: none;
-            padding-top: 20px;
+            padding-top: 18px;
             margin-top: 4px;
-            border-top: 1px solid var(--border);
+            border-top: 2px solid var(--border);
         }
 
         .info-label {
@@ -439,53 +605,136 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .warning-box {
-            padding: 16px 20px;
-            background: rgba(255, 165, 0, 0.08);
-            border: 1px solid rgba(255, 165, 0, 0.2);
-            border-radius: 12px;
+        .rate-comparison {
+            background: var(--accent-light);
+            border: 1px solid rgba(107, 78, 246, 0.2);
+            border-radius: 10px;
+            padding: 12px 16px;
             margin-bottom: 24px;
+        }
+
+        .rate-comparison-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .rate-comparison-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .rate-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .rate-value {
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent);
+        }
+
+        .savings-badge {
+            background: var(--success);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Stablecoin Notice */
+        .stablecoin-notice {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stablecoin-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #26a17b 0%, #50af95 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
             font-size: 14px;
-            color: var(--warning);
-            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .stablecoin-text {
+            font-size: 13px;
+            color: var(--text-secondary);
             line-height: 1.5;
         }
 
-        .warning-box a {
-            color: var(--accent);
+        .stablecoin-text strong {
+            color: var(--text-primary);
             font-weight: 700;
-            text-decoration: none;
         }
 
+        /* Footer Links */
+        .footer-links {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0 8px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Security Badge */
         .security-badge {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
             padding: 16px;
-            margin-top: 24px;
-            font-size: 13px;
+            margin-top: 20px;
+            font-size: 12px;
             color: var(--text-tertiary);
             font-weight: 500;
         }
 
-        .hidden {
-            display: none;
+        .security-icon {
+            width: 16px;
+            height: 16px;
         }
 
-        /* Modal Styles */
+        /* Modal */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             display: none;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(8px);
+            padding: 24px;
         }
 
         .modal.active {
@@ -500,10 +749,13 @@
 
         .modal-content {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
+            background: white;
+            border-radius: 20px;
             padding: 32px;
             text-align: center;
             animation: slideUp 0.3s ease;
+            position: relative;
         }
 
         @keyframes slideUp {
@@ -519,11 +771,11 @@
 
         .modal-close {
             position: absolute;
-            top: 24px;
-            right: 24px;
-            width: 40px;
-            height: 40px;
-            background: var(--surface);
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 50%;
             display: flex;
@@ -536,18 +788,30 @@
         }
 
         .modal-close:hover {
-            background: var(--surface-hover);
+            background: var(--border);
             transform: rotate(90deg);
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
         }
 
         .qr-scanner {
             width: 100%;
-            max-width: 400px;
-            height: 400px;
-            background: var(--surface);
+            height: 360px;
+            background: var(--bg-secondary);
             border: 2px solid var(--border);
             border-radius: 16px;
-            margin: 0 auto 24px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -566,113 +830,63 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 250px;
-            height: 250px;
+            width: 240px;
+            height: 240px;
             border: 3px solid var(--accent);
             border-radius: 16px;
-            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
         }
 
-        .qr-corners {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            height: 250px;
-        }
-
-        .qr-corner {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--accent);
-        }
-
-        .qr-corner.top-left {
-            top: 0;
-            left: 0;
-            border-right: none;
-            border-bottom: none;
-            border-radius: 16px 0 0 0;
-        }
-
-        .qr-corner.top-right {
-            top: 0;
-            right: 0;
-            border-left: none;
-            border-bottom: none;
-            border-radius: 0 16px 0 0;
-        }
-
-        .qr-corner.bottom-left {
-            bottom: 0;
-            left: 0;
-            border-right: none;
-            border-top: none;
-            border-radius: 0 0 0 16px;
-        }
-
-        .qr-corner.bottom-right {
-            bottom: 0;
-            right: 0;
-            border-left: none;
-            border-top: none;
-            border-radius: 0 0 16px 0;
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
-
-        .modal-subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-            margin-bottom: 32px;
+        .hidden {
+            display: none;
         }
 
         @media (max-width: 640px) {
-            body {
-                padding: 16px;
+            .container {
+                padding: 24px 16px;
             }
 
-            .logo {
-                font-size: 24px;
-                margin-bottom: 32px;
+            .card-header, .card-body {
+                padding: 20px;
             }
 
-            .card-header,
-            .card-body {
-                padding: 24px;
+            .amount-input-group {
+                flex-direction: column;
             }
 
-            .step-title {
-                font-size: 22px;
+            .custom-select {
+                width: 100%;
             }
 
             .qr-scanner {
-                height: 300px;
+                height: 280px;
             }
 
-            .qr-overlay,
-            .qr-corners {
+            .qr-overlay {
                 width: 200px;
                 height: 200px;
-            }
-
-            .modal-content {
-                padding: 24px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">horizon</div>
+    <!-- Header -->
+    <div class="header">
+        <div class="notice-bar">
+            <span class="rate-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                </svg>
+                Live Rate: 1 NGN = 0.051 INR
+            </span>
+            <a href="../auth/" class="cta-link">Sign in for better rates →</a>
+        </div>
+        <div class="header-main">
+            <div class="logo">horizon</div>
+        </div>
+    </div>
 
+    <div class="container">
         <div class="progress-bar">
             <div class="progress-step active"></div>
             <div class="progress-step" id="progress2"></div>
@@ -681,97 +895,188 @@
         <!-- Step 1: Payment Details -->
         <div class="card" id="step1">
             <div class="card-header">
-                <h2 class="step-title">Payment Details</h2>
-                <p class="step-subtitle">Enter your payment information</p>
+                <h2 class="step-title">Send Money</h2>
+                <p class="step-subtitle">Enter amount and payment details</p>
             </div>
 
             <div class="card-body">
-                <div class="amount-display">
-                    <div class="amount-row">
-                        <span class="amount-label">You send</span>
-                        <div class="amount-value">
-                            <span class="currency-flag">🇳🇬</span>
-                            <span id="displaySendAmount">NGN 100.00</span>
+                <!-- Amount Section -->
+                <div class="amount-section">
+                    <div class="form-label">You send</div>
+                    <div class="amount-input-group">
+                        <div class="amount-wrapper">
+                            <span class="currency-symbol" id="sendSymbol">₦</span>
+                            <input type="number" class="amount-input" id="sendAmount" value="100" min="1">
                         </div>
-                    </div>
-                    <div class="amount-row">
-                        <span class="amount-label">They receive</span>
-                        <div class="amount-value">
-                            <span class="currency-flag">🇮🇳</span>
-                            <span id="displayReceiveAmount">INR 5.10</span>
+                        <div class="custom-select">
+                            <div class="select-trigger" id="sendCurrencyTrigger">
+                                <span class="fi fi-ng flag-icon"></span>
+                                <span id="sendCurrencyCode">NGN</span>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                            <div class="select-dropdown" id="sendCurrencyDropdown">
+                                <div class="select-option" data-currency="NGN" data-symbol="₦" data-flag="fi-ng">
+                                    <span class="fi fi-ng flag-icon"></span>
+                                    <span>NGN</span>
+                                </div>
+                                <div class="select-option disabled" data-currency="ZAR" data-symbol="ZAR" data-flag="fi-za">
+                                    <span class="fi fi-za flag-icon"></span>
+                                    <span>ZAR</span>
+                                    <span class="coming-soon-badge">Soon</span>
+                                </div>
+                                <div class="select-option disabled" data-currency="USD" data-symbol="USD" data-flag="fi-zw">
+                                    <span class="fi fi-zw flag-icon"></span>
+                                    <span>USD</span>
+                                    <span class="coming-soon-badge">Soon</span>
+                                </div>
+                                <div class="select-option disabled" data-currency="TSH" data-symbol="Tsh" data-flag="fi-tz">
+                                    <span class="fi fi-tz flag-icon"></span>
+                                    <span>TSH</span>
+                                    <span class="coming-soon-badge">Soon</span>
+                                </div>
+                                <div class="select-option disabled" data-currency="KESH" data-symbol="Ksh" data-flag="fi-ke">
+                                    <span class="fi fi-ke flag-icon"></span>
+                                    <span>KESH</span>
+                                    <span class="coming-soon-badge">Soon</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
+                <div class="amount-section">
+                    <div class="form-label">They receive</div>
+                    <div class="amount-input-group">
+                        <div class="amount-wrapper">
+                            <span class="currency-symbol" id="receiveSymbol">₹</span>
+                            <input type="number" class="amount-input" id="receiveAmount" value="5.10" min="0.01">
+                        </div>
+                        <div class="custom-select">
+                            <div class="select-trigger" id="receiveCurrencyTrigger">
+                                <span class="fi fi-in flag-icon"></span>
+                                <span id="receiveCurrencyCode">INR</span>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                            <div class="select-dropdown" id="receiveCurrencyDropdown">
+                                <div class="select-option" data-currency="INR" data-symbol="₹" data-flag="fi-in">
+                                    <span class="fi fi-in flag-icon"></span>
+                                    <span>INR</span>
+                                </div>
+                                <div class="select-option disabled" data-currency="PKR" data-symbol="₨" data-flag="fi-pk">
+                                    <span class="fi fi-pk flag-icon"></span>
+                                    <span>PKR</span>
+                                    <span class="coming-soon-badge">Soon</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exchange-display">
+                    <span class="exchange-label">Exchange Rate</span>
+                    <span class="exchange-value" id="exchangeRate">1 NGN = 0.051 INR</span>
+                </div>
+
+                <!-- Payment Method -->
                 <div class="form-group">
                     <label class="form-label">Pay with</label>
-                    <button class="select-button" id="payMethodBtn">
-                        <div class="select-content">
-                            <div class="select-icon">
-                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Paystack">
+                    <div class="payment-select">
+                        <div class="payment-trigger" id="payMethodTrigger">
+                            <div class="payment-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                    <path d="M2 10h20"/>
+                                </svg>
                             </div>
-                            <div class="select-text">
-                                <span class="select-primary" id="payMethodName">Bank Transfer</span>
-                                <span class="select-secondary">via Paystack</span>
+                            <div class="payment-info">
+                                <div class="payment-name" id="payMethodName">Bank Transfer</div>
+                                <div class="payment-desc">via Paystack • Instant</div>
                             </div>
+                            <span class="select-arrow">▼</span>
                         </div>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-                    
-                    <div class="options-grid hidden" id="payMethodOptions">
-                        <div class="option-card selected" data-method="bank">
-                            <div class="option-icon">
-                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Bank">
+                        <div class="payment-dropdown" id="payMethodDropdown">
+                            <div class="payment-option selected" data-method="bank" data-desc="via Paystack • Instant">
+                                <div class="payment-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                        <path d="M2 10h20"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">Bank Transfer</div>
+                                    <div class="payment-desc">via Paystack • Instant</div>
+                                </div>
                             </div>
-                            <div class="option-name">Bank Transfer</div>
-                            <div class="option-time">Instant</div>
-                        </div>
-                        <div class="option-card" data-method="card">
-                            <div class="option-icon">
-                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="Card">
+                            <div class="payment-option" data-method="card" data-desc="via Paystack • Instant">
+                                <div class="payment-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                        <path d="M2 10h20"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">Debit Card</div>
+                                    <div class="payment-desc">via Paystack • Instant</div>
+                                </div>
                             </div>
-                            <div class="option-name">Debit Card</div>
-                            <div class="option-time">Instant</div>
-                        </div>
-                        <div class="option-card" data-method="ussd">
-                            <div class="option-icon">
-                                <img src="https://paystack.com/assets/logo/logo-mark.svg" alt="USSD">
+                            <div class="payment-option" data-method="ussd" data-desc="via USSD Code • 2-5 min">
+                                <div class="payment-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="5" y="2" width="14" height="20" rx="2"/>
+                                        <path d="M12 18h.01"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">USSD</div>
+                                    <div class="payment-desc">via USSD Code • 2-5 min</div>
+                                </div>
                             </div>
-                            <div class="option-name">USSD</div>
-                            <div class="option-time">2-5 min</div>
                         </div>
                     </div>
                 </div>
 
+                <!-- Receive Method -->
                 <div class="form-group">
                     <label class="form-label">Receive via</label>
-                    <button class="select-button" id="receiveMethodBtn">
-                        <div class="select-content">
-                            <div class="select-icon">
-                                <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI">
+                    <div class="payment-select">
+                        <div class="payment-trigger" id="receiveMethodTrigger">
+                            <div class="payment-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <path d="M12 6v6l4 2"/>
+                                </svg>
                             </div>
-                            <div class="select-text">
-                                <span class="select-primary" id="receiveMethodName">UPI Transfer</span>
-                                <span class="select-secondary" id="receiveMethodTime">5-10 minutes</span>
+                            <div class="payment-info">
+                                <div class="payment-name" id="receiveMethodName">UPI Transfer</div>
+                                <div class="payment-desc" id="receiveMethodDesc">5-10 minutes</div>
                             </div>
+                            <span class="select-arrow">▼</span>
                         </div>
-                        <span class="dropdown-arrow">▼</span>
-                    </button>
-
-                    <div class="options-grid hidden" id="receiveMethodOptions">
-                        <div class="option-card selected" data-method="upi" data-time="5-10 minutes">
-                            <div class="option-icon">
-                                <img src="https://images.icon-icons.com/2699/PNG/512/upi_logo_icon_170312.png" alt="UPI">
+                        <div class="payment-dropdown" id="receiveMethodDropdown">
+                            <div class="payment-option selected" data-method="upi" data-time="5-10 minutes">
+                                <div class="payment-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <path d="M12 6v6l4 2"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">UPI Transfer</div>
+                                    <div class="payment-desc">5-10 minutes</div>
+                                </div>
                             </div>
-                            <div class="option-name">UPI Transfer</div>
-                            <div class="option-time">5-10 min</div>
-                        </div>
-                        <div class="option-card" data-method="bank" data-time="15-30 minutes">
-                            <div class="option-icon">
-                                <img src="https://cdn-icons-png.flaticon.com/512/2830/2830284.png" alt="Bank">
+                            <div class="payment-option" data-method="bank" data-time="15-30 minutes">
+                                <div class="payment-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                        <polyline points="9 22 9 12 15 12 15 22"/>
+                                    </svg>
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">Bank Transfer</div>
+                                    <div class="payment-desc">15-30 minutes</div>
+                                </div>
                             </div>
-                            <div class="option-name">Bank Transfer</div>
-                            <div class="option-time">15-30 min</div>
                         </div>
                     </div>
                 </div>
@@ -780,22 +1085,22 @@
                 <div id="upiDetails">
                     <div class="form-group">
                         <label class="form-label">UPI ID</label>
-                        <div class="input-wrapper">
+                        <div class="input-with-icon">
                             <input type="text" class="input-field" placeholder="username@upi" id="upiId">
+                            <button class="qr-scan-btn" id="scanQrBtn" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <rect x="3" y="3" width="7" height="7"/>
+                                    <rect x="14" y="3" width="7" height="7"/>
+                                    <rect x="14" y="14" width="7" height="7"/>
+                                    <rect x="3" y="14" width="7" height="7"/>
+                                </svg>
+                            </button>
                         </div>
-                    </div>
-
-                    <div class="qr-section">
-                        <button class="qr-button" id="scanQrBtn">
-                            Scan QR Code
-                        </button>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Receiver Name</label>
-                        <div class="input-wrapper">
-                            <input type="text" class="input-field" placeholder="Full name as per UPI" id="receiverName">
-                        </div>
+                        <input type="text" class="input-field" placeholder="Full name as per UPI" id="receiverName">
                     </div>
                 </div>
 
@@ -803,27 +1108,21 @@
                 <div id="bankDetails" class="hidden">
                     <div class="form-group">
                         <label class="form-label">Account Number</label>
-                        <div class="input-wrapper">
-                            <input type="text" class="input-field" placeholder="Enter account number" id="accountNumber">
-                        </div>
+                        <input type="text" class="input-field" placeholder="Enter account number" id="accountNumber">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">IFSC Code</label>
-                        <div class="input-wrapper">
-                            <input type="text" class="input-field" placeholder="Enter IFSC code" id="ifscCode">
-                        </div>
+                        <input type="text" class="input-field" placeholder="Enter IFSC code" id="ifscCode">
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Account Holder Name</label>
-                        <div class="input-wrapper">
-                            <input type="text" class="input-field" placeholder="Full name as per bank" id="accountName">
-                        </div>
+                        <input type="text" class="input-field" placeholder="Full name as per bank" id="accountName">
                     </div>
                 </div>
 
-                <button class="button" id="continueBtn">Continue</button>
+                <button class="button" id="continueBtn">Continue to Payment</button>
             </div>
         </div>
 
@@ -831,14 +1130,33 @@
         <div class="card hidden" id="step2">
             <div class="card-header">
                 <h2 class="step-title">Payment Summary</h2>
-                <p class="step-subtitle">Review your transaction</p>
+                <p class="step-subtitle">Review and confirm your transaction</p>
             </div>
 
             <div class="card-body">
-                <div class="warning-box">
-                    Payment capped at ₦125,000 for unverified accounts. <a href="#">Sign in</a> to increase limit.
+                <!-- Countdown Timer -->
+                <div class="countdown-box">
+                    <div class="countdown-label">Rate locked for</div>
+                    <div class="countdown-timer" id="countdownTimer">05:00</div>
                 </div>
 
+                <!-- Rate Comparison -->
+                <div class="rate-comparison">
+                    <div class="rate-comparison-row">
+                        <span class="rate-label">Horizon Rate</span>
+                        <span class="rate-value" id="horizonRate">1 NGN = 0.051 INR</span>
+                    </div>
+                    <div class="rate-comparison-row">
+                        <span class="rate-label">Local Bank Rate</span>
+                        <span class="rate-value">1 NGN = 0.048 INR</span>
+                    </div>
+                    <div class="rate-comparison-row">
+                        <span class="rate-label">You Save</span>
+                        <span class="savings-badge">6.25% Better</span>
+                    </div>
+                </div>
+
+                <!-- Info Grid -->
                 <div class="info-grid">
                     <div class="info-item">
                         <span class="info-label">You send</span>
@@ -853,10 +1171,6 @@
                         <span class="info-value" id="summaryFxFee">NGN 0.50</span>
                     </div>
                     <div class="info-item">
-                        <span class="info-label">Processing fee</span>
-                        <span class="info-value">NGN 0.00</span>
-                    </div>
-                    <div class="info-item">
                         <span class="info-label">Total to pay</span>
                         <span class="info-value" id="summaryTotal">NGN 100.50</span>
                     </div>
@@ -866,11 +1180,30 @@
                     </div>
                 </div>
 
+                <!-- Stablecoin Notice -->
+                <div class="stablecoin-notice">
+                    <div class="stablecoin-icon">₮</div>
+                    <div class="stablecoin-text">
+                        This transaction uses <strong>USDT (Tether)</strong> stablecoin for secure cross-border settlement.
+                    </div>
+                </div>
+
                 <button class="button" id="payBtn">Pay Securely</button>
-                <button class="button button-secondary" id="backBtn">Back</button>
+                <button class="button button-secondary" id="backBtn">Back to Edit</button>
 
                 <div class="security-badge">
-                    🔒 Secured by Paystack • 256-bit encryption
+                    <svg class="security-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                    </svg>
+                    Secured by Paystack • 256-bit encryption
+                </div>
+
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a> • 
+                    <a href="#">Terms of Service</a>
+                    <br>
+                    By continuing, you agree to our terms and conditions.
                 </div>
             </div>
         </div>
@@ -878,201 +1211,21 @@
 
     <!-- QR Scanner Modal -->
     <div class="modal" id="qrModal">
-        <button class="modal-close" id="closeModal">×</button>
         <div class="modal-content">
+            <button class="modal-close" id="closeModal">×</button>
             <h3 class="modal-title">Scan QR Code</h3>
-            <p class="modal-subtitle">Position the QR code within the frame</p>
+            <p class="modal-subtitle">Position the UPI QR code within the frame</p>
             
             <div class="qr-scanner">
                 <video id="qr-video" autoplay playsinline></video>
                 <div class="qr-overlay"></div>
-                <div class="qr-corners">
-                    <div class="qr-corner top-left"></div>
-                    <div class="qr-corner top-right"></div>
-                    <div class="qr-corner bottom-left"></div>
-                    <div class="qr-corner bottom-right"></div>
-                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // State
-        let state = {
-            sendAmount: 100,
-            sendCurrency: 'NGN',
-            receiveCurrency: 'INR',
-            payMethod: 'bank',
-            receiveMethod: 'upi',
-            receiveTime: '5-10 minutes',
-            exchangeRate: 0.051
-        };
+    <script src="app.js"></script>
 
-        // Elements
-        const step1 = document.getElementById('step1');
-        const step2 = document.getElementById('step2');
-        const progress2 = document.getElementById('progress2');
-        const payMethodBtn = document.getElementById('payMethodBtn');
-        const payMethodOptions = document.getElementById('payMethodOptions');
-        const receiveMethodBtn = document.getElementById('receiveMethodBtn');
-        const receiveMethodOptions = document.getElementById('receiveMethodOptions');
-        const upiDetails = document.getElementById('upiDetails');
-        const bankDetails = document.getElementById('bankDetails');
-        const continueBtn = document.getElementById('continueBtn');
-        const backBtn = document.getElementById('backBtn');
-        const payBtn = document.getElementById('payBtn');
-        const qrModal = document.getElementById('qrModal');
-        const scanQrBtn = document.getElementById('scanQrBtn');
-        const closeModal = document.getElementById('closeModal');
-        const qrVideo = document.getElementById('qr-video');
-
-        // Toggle dropdowns
-        payMethodBtn.addEventListener('click', () => {
-            payMethodOptions.classList.toggle('hidden');
-            receiveMethodOptions.classList.add('hidden');
-        });
-
-        receiveMethodBtn.addEventListener('click', () => {
-            receiveMethodOptions.classList.toggle('hidden');
-            payMethodOptions.classList.add('hidden');
-        });
-
-        // Select payment method
-        document.querySelectorAll('#payMethodOptions .option-card').forEach(card => {
-            card.addEventListener('click', () => {
-                document.querySelectorAll('#payMethodOptions .option-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                state.payMethod = card.dataset.method;
-                document.getElementById('payMethodName').textContent = card.querySelector('.option-name').textContent;
-                payMethodOptions.classList.add('hidden');
-            });
-        });
-
-        // Select receive method
-        document.querySelectorAll('#receiveMethodOptions .option-card').forEach(card => {
-            card.addEventListener('click', () => {
-                document.querySelectorAll('#receiveMethodOptions .option-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                state.receiveMethod = card.dataset.method;
-                state.receiveTime = card.dataset.time;
-                document.getElementById('receiveMethodName').textContent = card.querySelector('.option-name').textContent;
-                document.getElementById('receiveMethodTime').textContent = card.dataset.time;
-                receiveMethodOptions.classList.add('hidden');
-
-                // Toggle details sections
-                if (state.receiveMethod === 'upi') {
-                    upiDetails.classList.remove('hidden');
-                    bankDetails.classList.add('hidden');
-                } else {
-                    upiDetails.classList.add('hidden');
-                    bankDetails.classList.remove('hidden');
-                }
-            });
-        });
-
-        // QR Scanner
-        let stream = null;
-
-        scanQrBtn.addEventListener('click', async () => {
-            qrModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-
-            try {
-                stream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { facingMode: 'environment' } 
-                });
-                qrVideo.srcObject = stream;
-            } catch (err) {
-                alert('Camera access denied. Please enable camera permissions.');
-                closeQrModal();
-            }
-        });
-
-        closeModal.addEventListener('click', closeQrModal);
-
-        qrModal.addEventListener('click', (e) => {
-            if (e.target === qrModal) {
-                closeQrModal();
-            }
-        });
-
-        function closeQrModal() {
-            qrModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            if (stream) {
-                stream.getTracks().forEach(track => track.stop());
-                stream = null;
-            }
-        }
-
-        // Continue to summary
-        continueBtn.addEventListener('click', () => {
-            // Validation
-            if (state.receiveMethod === 'upi') {
-                const upiId = document.getElementById('upiId').value;
-                const receiverName = document.getElementById('receiverName').value;
-                if (!upiId || !receiverName) {
-                    alert('Please fill in all UPI details');
-                    return;
-                }
-            } else {
-                const accountNumber = document.getElementById('accountNumber').value;
-                const ifscCode = document.getElementById('ifscCode').value;
-                const accountName = document.getElementById('accountName').value;
-                if (!accountNumber || !ifscCode || !accountName) {
-                    alert('Please fill in all bank details');
-                    return;
-                }
-            }
-
-            // Calculate fees
-            const fxFee = (state.sendAmount * 0.005).toFixed(2);
-            const total = (parseFloat(state.sendAmount) + parseFloat(fxFee)).toFixed(2);
-            const receiveAmount = (state.sendAmount * state.exchangeRate).toFixed(2);
-
-            // Update summary
-            document.getElementById('summaryYouSend').textContent = `${state.sendCurrency} ${state.sendAmount.toFixed(2)}`;
-            document.getElementById('summaryRate').textContent = `1 ${state.sendCurrency} = ${state.exchangeRate} ${state.receiveCurrency}`;
-            document.getElementById('summaryFxFee').textContent = `${state.sendCurrency} ${fxFee}`;
-            document.getElementById('summaryTotal').textContent = `${state.sendCurrency} ${total}`;
-            document.getElementById('summaryReceive').textContent = `${state.receiveCurrency} ${receiveAmount}`;
-
-            // Switch to step 2
-            step1.classList.add('hidden');
-            step2.classList.remove('hidden');
-            progress2.classList.add('active');
-            window.scrollTo(0, 0);
-        });
-
-        // Back button
-        backBtn.addEventListener('click', () => {
-            step2.classList.add('hidden');
-            step1.classList.remove('hidden');
-            progress2.classList.remove('active');
-            window.scrollTo(0, 0);
-        });
-
-        // Pay button
-        payBtn.addEventListener('click', () => {
-            alert('🎉 Payment processing initiated! Redirecting to Paystack...');
-        });
-
-        // Close dropdowns on outside click
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.select-button') && !e.target.closest('.options-grid')) {
-                payMethodOptions.classList.add('hidden');
-                receiveMethodOptions.classList.add('hidden');
-            }
-        });
-
-        // Initialize display
-        function updateDisplay() {
-            const receiveAmount = (state.sendAmount * state.exchangeRate).toFixed(2);
-            document.getElementById('displaySendAmount').textContent = `${state.sendCurrency} ${state.sendAmount.toFixed(2)}`;
-            document.getElementById('displayReceiveAmount').textContent = `${state.receiveCurrency} ${receiveAmount}`;
-        }
-
-        updateDisplay();
-
-        </script>
+   
+    
 </body>
+</html>

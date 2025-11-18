@@ -7,10 +7,16 @@
     "start": "node script.js"
   },
   "dependencies": {
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.2.3",
     "express": "^4.21.2",
     "express-rate-limit": "^6.11.2",
+    "express-validator": "^7.3.0",
+    "firebase-admin": "^13.6.0",
     "helmet": "^7.2.0",
     "node-cache": "^5.1.2",
+    "paystack-node": "^0.3.0",
+    "uuid": "^13.0.0",
     "winston": "^3.18.3"
   },
   "engines": {
