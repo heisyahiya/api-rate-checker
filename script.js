@@ -154,47 +154,43 @@ const config = {
 let db;
 
 try {
-  // Check if service account file exists
-  const serviceAccountPath = path.join(__dirname, "config", "firebase-service-account.json");
-  
-  if (!fs.existsSync(serviceAccountPath)) {
-    logger.error("Firebase service account file not found", { 
-      expectedPath: serviceAccountPath 
-    });
-    logger.info("Please create config/firebase-service-account.json");
+  const admin = require("firebase-admin");
+
+  // Check required env vars
+  if (!process.env.FIREBASE_PROJECT_ID ||
+      !process.env.FIREBASE_PRIVATE_KEY ||
+      !process.env.FIREBASE_CLIENT_EMAIL ||
+      !process.env.FIREBASE_DATABASE_URL) {
+    logger.error("Missing Firebase ENV variables");
     process.exit(1);
   }
-  
-  const serviceAccount = require(serviceAccountPath);
-  
-  if (!process.env.FIREBASE_DATABASE_URL) {
-    logger.error("FIREBASE_DATABASE_URL not set in environment variables");
-    logger.info("Please add FIREBASE_DATABASE_URL to your .env file");
-    process.exit(1);
-  }
-  
+
+  // Initialize Firebase
   admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
+    credential: admin.credential.cert({
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL
+    }),
     databaseURL: process.env.FIREBASE_DATABASE_URL
   });
-  
+
   db = admin.database();
-  
+
   logger.info("Firebase initialized successfully", {
-    projectId: serviceAccount.project_id,
+    projectId: process.env.FIREBASE_PROJECT_ID,
     databaseURL: process.env.FIREBASE_DATABASE_URL
   });
-  
+
 } catch (error) {
-  logger.error("Firebase initialization failed", { 
+  logger.error("Firebase initialization failed", {
     error: error.message,
-    stack: error.stack 
+    stack: error.stack
   });
-  logger.info("Make sure:");
-  logger.info("1. config/firebase-service-account.json exists");
-  logger.info("2. FIREBASE_DATABASE_URL is set in .env");
   process.exit(1);
 }
+
+module.exports = db;
 // ============================================================================
 // STEP 7B: PAYSTACK API HELPER (Direct API - No Package)
 // ============================================================================
@@ -1631,7 +1627,7 @@ if (paystackAPI) {
     status: true,
     message: "Mock payment initialized",
     data: {
-      authorization_url: "http://localhost:3000/mock-payment?ref=" + paystackData.reference,
+      authorization_url: "http://api-rate-checker.onrender.com/mock-payment?ref=" + paystackData.reference,
       access_code: "mock_" + Date.now(),
       reference: paystackData.reference
     }
