@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpeg">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paydrak Privacy Policy | Secure Money Transfer for Africa</title>
+
+<meta name="description" content="Read the Paydrak Privacy Policy to understand how we securely collect, protect, and use your data for fast remittances. Built for African students in India and worldwide transfers.">
+
+<meta name="keywords" content="Paydrak privacy policy, data protection, remittance security, African students in India, money transfer privacy, NGN to INR transfer safety">
+
+<meta property="og:title" content="Paydrak Privacy Policy">
+<meta property="og:description" content="Learn how Paydrak protects your data and ensures secure cross-border payments for African students.">
+<meta property="og:type" content="article">
+
+<link rel="canonical" href="https://yourdomain.com/privacy">
+<meta name="robots" content="index, follow">
+
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&family=Playfair+Display:wght@400;600;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* ========================================
+           RESET & BASE STYLES
+        ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Dark Theme for Header */
+            --bg-primary-dark: #0a0a0a;
+            --bg-secondary-dark: #121212;
+            --bg-card-dark: #1a1a1a;
+            
+            /* Light Theme for Body */
+            --bg-primary-light: #ffffff;
+            --bg-secondary-light: #fafbfc;
+            --bg-card-light: #f5f7fa;
+            
+            /* Text Colors */
+            --text-primary-dark: #ffffff;
+            --text-secondary-dark: #b0b0b0;
+            --text-primary-light: #1a202c;
+            --text-secondary-light: #4a5568;
+            --text-muted-light: #718096;
+            
+            /* Accent Colors */
+            --accent-purple: #6b4ef6;
+            --accent-purple-light: #8b6ef9;
+            --accent-green: #00d4aa;
+            --accent-red: #ff4757;
+            --accent-orange: #f59e0b;
+            
+            /* Borders */
+            --border-dark: #2a2a2a;
+            --border-light: #e2e8f0;
+            
+            /* Gradients */
+            --gradient-purple: linear-gradient(135deg, #6b4ef6 0%, #8b6ef9 100%);
+            --gradient-purple-green: linear-gradient(135deg, #6b4ef6 0%, #00d4aa 100%);
+            
+            /* Spacing & Sizing */
+            --header-height: 70px;
+            --container-max-width: 1100px;
+            --border-radius: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary-light);
+            color: var(--text-primary-light);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ========================================
+           HEADER - DARK THEME
+        ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-dark);
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.98);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: var(--header-height);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: var(--text-secondary-dark);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-purple);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary-dark);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-app {
+            padding: 10px 20px;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary-dark);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-app:hover {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary-dark);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        /* ========================================
+           MAIN CONTENT - LIGHT THEME
+        ======================================== */
+        .content-wrapper {
+            min-height: 100vh;
+            padding-top: calc(var(--header-height) + 60px);
+            padding-bottom: 80px;
+            background: var(--bg-primary-light);
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========================================
+           PAGE HEADER
+        ======================================== */
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+        }
+
+        .page-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.2);
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            background: var(--gradient-purple-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary-light);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .last-updated {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--bg-card-light);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--text-muted-light);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           CONTENT SECTIONS
+        ======================================== */
+        .policy-section {
+            background: var(--bg-primary-light);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: var(--transition);
+        }
+
+        .policy-section:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            border-color: rgba(107, 78, 246, 0.2);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary-light);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-content p {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary-light);
+            margin-bottom: 16px;
+        }
+
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-content strong {
+            color: var(--text-primary-light);
+            font-weight: 600;
+        }
+
+        /* ========================================
+           INFO BOXES
+        ======================================== */
+        .info-box {
+            background: linear-gradient(135deg, rgba(107, 78, 246, 0.05) 0%, rgba(107, 78, 246, 0.02) 100%);
+            border: 1px solid rgba(107, 78, 246, 0.2);
+            border-left: 4px solid var(--accent-purple);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .info-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent-purple);
+            margin-bottom: 12px;
+        }
+
+        .info-title i {
+            font-size: 20px;
+        }
+
+        .info-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-secondary-light);
+        }
+
+        .info-content p {
+            margin-bottom: 8px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 71, 87, 0.05) 0%, rgba(255, 71, 87, 0.02) 100%);
+            border: 1px solid rgba(255, 71, 87, 0.2);
+            border-left: 4px solid var(--accent-red);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .warning-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent-red);
+            margin-bottom: 12px;
+        }
+
+        .warning-title i {
+            font-size: 20px;
+        }
+
+        .warning-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text-secondary-light);
+        }
+
+        .warning-content p {
+            margin-bottom: 8px;
+        }
+
+        /* ========================================
+           CONTACT SECTION
+        ======================================== */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(107, 78, 246, 0.05) 0%, rgba(0, 212, 170, 0.05) 100%);
+            border: 1px solid var(--border-light);
+            border-radius: var(--border-radius);
+            padding: 48px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-title {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary-light);
+            margin-bottom: 16px;
+        }
+
+        .contact-text {
+            font-size: 16px;
+            color: var(--text-secondary-light);
+            margin-bottom: 28px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: var(--gradient-purple);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 4px 16px rgba(107, 78, 246, 0.3);
+            cursor: pointer;
+        }
+
+        .contact-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(107, 78, 246, 0.4);
+        }
+
+        /* ========================================
+           RESPONSIVE DESIGN
+        ======================================== */
+        @media (max-width: 968px) {
+            .nav-links {
+                gap: 24px;
+            }
+
+            .nav-link {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 40px;
+                gap: 24px;
+                border-top: 1px solid var(--border-dark);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+                max-height: calc(100vh - var(--header-height));
+                overflow-y: auto;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .mobile-toggle.active span:nth-child(1) {
+                transform: rotate(45deg) translate(8px, 8px);
+            }
+
+            .mobile-toggle.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .mobile-toggle.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+
+            .header-right {
+                gap: 12px;
+            }
+
+            .btn-app {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .content-wrapper {
+                padding-top: calc(var(--header-height) + 40px);
+                padding-bottom: 60px;
+            }
+
+            .container {
+                padding: 0 16px;
+            }
+
+            .page-header {
+                margin-bottom: 40px;
+                padding: 20px 0;
+            }
+
+            .page-badge {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+                margin-bottom: 16px;
+            }
+
+            .page-subtitle {
+                font-size: 16px;
+            }
+
+            .last-updated {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .policy-section {
+                padding: 24px 20px;
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 20px;
+                margin-bottom: 16px;
+            }
+
+            .section-content p {
+                font-size: 15px;
+                line-height: 1.7;
+            }
+
+            .info-box,
+            .warning-box {
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .info-title,
+            .warning-title {
+                font-size: 16px;
+            }
+
+            .info-content,
+            .warning-content {
+                font-size: 14px;
+            }
+
+            .contact-section {
+                padding: 32px 20px;
+            }
+
+            .contact-title {
+                font-size: 24px;
+            }
+
+            .contact-text {
+                font-size: 15px;
+            }
+
+            .contact-email {
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-container {
+                padding: 0 16px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .btn-app {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .page-title {
+                font-size: 1.75rem;
+            }
+
+            .page-subtitle {
+                font-size: 14px;
+            }
+
+            .policy-section {
+                padding: 20px 16px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .section-content p {
+                font-size: 14px;
+            }
+
+            .contact-section {
+                padding: 28px 16px;
+            }
+
+            .contact-title {
+                font-size: 20px;
+            }
+        }
+
+        /* ========================================
+           SCROLLBAR STYLING
+        ======================================== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary-light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-purple);
+        }
+
+        /* Mobile Menu Scrollbar */
+        .nav-links::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .nav-links::-webkit-scrollbar-track {
+            background: var(--bg-primary-dark);
+        }
+
+        .nav-links::-webkit-scrollbar-thumb {
+            background: var(--border-dark);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html"><img class="logo" style="height: 35px;" src="assets/logo.png">
+            </a><nav>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="index.html/#features" class="nav-link">Features</a></li>
+                    <li><a href="convert/" class="nav-link">Convert</a></li>
+                
+                    <li><a href="#privacy" class="nav-link">Privacy Policy</a></li>
+                </ul>
+            </nav>
+            <div class="header-right">
+                <button class="btn-app">Create Account</button>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Legal Documentation</span>
+                </div>
+                <h1 class="page-title">Privacy Policy</h1>
+                <p class="page-subtitle">
+                    Your privacy and security are important to us. Please read this policy carefully to understand how Paydrak operates.
+                </p>
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i>
+                    <span>Last Updated: November 17, 2025</span>
+                </div>
+            </div>
+
+            <!-- Service Overview -->
+            <div class="policy-section">
+                <h2 class="section-title">1. Service Overview</h2>
+                <div class="section-content">
+                    <p>
+                        Paydrak is a <strong>peer-to-peer (P2P) facilitation platform</strong> that connects users with third-party P2P traders on external cryptocurrency exchanges including Binance, Bybit, and other similar platforms. We are <strong>not a licensed financial institution, payment gateway, or money service business</strong>.
+                    </p>
+                    <p>
+                        Our role is limited to providing a user interface and facilitating connections between users and independent P2P traders. All transactions occur directly between you and third-party traders on external platforms.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Critical Disclaimers -->
+            <div class="warning-box">
+                <div class="warning-title">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Important Disclaimers</span>
+                </div>
+                <div class="warning-content">
+                    <p><strong>Please read carefully:</strong></p>
+                    <p>• Paydrak does NOT hold, store, or have custody of your funds at any time</p>
+                    <p>• We are NOT a payment processor, financial institution, or money transmitter</p>
+                    <p>• We do NOT provide any financial, investment, or trading advice</p>
+                    <p>• We are UNLICENSED and operate solely as a facilitation tool</p>
+                    <p>• All transactions are conducted at YOUR OWN RISK</p>
+                </div>
+            </div>
+
+            <!-- How We Operate -->
+            <div class="policy-section">
+                <h2 class="section-title">2. How Paydrak Operates</h2>
+                <div class="section-content">
+                    <p>
+                        Paydrak acts as a <strong>facilitation tool only</strong>. When you use our platform: We connect you with independent P2P traders on platforms like Binance and Bybit. We provide rate information and facilitate communication. All monetary transactions occur directly between you and the third-party trader. We do not process, hold, or transfer any funds on your behalf. We do not have access to your exchange accounts or wallets. We are not a party to your transactions with P2P traders.
+                    </p>
+                </div>
+            </div>
+
+            <!-- No Custody of Funds -->
+            <div class="policy-section">
+                <h2 class="section-title">3. No Custody or Control of Your Funds</h2>
+                <div class="section-content">
+                    <p>
+                        <strong>Paydrak NEVER holds your money.</strong> We are not a custodial service. When you initiate a transaction: Your funds go directly to the third-party P2P trader's account. We do not act as an intermediary for fund transfers. We have no ability to reverse, cancel, or modify completed transactions. We cannot recover funds sent to incorrect accounts or lost in transactions. All transactions are final and irreversible once executed.
+                    </p>
+                </div>
+            </div>
+
+            <!-- User Responsibility -->
+            <div class="policy-section">
+                <h2 class="section-title">4. User Responsibility & Risk</h2>
+                <div class="section-content">
+                    <p>
+                        <strong>You trade entirely at your own risk.</strong> By using Paydrak, you acknowledge and accept all financial risks associated with P2P cryptocurrency trading, the volatility and unpredictability of cryptocurrency markets, risks of fraud, scams, or dishonest traders on third-party platforms, technical risks including platform downtime, network delays, or system errors, regulatory and legal risks in your jurisdiction, and the possibility of complete loss of your funds.
+                    </p>
+                    <p>
+                        <strong>Paydrak bears NO responsibility or liability</strong> for any losses, damages, or adverse outcomes resulting from your use of our platform or your transactions with third-party traders.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Information We Collect -->
+            <div class="policy-section">
+                <h2 class="section-title">5. Information We Collect</h2>
+                <div class="section-content">
+                    <p>
+                        To provide our facilitation services, we may collect basic account information (email, username), transaction preferences and history (for display purposes only), device information and usage data, and communication records for support purposes.
+                    </p>
+                    <p>
+                        We do NOT collect or store sensitive financial information such as bank account numbers, card details, or cryptocurrency wallet private keys.
+                    </p>
+                </div>
+            </div>
+
+            <!-- How We Use Information -->
+            <div class="policy-section">
+                <h2 class="section-title">6. How We Use Your Information</h2>
+                <div class="section-content">
+                    <p>
+                        We use collected information solely to facilitate connections between users and P2P traders, display transaction history and preferences, provide customer support, improve our platform functionality and user experience, and comply with legal obligations when required.
+                    </p>
+                    <p>
+                        We do NOT sell, rent, or share your personal information with third parties for marketing purposes.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Communication Policy -->
+            <div class="info-box">
+                <div class="info-title">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Official Communication Policy</span>
+                </div>
+                <div class="info-content">
+                    <p><strong>Paydrak will NEVER:</strong></p>
+                    <p>• Call you requesting money, passwords, or sensitive information</p>
+                    <p>• Request payment outside of the facilitated P2P platform</p>
+                    <p>• Ask for your cryptocurrency wallet private keys or seed phrases</p>
+                    <p>• Demand urgent payments or threaten account suspension</p>
+                    <p>• Guarantee profits, returns, or specific trading outcomes</p>
+                    <p><br>If you receive such communications, they are fraudulent. Report them immediately.</p>
+                </div>
+            </div>
+
+            <!-- Third-Party Services -->
+            <div class="policy-section">
+                <h2 class="section-title">7. Third-Party Services</h2>
+                <div class="section-content">
+                    <p>
+                        Our platform facilitates connections to third-party services (Binance, Bybit, etc.). These platforms have their own privacy policies, terms of service, and operational procedures. Paydrak is not responsible for the privacy practices of third-party platforms, actions or omissions of independent P2P traders, security breaches or technical issues on external platforms, or changes to third-party platform policies or availability.
+                    </p>
+                    <p>
+                        You should review the terms and privacy policies of any third-party service you use through our platform.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Limitation of Liability -->
+            <div class="policy-section">
+                <h2 class="section-title">8. Limitation of Liability</h2>
+                <div class="section-content">
+                    <p>
+                        <strong>TO THE MAXIMUM EXTENT PERMITTED BY LAW:</strong> Paydrak provides services "AS IS" without warranties of any kind. We are NOT liable for any direct, indirect, incidental, or consequential damages. We do NOT guarantee transaction success, accuracy, or security. We are NOT responsible for losses resulting from user error, fraud, or platform issues. We do NOT provide refunds, chargebacks, or dispute resolution for transactions. Users are solely responsible for verifying trader reputation and transaction details.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Regulatory Status -->
+            <div class="policy-section">
+                <h2 class="section-title">9. Regulatory Status</h2>
+                <div class="section-content">
+                    <p>
+                        <strong>Paydrak is unlicensed and unregulated.</strong> We do not hold licenses as a money services business (MSB), a payment service provider, a financial institution, a cryptocurrency exchange, or an investment advisor or broker.
+                    </p>
+                    <p>
+                        Our operations are limited to providing a technical facilitation tool. Users are responsible for understanding and complying with all applicable laws and regulations in their jurisdiction.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Dispute Resolution -->
+            <div class="policy-section">
+                <h2 class="section-title">10. Complaints & Dispute Resolution</h2>
+                <div class="section-content">
+                    <p>
+                        If you experience issues with transactions facilitated through Paydrak: <strong>For payment disputes:</strong> Contact your bank or payment provider directly. <strong>For trader disputes:</strong> Use the dispute resolution system on the relevant P2P platform (Binance, Bybit, etc.). <strong>For platform issues:</strong> Contact our support team at support@Paydrakpay.com
+                    </p>
+                    <p>
+                        <strong>Please note:</strong> Paydrak cannot resolve financial disputes, reverse transactions, or recover lost funds. We can only provide technical support for platform functionality.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Data Security -->
+            <div class="policy-section">
+                <h2 class="section-title">11. Data Security</h2>
+                <div class="section-content">
+                    <p>
+                        We implement reasonable security measures to protect your information, including encryption of data in transit and at rest, secure authentication protocols, regular security audits and updates, and limited access to personal information.
+                    </p>
+                    <p>
+                        However, no system is completely secure. You acknowledge that you provide information at your own risk.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Your Rights -->
+            <div class="policy-section">
+                <h2 class="section-title">12. Your Rights & Choices</h2>
+                <div class="section-content">
+                    <p>
+                        You have the right to access the personal information we hold about you, request correction of inaccurate information, request deletion of your account and associated data, opt-out of non-essential communications, and withdraw consent for data processing where applicable.
+                    </p>
+                    <p>
+                        To exercise these rights, contact us at support@Paydrakpay.com
+                    </p>
+                </div>
+            </div>
+
+            <!-- Changes to Policy -->
+            <div class="policy-section">
+                <h2 class="section-title">13. Changes to This Policy</h2>
+                <div class="section-content">
+                    <p>
+                        We may update this Privacy Policy from time to time. Material changes will be communicated through email notification to registered users, prominent notice on our platform, and updated "Last Modified" date at the top of this policy.
+                    </p>
+                    <p>
+                        Continued use of Paydrak after policy changes constitutes acceptance of the updated terms.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <h2 class="contact-title">Questions or Concerns?</h2>
+                <p class="contact-text">
+                    If you have questions about this Privacy Policy or need support, please don't hesitate to reach out to our team.
+                </p>
+                <a href="mailto:helpdesk@Paydrakpay.com" class="contact-email">
+                    <i class="fas fa-envelope"></i>
+                    <span>helpdesk@Paydrakpay.com</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.header-container')) {
+                mobileToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Header Scroll Effect
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        </script>
+
+</body>
+</html>

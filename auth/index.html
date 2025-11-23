@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/jpeg" href="../assets/favicon.jpeg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Paydrak | Secure Remittance for Africans Accross the World</title>
+
+<meta name="description" content="Sign in to your Paydrak account to send money from Africa to India instantly. Fast NGN to INR transfers, UPI payouts, and secure payments for students.">
+
+<meta name="keywords" content="Paydrak login, remittance login, send money to India, African student payments, Nigeria to India transfer, NGN to INR UPI">
+
+<meta property="og:title" content="Login to Paydrak">
+<meta property="og:description" content="Access your Paydrak dashboard and send money securely to India in minutes.">
+<meta property="og:type" content="website">
+
+<link rel="canonical" href="https://yourdomain.com/auth">
+<meta name="robots" content="noindex, follow">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #222222;
+            --bg-card: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent-purple: #6b4ef6;
+            --accent-green: #00d4aa;
+            --border-color: #333333;
+            --error-color: #ff4757;
+            --success-color: #00d4aa;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(26, 26, 26, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .btn-header {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+            text-decoration: none;
+            border: none;
+            display: none;
+        }
+
+        .btn-header.show {
+            display: block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-purple);
+        }
+
+        .btn-filled {
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            color: white;
+            border: none;
+        }
+
+        .btn-filled:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 78, 246, 0.4);
+        }
+
+        .btn-logout {
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            border: none;
+        }
+
+        .btn-logout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
+        }
+
+        /* User Info */
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .user-info.show {
+            display: flex;
+        }
+
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Auth Container */
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 24px 40px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .auth-subtitle {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        /* Form Groups */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            color: var(--text-secondary);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px 14px 44px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all var(--transition);
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(107, 78, 246, 0.1);
+        }
+
+        .form-input.error {
+            border-color: var(--error-color);
+        }
+
+        .form-input.success {
+            border-color: var(--success-color);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color var(--transition);
+            width: 20px;
+            height: 20px;
+        }
+
+        .password-toggle:hover {
+            color: var(--text-primary);
+        }
+
+        .error-message {
+            display: none;
+            font-size: 12px;
+            color: var(--error-color);
+            margin-top: 6px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Password Strength Indicator */
+        .password-strength {
+            margin-top: 8px;
+            display: none;
+        }
+
+        .password-strength.show {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: var(--bg-card);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0;
+            background: var(--error-color);
+            transition: all var(--transition);
+        }
+
+        .strength-fill.weak {
+            width: 33%;
+            background: var(--error-color);
+        }
+
+        .strength-fill.medium {
+            width: 66%;
+            background: #ffa502;
+        }
+
+        .strength-fill.strong {
+            width: 100%;
+            background: var(--success-color);
+        }
+
+        .strength-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Checkbox */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(107, 78, 246, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-primary .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .btn-primary.loading .btn-text {
+            display: none;
+        }
+
+        .btn-primary.loading .spinner {
+            display: block;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            transition: all var(--transition);
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-card);
+            border-color: var(--accent-green);
+        }
+
+        .btn-secondary svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        /* Toggle Form */
+        .form-toggle {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .form-toggle button {
+            background: none;
+            border: none;
+            color: var(--accent-purple);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-toggle button:hover {
+            color: #8b5cf6;
+        }
+
+        /* Hide/Show Forms */
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+        }
+
+        .alert.error {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            color: var(--error-color);
+        }
+
+        .alert.success {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            color: var(--success-color);
+        }
+
+        /* Forgot Password */
+        .forgot-password {
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .forgot-password a {
+            font-size: 13px;
+            color: var(--accent-purple);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 32px 24px;
+            }
+
+            .auth-title {
+                font-size: 28px;
+            }
+
+            .header-buttons {
+                gap: 8px;
+            }
+
+            .btn-header {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .user-info {
+                padding: 6px 12px;
+            }
+
+            .user-name {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="/" class="logo"><img src="../assets/logo.png" style="height: 30px;" alt=""></a>
+            <div class="header-buttons">
+                <!-- Auth Buttons (shown when not logged in) -->
+                <button class="btn-header btn-outline" onclick="toggleForm('login')" id="headerLoginBtn">Login</button>
+                <button class="btn-header btn-filled" onclick="toggleForm('signup')" id="headerSignupBtn">Create Account</button>
+                
+                <!-- User Info (shown when logged in) -->
+                <div class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span class="user-name" id="userName">User</span>
+                </div>
+                
+                <!-- Logout Button (shown when logged in) -->
+                <button class="btn-header btn-logout" onclick="handleLogout()" id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Auth Container -->
+    <div class="auth-container">
+        <div class="auth-card">
+            <!-- Alert Messages -->
+            <div class="alert" id="alertBox"></div>
+
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <div class="auth-header">
+                    <h1 class="auth-title">Welcome Back</h1>
+                    <p class="auth-subtitle">Sign in to your Paydrak account</p>
+                </div>
+
+                <form id="loginFormElement">
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                id="loginEmail"
+                                placeholder="you@example.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <div class="error-message" id="loginEmailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                id="loginPassword"
+                                placeholder="Enter your password"
+                                required
+                                autocomplete="current-password"
+                            >
+                            <svg class="password-toggle" onclick="togglePassword('loginPassword')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="error-message" id="loginPasswordError"></div>
+                        <div class="forgot-password">
+                            <a href="#" onclick="handleForgotPassword(); return false;">Forgot password?</a>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox" id="rememberMe">
+                        <label class="checkbox-label" for="rememberMe">Remember me for 30 days</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="loginBtn">
+                        <span class="btn-text">Sign In</span>
+                        <div class="spinner"></div>
+                    </button>
+
+                    
+                </form>
+
+                <div class="form-toggle">
+                    Don't have an account? <button onclick="toggleForm('signup')">Create Account</button>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="auth-form" id="signupForm">
+                <div class="auth-header">
+                    <h1 class="auth-title">Create Account</h1>
+                    <p class="auth-subtitle">Start sending money instantly</p>
+                </div>
+
+                <form id="signupFormElement">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            <input 
+                                type="text" 
+                                class="form-input" 
+                                id="signupName"
+                                placeholder="John Doe"
+                                required
+                                autocomplete="name"
+                            >
+                        </div>
+                        <div class="error-message" id="signupNameError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <input 
+                                type="email" 
+                                class="form-input" 
+                                id="signupEmail"
+                                placeholder="you@example.com"
+                                required
+                                autocomplete="email"
+                            >
+                        </div>
+                        <div class="error-message" id="signupEmailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                id="signupPassword"
+                                placeholder="Create a strong password"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <svg class="password-toggle" onclick="togglePassword('signupPassword')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="error-message" id="signupPasswordError"></div>
+                        <div class="password-strength" id="passwordStrength">
+                            <div class="strength-bar">
+                                <div class="strength-fill" id="strengthFill"></div>
+                            </div>
+                            <div class="strength-text" id="strengthText">Password strength</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                            </svg>
+                            <input 
+                                type="password" 
+                                class="form-input" 
+                                id="signupConfirmPassword"
+                                placeholder="Re-enter your password"
+                                required
+                                autocomplete="new-password"
+                            >
+                            <svg class="password-toggle" onclick="togglePassword('signupConfirmPassword')" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                <circle cx="12" cy="12" r="3"/>
+                            </svg>
+                        </div>
+                        <div class="error-message" id="signupConfirmPasswordError"></div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" class="checkbox" id="acceptTerms" required>
+                        <label class="checkbox-label" for="acceptTerms">
+                            I agree to the Terms of Service and Privacy Policy
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="signupBtn">
+                        <span class="btn-text">Create Account</span>
+                        <div class="spinner"></div>
+                    </button>
+
+                 
+                </form>
+
+                <div class="form-toggle">
+                    Already have an account? <button onclick="toggleForm('login')">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { 
+            getAuth, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword,
+            signInAnonymously,
+            sendPasswordResetEmail,
+            updateProfile,
+            signOut,
+            onAuthStateChanged
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC5awpDuFGilcjL8rSgXVLrqiPBYBl6akE",
+            authDomain: "lovra-e5247.firebaseapp.com",
+            databaseURL: "https://lovra-e5247-default-rtdb.firebaseio.com",
+            projectId: "lovra-e5247",
+            storageBucket: "lovra-e5247.firebasestorage.app",
+            messagingSenderId: "880597891113",
+            appId: "1:880597891113:web:419f25b50a6780c8d1c438",
+            measurementId: "G-JE5XNVTJK3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Make auth available globally
+        window.firebaseAuth = auth;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.signInAnonymously = signInAnonymously;
+        window.sendPasswordResetEmail = sendPasswordResetEmail;
+        window.updateProfile = updateProfile;
+        window.signOut = signOut;
+
+        // Auth state observer - This handles automatic UI updates
+        onAuthStateChanged(auth, (user) => {
+            const headerLoginBtn = document.getElementById('headerLoginBtn');
+            const headerSignupBtn = document.getElementById('headerSignupBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+
+            if (user) {
+                // User is signed in
+                console.log('User is signed in:', user.email || 'Anonymous');
+                
+                // Hide login/signup buttons
+                headerLoginBtn.classList.remove('show');
+                headerSignupBtn.classList.remove('show');
+                
+                // Show logout button and user info
+                logoutBtn.classList.add('show');
+                userInfo.classList.add('show');
+                
+                // Update user info
+                if (user.displayName) {
+                    userName.textContent = user.displayName;
+                    userAvatar.textContent = user.displayName.charAt(0).toUpperCase();
+                } else if (user.email) {
+                    userName.textContent = user.email.split('@')[0];
+                    userAvatar.textContent = user.email.charAt(0).toUpperCase();
+                } else {
+                    userName.textContent = 'Guest';
+                    userAvatar.textContent = 'G';
+                }
+
+                // If user is on login page and already authenticated, redirect
+                const currentPath = window.location.pathname;
+                if (currentPath.includes('login') || currentPath.includes('auth')) {
+                   
+                    sessionStorage.removeItem('returnUrl');
+                    window.location.href = returnUrl;
+                }
+
+            } else {
+                // User is signed out
+                console.log('No user signed in');
+                
+                // Show login/signup buttons
+                headerLoginBtn.classList.add('show');
+                headerSignupBtn.classList.add('show');
+                
+                // Hide logout button and user info
+                logoutBtn.classList.remove('show');
+                userInfo.classList.remove('show');
+            }
+        });
+    </script>
+
+    <script>
+        // Get previous page URL or fallback
+        const previousPage = document.referrer || '/';
+        
+        // Store the referring page when user arrives (if not already logged in)
+        if (document.referrer && !sessionStorage.getItem('returnUrl')) {
+            // Don't save the login/auth page itself as return URL
+            if (!document.referrer.includes('login') && !document.referrer.includes('auth')) {
+                sessionStorage.setItem('returnUrl', document.referrer);
+            }
+        }
+
+        // Redirect function - prioritizes dashboard if return URL is not set
+        function redirectToPreviousPage() {
+            let returnUrl = sessionStorage.getItem('returnUrl');
+            
+            // If no return URL or it's the login page itself, go to dashboard
+            if (!returnUrl || returnUrl.includes('login') || returnUrl.includes('auth')) {
+                returnUrl = '../convert/';
+            }
+            
+            sessionStorage.removeItem('returnUrl');
+            window.location.href = returnUrl;
+        }
+
+        // Logout Handler
+        async function handleLogout() {
+            try {
+                await window.signOut(window.firebaseAuth);
+                showAlert('Logged out successfully!', 'success');
+                
+                // Redirect to previous page or home after logout
+                setTimeout(() => {
+                    const returnUrl = sessionStorage.getItem('returnUrl') || '/';
+                    sessionStorage.removeItem('returnUrl');
+                    window.location.href = returnUrl;
+                }, 1000);
+
+            } catch (error) {
+                console.error('Logout error:', error);
+                showAlert('Error logging out. Please try again.', 'error');
+            }
+        }
+
+        // Make logout function globally available
+        window.handleLogout = handleLogout;
+
+        // Form Toggle
+        function toggleForm(formType) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const alertBox = document.getElementById('alertBox');
+            const headerLoginBtn = document.getElementById('headerLoginBtn');
+            const headerSignupBtn = document.getElementById('headerSignupBtn');
+
+            // Hide alert
+            alertBox.classList.remove('show');
+
+            if (formType === 'signup') {
+                loginForm.classList.remove('active');
+                signupForm.classList.add('active');
+                headerLoginBtn.classList.remove('btn-filled');
+                headerLoginBtn.classList.add('btn-outline');
+                headerSignupBtn.classList.remove('btn-outline');
+                headerSignupBtn.classList.add('btn-filled');
+            } else {
+                signupForm.classList.remove('active');
+                loginForm.classList.add('active');
+                headerSignupBtn.classList.remove('btn-filled');
+                headerSignupBtn.classList.add('btn-outline');
+                headerLoginBtn.classList.remove('btn-outline');
+                headerLoginBtn.classList.add('btn-filled');
+            }
+
+            // Reset forms
+            document.getElementById('loginFormElement').reset();
+            document.getElementById('signupFormElement').reset();
+            clearErrors();
+        }
+
+        // Password Toggle with SVG icon change
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const toggle = input.parentElement.querySelector('.password-toggle');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+            } else {
+                input.type = 'password';
+                toggle.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+            }
+        }
+
+        // Show Alert
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = `alert ${type} show`;
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 5000);
+        }
+
+        // Validation Functions
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            return password.length >= 8;
+        }
+
+        function validateName(name) {
+            return name.length >= 2;
+        }
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            
+            if (password.length >= 8) strength++;
+            if (password.length >= 12) strength++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+            if (/\d/.test(password)) strength++;
+            if (/[^a-zA-Z\d]/.test(password)) strength++;
+
+            const strengthFill = document.getElementById('strengthFill');
+            const strengthText = document.getElementById('strengthText');
+            const strengthContainer = document.getElementById('passwordStrength');
+
+            strengthContainer.classList.add('show');
+
+            if (strength <= 2) {
+                strengthFill.className = 'strength-fill weak';
+                strengthText.textContent = 'Weak password';
+                return false;
+            } else if (strength <= 4) {
+                strengthFill.className = 'strength-fill medium';
+                strengthText.textContent = 'Medium strength';
+                return true;
+            } else {
+                strengthFill.className = 'strength-fill strong';
+                strengthText.textContent = 'Strong password';
+                return true;
+            }
+        }
+
+        function showError(inputId, message) {
+            const input = document.getElementById(inputId);
+            const errorDiv = document.getElementById(inputId + 'Error');
+            
+            input.classList.add('error');
+            input.classList.remove('success');
+            errorDiv.textContent = message;
+            errorDiv.classList.add('show');
+        }
+
+        function showSuccess(inputId) {
+            const input = document.getElementById(inputId);
+            const errorDiv = document.getElementById(inputId + 'Error');
+            
+            input.classList.remove('error');
+            input.classList.add('success');
+            errorDiv.classList.remove('show');
+        }
+
+        function clearErrors() {
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.classList.remove('error', 'success');
+            });
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+        }
+
+        // Anonymous Login Handler
+        async function handleAnonymousLogin() {
+            try {
+                const userCredential = await window.signInAnonymously(window.firebaseAuth);
+                showAlert('Signed in anonymously! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    redirectToPreviousPage();
+                }, 1500);
+
+            } catch (error) {
+                console.error('Anonymous login error:', error);
+                showAlert('Unable to sign in anonymously. Please try again.', 'error');
+            }
+        }
+
+        // Make function available globally
+        window.handleAnonymousLogin = handleAnonymousLogin;
+
+        // Login Form Handler
+        document.getElementById('loginFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearErrors();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+
+            // Validation
+            let isValid = true;
+
+            if (!validateEmail(email)) {
+                showError('loginEmail', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                showSuccess('loginEmail');
+            }
+
+            if (!password) {
+                showError('loginPassword', 'Password is required');
+                isValid = false;
+            } else {
+                showSuccess('loginPassword');
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            loginBtn.classList.add('loading');
+            loginBtn.disabled = true;
+
+            try {
+                const userCredential = await window.signInWithEmailAndPassword(
+                    window.firebaseAuth, 
+                    email, 
+                    password
+                );
+                
+                showAlert('Login successful! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    redirectToPreviousPage();
+                }, 1500);
+
+            } catch (error) {
+                console.error('Login error:', error);
+                
+                let errorMessage = 'An error occurred. Please try again.';
+                
+                switch(error.code) {
+                    case 'auth/user-not-found':
+                        errorMessage = 'No account found with this email';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage = 'Incorrect password';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address';
+                        break;
+                    case 'auth/user-disabled':
+                        errorMessage = 'This account has been disabled';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage = 'Too many failed attempts. Please try again later';
+                        break;
+                }
+                
+                showAlert(errorMessage, 'error');
+            } finally {
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Signup Form Handler
+        document.getElementById('signupFormElement').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            clearErrors();
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const acceptTerms = document.getElementById('acceptTerms').checked;
+            const signupBtn = document.getElementById('signupBtn');
+
+            // Validation
+            let isValid = true;
+
+            if (!validateName(name)) {
+                showError('signupName', 'Name must be at least 2 characters');
+                isValid = false;
+            } else {
+                showSuccess('signupName');
+            }
+
+            if (!validateEmail(email)) {
+                showError('signupEmail', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                showSuccess('signupEmail');
+            }
+
+            if (!validatePassword(password)) {
+                showError('signupPassword', 'Password must be at least 8 characters');
+                isValid = false;
+            } else if (!checkPasswordStrength(password)) {
+                showError('signupPassword', 'Please create a stronger password');
+                isValid = false;
+            } else {
+                showSuccess('signupPassword');
+            }
+
+            if (password !== confirmPassword) {
+                showError('signupConfirmPassword', 'Passwords do not match');
+                isValid = false;
+            } else {
+                showSuccess('signupConfirmPassword');
+            }
+
+            if (!acceptTerms) {
+                showAlert('Please accept the Terms of Service', 'error');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Show loading state
+            signupBtn.classList.add('loading');
+            signupBtn.disabled = true;
+
+            try {
+                const userCredential = await window.createUserWithEmailAndPassword(
+                    window.firebaseAuth, 
+                    email, 
+                    password
+                );
+
+                // Update user profile with name
+                await window.updateProfile(userCredential.user, {
+                    displayName: name
+                });
+                
+                showAlert('Account created successfully! Redirecting...', 'success');
+                
+                setTimeout(() => {
+                    redirectToPreviousPage();
+                }, 1500);
+
+            } catch (error) {
+                console.error('Signup error:', error);
+                
+                let errorMessage = 'An error occurred. Please try again.';
+                
+                switch(error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = 'An account with this email already exists';
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = 'Invalid email address';
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = 'Password is too weak';
+                        break;
+                }
+                
+                showAlert(errorMessage, 'error');
+            } finally {
+                signupBtn.classList.remove('loading');
+                signupBtn.disabled = false;
+            }
+        });
+
+        // Password Strength Checker
+        document.getElementById('signupPassword').addEventListener('input', (e) => {
+            checkPasswordStrength(e.target.value);
+        });
+
+        // Forgot Password Handler
+        async function handleForgotPassword() {
+            const email = document.getElementById('loginEmail').value.trim();
+
+            if (!email) {
+                showAlert('Please enter your email address first', 'error');
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                showAlert('Please enter a valid email address', 'error');
+                return;
+            }
+
+            try {
+                await window.sendPasswordResetEmail(window.firebaseAuth, email);
+                showAlert('Password reset email sent! Check your inbox.', 'success');
+            } catch (error) {
+                console.error('Password reset error:', error);
+                showAlert('Error sending reset email. Please try again.', 'error');
+            }
+        }
+
+        // Make function available globally
+        window.handleForgotPassword = handleForgotPassword;
+        window.toggleForm = toggleForm;
+    </script>
+</body>
+</html>

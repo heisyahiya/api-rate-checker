@@ -1,0 +1,3688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/jpeg" href="assets/favicon.jpeg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paydrak – Send & Receive Money Worldwide Instantly Using Crypto</title>
+    <meta name="description" content="Paydrak helps African students in India send money safely, instantly, and at the best exchange rates. Transfer NGN to INR with fast UPI payouts, low fees, and crypto-backed global settlement. Trusted by students across India, Nigeria, Kenya, and South Africa.">
+
+    <meta name="keywords" content="send money to India, African students in India, Nigeria to India transfer, NGN to INR, UPI transfer Nigeria, student remittance India, cheapest money transfer to India, Africa to India payment, pay school fees India, Paydrak, instant transfer to India">
+    
+    <meta property="og:title" content="Paydrak – Fast Money Transfers for African Students in India">
+    <meta property="og:description" content="Instant, secure, and low-fee NGN→INR transfers. UPI payouts in minutes for African students living in India.">
+    <meta property="og:image" content="https://yourdomain.com/assets/og-image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Paydrak – Best NGN→INR Rates for African Students in India">
+    <meta name="twitter:description" content="Send money from Nigeria to India instantly with fast UPI payouts and the best rates.">
+    <meta name="twitter:image" content="https://yourdomain.com/assets/og-image.png">
+    
+    <!-- Core SEO -->
+    <link rel="canonical" href="https://yourdomain.com/">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Paydrak">
+    
+    <!-- Geo-targeting (optional) -->
+    <meta name="geo.region" content="IN">
+    <meta name="geo.region" content="NG">
+    <meta name="geo.region" content="ZA">
+    <meta name="geo.region" content="KE">
+    
+    <!-- Language targeting -->
+    <meta http-equiv="Content-Language" content="en">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.11.0/css/flag-icons.min.css">
+
+    <style>
+        /* ========================================
+           RESET & BASE STYLES
+        ======================================== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Original Dark Purple Theme */
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #121212;
+            --bg-card: #1a1a1a;
+            --bg-card-hover: #222222;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #808080;
+            --accent-purple: #6b4ef6;
+            --accent-purple-light: #8b6ef9;
+            --accent-purple-dark: #5a3ed5;
+            --accent-green: #00d4aa;
+            --accent-green-light: #00f5c4;
+            --accent-orange: #f59e0b;
+            --border-color: #2a2a2a;
+            --border-light: #333333;
+
+            /* Gradients */
+            --gradient-purple: linear-gradient(135deg, #6b4ef6 0%, #8b6ef9 100%);
+            --gradient-purple-green: linear-gradient(135deg, #6b4ef6 0%, #00d4aa 100%);
+            --gradient-mesh: radial-gradient(at 20% 30%, rgba(107, 78, 246, 0.15) 0px, transparent 50%),
+                            radial-gradient(at 80% 0%, rgba(0, 212, 170, 0.1) 0px, transparent 50%),
+                            radial-gradient(at 0% 50%, rgba(107, 78, 246, 0.1) 0px, transparent 50%);
+
+            /* Spacing */
+            --section-padding: 120px 0;
+            --container-padding: 0 24px;
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+
+            /* Transitions */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: var(--container-padding);
+        }
+
+        .container-wide {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: var(--container-padding);
+        }
+
+        /* ========================================
+           TYPOGRAPHY
+        ======================================== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+        }
+
+        p {
+            font-size: clamp(1rem, 1.5vw, 1.125rem);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           BUTTONS
+        ======================================== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-purple);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(107, 78, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(107, 78, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        /* ========================================
+           HEADER & NAVIGATION
+        ======================================== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom-color: var(--border-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-purple);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(10px);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-10px);
+        }
+
+        /* ========================================
+           HERO SECTION
+        ======================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-mesh);
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-purple-light);
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .animated-text {
+            background: var(--gradient-purple-green);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+            min-width: 200px;
+        }
+
+        .hero p {
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .crypto-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .crypto-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .crypto-badge:hover {
+            background: rgba(107, 78, 246, 0.1);
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .crypto-badge i {
+            font-size: 1.1rem;
+            color: var(--accent-orange);
+        }
+
+        /* Hero Calculator */
+        .hero-calculator {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .calculator-header {
+            margin-bottom: 30px;
+        }
+
+        .calculator-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .rate-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .rate-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .currency-input {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .currency-input:focus-within {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(107, 78, 246, 0.1);
+        }
+
+        .currency-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .currency-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            outline: none;
+        }
+
+        .currency-select {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 100px;
+        }
+
+        .currency-select:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .swap-indicator {
+            display: flex;
+            justify-content: center;
+            margin: -8px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .swap-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            box-shadow: 0 4px 12px rgba(107, 78, 246, 0.3);
+        }
+
+        .fee-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .fee-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .fee-item span:last-child {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .speed-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            background: rgba(0, 212, 170, 0.1);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            font-weight: 600;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 3vw, 2.5rem);
+            font-weight: 800;
+            background: var(--gradient-purple);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 8px;
+        }
+
+        /* Animated Blobs */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .blob-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent-purple);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: var(--accent-green);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* ========================================
+           LIVE TICKER
+        ======================================== */
+        .ticker-section {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+            overflow: hidden;
+        }
+
+        .ticker-container {
+            display: flex;
+            animation: scroll 30s linear infinite;
+        }
+
+        .ticker-container:hover {
+            animation-play-state: paused;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 40px;
+            white-space: nowrap;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .ticker-item i {
+            color: var(--accent-green);
+            font-size: 1.1rem;
+        }
+
+        .ticker-name {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ========================================
+           COUNTRIES SECTION
+        ======================================== */
+        .countries-section {
+            padding: var(--section-padding);
+            background: var(--bg-primary);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--accent-purple-light);
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .countries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .country-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .country-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-purple);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .country-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .country-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 40px rgba(107, 78, 246, 0.2);
+        }
+
+        .country-flag {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .country-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .country-details {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .country-features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .country-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .country-feature i {
+            color: var(--accent-green);
+            font-size: 1rem;
+        }
+
+        /* ========================================
+           BENTO GRID - FEATURES
+        ======================================== */
+        .features-section {
+            padding: var(--section-padding);
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-purple);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .bento-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .bento-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .bento-large {
+            grid-column: span 8;
+            background: linear-gradient(135deg, rgba(107, 78, 246, 0.1) 0%, rgba(0, 212, 170, 0.05) 100%);
+        }
+
+        .bento-medium {
+            grid-column: span 4;
+        }
+
+        .bento-small {
+            grid-column: span 6;
+        }
+
+        .bento-wide {
+            grid-column: span 12;
+        }
+
+        .bento-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--gradient-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+            margin-bottom: 24px;
+        }
+
+        .bento-content h3 {
+            margin-bottom: 16px;
+            font-size: 1.75rem;
+        }
+
+        .bento-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .bento-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .bento-stat-item {
+            text-align: center;
+        }
+
+        .bento-stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-purple-light);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .bento-stat-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 4px;
+        }
+
+        .feature-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .feature-badge {
+            padding: 8px 16px;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            border-radius: 50px;
+            font-size: 0.875rem;
+            color: var(--accent-purple-light);
+            font-weight: 500;
+        }
+
+        /* ========================================
+           HOW IT WORKS
+        ======================================== */
+        .how-it-works-section {
+            padding: var(--section-padding);
+            background: var(--bg-primary);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+        }
+
+        .step-card {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 20px 40px rgba(107, 78, 246, 0.2);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 40px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient-purple);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            box-shadow: 0 8px 20px rgba(107, 78, 246, 0.4);
+        }
+
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: rgba(107, 78, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent-purple);
+            margin-bottom: 24px;
+            margin-top: 20px;
+        }
+
+        .step-content h3 {
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+        }
+
+        .step-content p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           SECURITY SECTION
+        ======================================== */
+        .security-section {
+            padding: var(--section-padding);
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .security-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .security-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-green);
+            box-shadow: 0 20px 40px rgba(0, 212, 170, 0.15);
+        }
+
+        .security-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            background: rgba(0, 212, 170, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--accent-green);
+            position: relative;
+        }
+
+        .security-icon::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            opacity: 0.2;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.2;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .security-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.375rem;
+        }
+
+        .security-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ========================================
+           COMPARISON TABLE
+        ======================================== */
+        .comparison-section {
+            padding: var(--section-padding);
+            background: var(--bg-primary);
+        }
+
+        .comparison-table {
+            max-width: 1100px;
+            margin: 60px auto 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--bg-secondary);
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .comparison-table td {
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .highlight {
+            background: rgba(107, 78, 246, 0.05);
+        }
+
+        .comparison-table .highlight td {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .check-icon {
+            color: var(--accent-green);
+            font-size: 1.25rem;
+        }
+
+        .cross-icon {
+            color: #ff4444;
+            font-size: 1.25rem;
+        }
+
+        /* ========================================
+           FAQ SECTION
+        ======================================== */
+        .faq-section {
+            padding: var(--section-padding);
+            background: var(--bg-secondary);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item.active {
+            border-color: var(--accent-purple);
+        }
+
+        .faq-question {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question:hover {
+            color: var(--accent-purple);
+        }
+
+        .faq-icon {
+            font-size: 1.25rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 32px 24px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* ========================================
+           CTA SECTION
+        ======================================== */
+        .cta-section {
+            padding: var(--section-padding);
+            background: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-content h2 {
+            margin-bottom: 24px;
+        }
+
+        .cta-content p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ========================================
+           FOOTER
+        ======================================== */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 80px 0 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.125rem;
+            margin-bottom: 24px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-purple);
+            transform: translateX(4px);
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(107, 78, 246, 0.1);
+            border: 1px solid rgba(107, 78, 246, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-purple);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: var(--accent-purple);
+            color: white;
+            transform: translateY(-4px);
+        }
+
+        .footer-bottom {
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent-purple);
+        }
+
+       /* ========================================
+   RESPONSIVE DESIGN - COMPLETE SOLUTION
+======================================== */
+
+@media (max-width: 1024px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .bento-large,
+    .bento-medium,
+    .bento-small,
+    .bento-wide {
+        grid-column: span 12;
+    }
+}
+
+/* ========================================
+   MOBILE 768PX - PRIMARY FIXES
+======================================== */
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 80px 0;
+        --container-padding: 0 16px;
+    }
+
+    /* Navigation */
+    .nav-links {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 40px;
+        gap: 24px;
+        border-top: 1px solid var(--border-color);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+    }
+
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
+
+    /* HERO SECTION - COMPLETE MOBILE FIX */
+    .hero {
+        padding: 100px 0 50px 0 !important;
+        min-height: auto !important;
+        overflow: visible !important;
+    }
+    
+    .hero::before {
+        opacity: 0.3 !important;
+    }
+    
+    .hero .container {
+        padding: 0 16px !important;
+    }
+    
+    .hero-grid {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    /* Hero Content */
+    .hero-content {
+        text-align: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .hero-badge {
+        font-size: 0.7rem !important;
+        padding: 6px 14px !important;
+        margin-bottom: 16px !important;
+        display: inline-flex !important;
+    }
+    
+    .hero-badge i {
+        font-size: 0.8rem !important;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 16px !important;
+        word-wrap: break-word !important;
+    }
+    
+    .animated-text {
+        display: inline-block !important;
+        min-width: auto !important;
+    }
+    
+    .hero p {
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+        margin: 0 auto 24px auto !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+    }
+    
+    .hero-buttons {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 12px !important;
+        margin-bottom: 24px !important;
+    }
+    
+    .hero-buttons .btn {
+        width: 100% !important;
+        padding: 14px 24px !important;
+        font-size: 0.95rem !important;
+        justify-content: center !important;
+    }
+    
+    .crypto-badges {
+        gap: 8px !important;
+        margin-top: 20px !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    
+    .crypto-badge {
+        padding: 6px 12px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .crypto-badge i {
+        font-size: 1rem !important;
+    }
+
+    /* CALCULATOR - COMPLETE MOBILE FIX */
+    .hero-calculator {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px 16px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .calculator-header {
+        margin-bottom: 20px !important;
+        text-align: left !important;
+    }
+    
+    .calculator-header h3 {
+        font-size: 1.1rem !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .rate-badge {
+        font-size: 0.7rem !important;
+        padding: 4px 10px !important;
+        display: inline-flex !important;
+    }
+    
+    .rate-badge::before {
+        width: 6px !important;
+        height: 6px !important;
+    }
+    
+    .calculator-form {
+        gap: 12px !important;
+    }
+    
+    .currency-input {
+        padding: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    .currency-label {
+        font-size: 0.75rem !important;
+        margin-bottom: 10px !important;
+    }
+    
+    .input-group {
+        gap: 10px !important;
+        display: flex !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+    
+    .currency-input input {
+        font-size: 1.3rem !important;
+        min-width: 0 !important;
+        flex: 1 !important;
+        width: auto !important;
+    }
+    
+    .currency-select {
+        min-width: 75px !important;
+        max-width: 85px !important;
+        padding: 8px 10px !important;
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+    }
+    
+    .currency-select .fi {
+        font-size: 1rem !important;
+    }
+    
+    .currency-select i.fa-chevron-down {
+        font-size: 0.65rem !important;
+    }
+    
+    .swap-indicator {
+        margin: -6px 0 !important;
+    }
+    
+    .swap-icon {
+        width: 36px !important;
+        height: 36px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .fee-info {
+        margin-top: 16px !important;
+        padding-top: 16px !important;
+    }
+    
+    .fee-item {
+        font-size: 0.8rem !important;
+        margin-bottom: 10px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+    }
+    
+    .speed-badge {
+        font-size: 0.75rem !important;
+        padding: 3px 8px !important;
+    }
+
+    /* STATS SECTION */
+    .hero-stats {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 12px !important;
+        margin-top: 30px !important;
+        width: 100% !important;
+    }
+    
+    .stat-item {
+        padding: 12px 8px !important;
+        text-align: center !important;
+    }
+    
+    .stat-number {
+        font-size: 1.4rem !important;
+    }
+    
+    .stat-label {
+        font-size: 0.75rem !important;
+    }
+    
+    /* Hide animated blobs on mobile */
+    .blob-1,
+    .blob-2 {
+        display: none !important;
+    }
+
+    /* Currency Dropdown */
+    .currency-dropdown {
+        min-width: 200px !important;
+        max-width: 250px !important;
+        left: auto !important;
+        right: 0 !important;
+    }
+
+    /* Other Sections */
+    .bento-stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .comparison-table {
+        overflow-x: auto;
+    }
+
+    .comparison-table table {
+        min-width: 600px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-legal {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* ========================================
+   SMALL MOBILE 480PX - EXTRA OPTIMIZATIONS
+======================================== */
+@media (max-width: 480px) {
+    :root {
+        --container-padding: 0 12px;
+    }
+
+    /* Hero Small Mobile */
+    .hero {
+        padding: 90px 0 40px 0 !important;
+    }
+    
+    .hero .container {
+        padding: 0 12px !important;
+    }
+    
+    .hero-grid {
+        gap: 24px !important;
+    }
+    
+    .hero-badge {
+        font-size: 0.65rem !important;
+        padding: 5px 12px !important;
+    }
+    
+    .hero h1 {
+        font-size: 1.6rem !important;
+    }
+    
+    .hero p {
+        font-size: 0.875rem !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .hero-buttons .btn {
+        padding: 12px 20px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .crypto-badge {
+        padding: 5px 10px !important;
+        font-size: 0.7rem !important;
+    }
+
+    /* Calculator Small Mobile */
+    .hero-calculator {
+        padding: 20px 14px !important;
+    }
+    
+    .calculator-header h3 {
+        font-size: 1rem !important;
+    }
+    
+    .rate-badge {
+        font-size: 0.65rem !important;
+        padding: 3px 8px !important;
+    }
+    
+    .currency-input {
+        padding: 12px !important;
+    }
+    
+    .currency-input input {
+        font-size: 1.1rem !important;
+    }
+    
+    .currency-select {
+        min-width: 70px !important;
+        max-width: 75px !important;
+        padding: 6px 8px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .swap-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.85rem !important;
+    }
+    
+    .fee-item {
+        font-size: 0.75rem !important;
+    }
+
+    /* Stats Small Mobile - Single Column */
+    .hero-stats {
+        grid-template-columns: 1fr !important;
+        gap: 10px !important;
+    }
+    
+    .stat-item {
+        padding: 14px 10px !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border-radius: 12px !important;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem !important;
+    }
+    
+    .stat-label {
+        font-size: 0.7rem !important;
+    }
+
+    /* Typography */
+    h1 {
+        font-size: 1.6rem !important;
+    }
+
+    h2 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Other Sections */
+    .steps-container,
+    .security-grid,
+    .countries-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ========================================
+   UTILITY CLASSES
+======================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.fade-in-visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scale-in {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.scale-in-visible {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ========================================
+   BUTTON & COMPONENT STYLES
+======================================== */
+.btn-app {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.btn-app:hover {
+    background: var(--bg-card);
+    border-color: var(--accent-purple);
+}
+
+@media (max-width: 768px) {
+    .btn-app {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+}
+
+.country-flag {
+    position: relative;
+}
+
+.country-flag-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: all var(--transition);
+    overflow: hidden;
+    padding: 0;
+}
+
+.country-flag-button:hover {
+    border-color: var(--accent-purple);
+    transform: scale(1.05);
+}
+
+.country-flag-button .fi {
+    font-size: 28px;
+    line-height: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.country-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 200px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px;
+    z-index: 100;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition);
+}
+
+.country-flag.open .country-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.country-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background var(--transition);
+}
+
+.country-option:hover {
+    background: var(--bg-secondary);
+}
+
+.country-option.selected {
+    background: rgba(107, 78, 246, 0.1);
+}
+
+.country-option .fi {
+    font-size: 24px;
+    width: 28px;
+    height: 28px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.country-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+/* ========================================
+   CUSTOM CURRENCY DROPDOWN STYLES
+   ADD THIS TO YOUR CSS (BEFORE RESPONSIVE SECTION)
+======================================== */
+
+.currency-select-wrapper {
+    position: relative;
+}
+
+.currency-select {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+    min-width: 100px;
+}
+
+.currency-select:hover {
+    border-color: var(--accent-purple);
+}
+
+.currency-select .fi {
+    font-size: 1.2rem;
+}
+
+.currency-select i.fa-chevron-down {
+    font-size: 0.75rem;
+    margin-left: auto;
+    transition: transform 0.3s;
+}
+
+.currency-select-wrapper.open .currency-select i.fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+.currency-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 220px;
+    max-width: 280px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 8px;
+    z-index: 1000;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.currency-select-wrapper.open .currency-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.currency-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.currency-option:hover {
+    background: var(--bg-secondary);
+}
+
+.currency-option.selected {
+    background: rgba(107, 78, 246, 0.1);
+}
+
+.currency-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.currency-option.disabled:hover {
+    background: transparent;
+}
+
+.currency-option .fi {
+    font-size: 1.5rem;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency-info {
+    flex: 1;
+}
+
+.currency-code {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.currency-name {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.coming-soon-badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 12px;
+    color: var(--accent-orange);
+    font-weight: 600;
+}
+
+/* Loading state for rate */
+.rate-badge.loading {
+    opacity: 0.6;
+}
+
+.rate-badge.loading::before {
+    animation: blink 0.8s infinite;
+}
+
+/* Scrollbar for dropdown */
+.currency-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.currency-dropdown::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 10px;
+}
+
+.currency-dropdown::-webkit-scrollbar-thumb {
+    background: var(--border-light);
+    border-radius: 10px;
+}
+
+.currency-dropdown::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-purple);
+}
+
+/* Mobile Responsive for Currency Dropdowns */
+@media (max-width: 768px) {
+    .currency-select {
+        min-width: 75px !important;
+        max-width: 85px !important;
+        padding: 8px 10px !important;
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+    }
+    
+    .currency-select .fi {
+        font-size: 1rem !important;
+    }
+    
+    .currency-select i.fa-chevron-down {
+        font-size: 0.65rem !important;
+    }
+    
+    .currency-dropdown {
+        min-width: 200px !important;
+        max-width: 250px !important;
+        left: auto !important;
+        right: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .currency-select {
+        min-width: 70px !important;
+        max-width: 75px !important;
+        padding: 6px 8px !important;
+        font-size: 0.75rem !important;
+    }
+    
+    .currency-select .fi {
+        font-size: 0.9rem !important;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo"><img src="assets/logo.png" style="height: 35px;" alt=""></a>
+
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#security">Security</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <div class="header-right">
+                       <a href="convert/" class="btn btn-app">Try it Now</a> 
+                      
+                    </div>
+                </ul>
+
+                <button class="mobile-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" style="padding-bottom: 50px;">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content fade-in">
+                    <div class="hero-badge">
+                        <i class="fas fa-bolt"></i>
+                        <span>Crypto-powered cross-border payments</span>
+                    </div>
+
+                    <h1> Receive Send Swap <span class="animated-text" id="animatedAction"></span></h1>
+
+                    <p>Connect Nigeria, India, and the UK with lightning-fast crypto transfers. Swap between Naira, Pounds, Rupees, and USDT with transparent fees.</p>
+
+                    <div class="hero-buttons">
+                        <a href="convert/" class="btn btn-primary">
+                            <span>Send Money</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#how-it-works" class="btn btn-secondary">
+                            <i class="fas fa-play"></i>
+                            <span>See How It Works</span>
+                        </a>
+                    </div>
+
+                    <div class="crypto-badges">
+                        <div class="crypto-badge">
+                            <i class="fab fa-bitcoin"></i>
+                            <span>Bitcoin</span>
+                        </div>
+                        <div class="crypto-badge">
+                            <i class="fab fa-ethereum"></i>
+                            <span>Ethereum</span>
+                        </div>
+                        <div class="crypto-badge">
+                            <i class="fas fa-dollar-sign"></i>
+                            <span>USDT</span>
+                        </div>
+                     
+                    </div>
+                </div>
+
+                <div class="hero-calculator fade-in">
+                    <div class="calculator-header">
+                        <h3>Live Exchange Rate</h3>
+                        <span class="rate-badge">1 NGN = 0.0627 INR</span>
+                    </div>
+                
+                    <div class="calculator-form">
+                        <div class="currency-input">
+                            <label class="currency-label">You send</label>
+                            <div class="input-group">
+                                <input type="number" value="100" id="sendAmount">
+                                <!-- This div will be replaced by JS -->
+                                <div class="currency-select">
+                                    <span class="fi fi-ng"></span>
+                                    <span>NGN</span>
+                                </div>
+                            </div>
+                        </div>
+                
+                        <div class="swap-indicator">
+                            <div class="swap-icon">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                        </div>
+                
+                        <div class="currency-input">
+                            <label class="currency-label">You receive</label>
+                            <div class="input-group">
+                                <input type="number" value="6.27" id="receiveAmount" readonly>
+                                <!-- This div will be replaced by JS -->
+                                <div class="currency-select">
+                                    <span class="fi fi-in"></span>
+                                    <span>INR</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="fee-info">
+                        <div class="fee-item">
+                            <span>Transfer Fee</span>
+                            <span>2.5%</span>
+                        </div>
+                        <div class="fee-item">
+                            <span>Delivery Time</span>
+                            <span class="speed-badge">
+                                <i class="fas fa-bolt"></i>
+                                3-5 minutes
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item scale-in">
+                    <div class="stat-number">600+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item scale-in" style="animation-delay: 0.1s;">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Countries</div>
+                </div>
+                <div class="stat-item scale-in" style="animation-delay: 0.2s;">
+                    <div class="stat-number">₦146M+</div>
+                    <div class="stat-label">Processed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIVE TICKER -->
+    <section class="ticker-section" style="">
+        <div class="ticker-container">
+            <!-- First set -->
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Adebayo from Lagos</span>
+                <span>swapped ₦45,000 to USDT</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Priya from Delhi</span>
+                <span>received £320 from crypto</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">James from Manchester</span>
+                <span>sent £500 via USDT to Abuja</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Chioma from Ibadan</span>
+                <span>converted ₦75,000 to BTC</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Raj from Mumbai</span>
+                <span>received ₹25,000 from ETH</span>
+            </div>
+
+            <!-- Duplicate set for seamless loop -->
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Adebayo from Lagos</span>
+                <span>swapped ₦45,000 to USDT</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Priya from Delhi</span>
+                <span>received £320 from crypto</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">James from Manchester</span>
+                <span>sent £500 via USDT to Abuja</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Chioma from Ibadan</span>
+                <span>converted ₦75,000 to BTC</span>
+            </div>
+            <div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                <span class="ticker-name">Raj from Mumbai</span>
+                <span>received ₹25,000 from ETH</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUNTRIES SECTION -->
+    <section class="countries-section" id="countries">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Our Network</span>
+                <h2>3 Countries. Crypto-Powered.</h2>
+                <p>We connect Nigeria, India, and the UK through blockchain technology for instant, secure transfers.</p>
+            </div>
+
+            <div class="countries-grid">
+                <div class="country-card fade-in">
+                    <span class="country-flag">🇳🇬</span>
+                    <h3 class="country-name">Nigeria</h3>
+                    <p class="country-details">Send and receive Naira (NGN) instantly</p>
+                    <div class="country-features">
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Bank transfers</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Crypto swaps</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Instant settlements</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="country-card fade-in" style="animation-delay: 0.1s;">
+                    <span class="country-flag">🇮🇳</span>
+                    <h3 class="country-name">India</h3>
+                    <p class="country-details">Transfer Rupees (INR) seamlessly</p>
+                    <div class="country-features">
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>UPI payments</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Crypto integration</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 availability</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="country-card fade-in" style="animation-delay: 0.2s;">
+                    <span class="country-flag">🇬🇧</span>
+                    <h3 class="country-name">United Kingdom</h3>
+                    <p class="country-details">Handle Pounds (GBP) with ease</p>
+                    <div class="country-features">
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Faster Payments</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>USDT support</span>
+                        </div>
+                        <div class="country-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Same-day arrival</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION - BENTO GRID -->
+    <section class="features-section" id="features">
+        <div class="container-wide">
+            <div class="section-header fade-in">
+                <span class="section-label">Features</span>
+                <h2>Crypto meets simplicity</h2>
+                <p>All the power of blockchain, none of the complexity.</p>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Large Feature -->
+                <div class="bento-card bento-large fade-in">
+                    <div>
+                        <div class="bento-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="bento-content">
+                            <h3>Lightning Fast Transfers</h3>
+                            <p>Powered by blockchain technology, your money moves in minutes, not days. Skip the banks and go direct.</p>
+                        </div>
+                        <div class="bento-stats">
+                            <div class="bento-stat-item">
+                                <div class="bento-stat-number">3-5min</div>
+                                <div class="bento-stat-label">Avg. Speed</div>
+                            </div>
+                            <div class="bento-stat-item">
+                                <div class="bento-stat-number">99.9%</div>
+                                <div class="bento-stat-label">Uptime</div>
+                            </div>
+                            <div class="bento-stat-item">
+                                <div class="bento-stat-number">24/7</div>
+                                <div class="bento-stat-label">Available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Medium Card -->
+                <div class="bento-card bento-medium fade-in" style="animation-delay: 0.1s;">
+                    <div class="bento-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Blockchain Security</h3>
+                        <p>256-bit encryption and blockchain verification keep your transfers safe and transparent.</p>
+                    </div>
+                    <div class="feature-badges">
+                        <span class="feature-badge">SSL Encrypted</span>
+                        <span class="feature-badge">Blockchain</span>
+                    </div>
+                </div>
+
+                <!-- Small Cards -->
+                <div class="bento-card bento-small fade-in" style="animation-delay: 0.2s;">
+                    <div class="bento-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Transparent Fees</h3>
+                        <p>Flat 2.5% fee. No hidden charges, no surprises.</p>
+                    </div>
+                </div>
+
+                <div class="bento-card bento-small fade-in" style="animation-delay: 0.3s;">
+                    <div class="bento-icon">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Multi-Crypto</h3>
+                        <p>Support for BTC, ETH, USDT and more coming soon.</p>
+                    </div>
+                </div>
+
+                <!-- Wide Card -->
+                <div class="bento-card bento-wide fade-in" style="animation-delay: 0.4s;">
+                    <div class="bento-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="bento-content">
+                        <h3>Real-Time Tracking</h3>
+                        <p>Watch your money move on the blockchain with live updates from initiation to completion. Full transparency, every step.</p>
+                    </div>
+                    <div class="feature-badges">
+                        <span class="feature-badge"><i class="fas fa-check"></i> Instant Notifications</span>
+                        <span class="feature-badge"><i class="fas fa-check"></i> Transaction History</span>
+                        <span class="feature-badge"><i class="fas fa-check"></i> Blockchain Explorer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works-section" id="how-it-works">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Process</span>
+                <h2>How It Works</h2>
+                <p>Start sending money internationally in three simple steps.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    
+                    <div class="step-content">
+                        <h3>Create Your Account</h3>
+                        <p>Sign up in minutes with just your email. Quick verification to get you started right away.</p>
+                    </div>
+                </div>
+
+                <div class="step-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="step-number">2</div>
+                   
+                    <div class="step-content">
+                        <h3>Choose Your Currencies</h3>
+                        <p>Select from Naira, Pounds, Rupees, or USDT. See live rates and transparent fees instantly.</p>
+                    </div>
+                </div>
+
+                <div class="step-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="step-number">3</div>
+                   
+                    <div class="step-content">
+                        <h3>Send & Track</h3>
+                        <p>Hit send and watch your transfer complete in minutes. Real-time notifications keep you updated.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURITY SECTION -->
+    <section class="security-section" id="security">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Security</span>
+                <h2>Your Money, Protected</h2>
+                <p>We use blockchain technology and industry-leading security to keep your transfers safe.</p>
+            </div>
+
+            <div class="security-grid">
+                <div class="security-card fade-in">
+                    <div class="security-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>256-bit Encryption</h3>
+                    <p>All data is encrypted with bank-level security protocols, ensuring your information stays private.</p>
+                </div>
+
+                <div class="security-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="security-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>Blockchain Verified</h3>
+                    <p>Every transaction is recorded on the blockchain for complete transparency and security.</p>
+                </div>
+
+                <div class="security-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="security-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Fraud Monitoring</h3>
+                    <p>Advanced systems monitor transactions 24/7 to detect and prevent suspicious activity.</p>
+                </div>
+
+                <div class="security-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="security-icon">
+                        <i class="fas fa-file-shield"></i>
+                    </div>
+                    <h3>Compliance Ready</h3>
+                    <p>We follow strict regulatory guidelines as we work toward full licensing across all markets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARISON TABLE -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Comparison</span>
+                <h2>Why Choose Paydrak?</h2>
+                <p>See how we stack up against traditional banks and other platforms.</p>
+            </div>
+
+            <div class="comparison-table fade-in">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Paydrak</th>
+                            <th>Traditional Banks</th>
+                            <th>Other Platforms</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="highlight">
+                            <td>Transfer Speed</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> 3-5 minutes</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> 3-5 days</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> 1-2 days</td>
+                        </tr>
+                        <tr>
+                            <td>Transfer Fees</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> 2.5%</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> 3-5%</td>
+                            <td>2-3%</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td>Crypto Support</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> Yes</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> No</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> Limited</td>
+                        </tr>
+                        <tr>
+                            <td>Real-Time Tracking</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> Yes</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> Limited</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> Yes</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td>24/7 Support</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> Yes</td>
+                            <td><i class="fas fa-times-circle cross-icon"></i> Business hours</td>
+                            <td>Email only</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">FAQ</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about Paydrak.</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item fade-in">
+                    <button class="faq-question">
+                        <span>How long do transfers take?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Most transfers complete within 3-5 minutes thanks to blockchain technology. Bank processing times may vary slightly, but crypto-powered transfers are nearly instant.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in" style="animation-delay: 0.1s;">
+                    <button class="faq-question">
+                        <span>What cryptocurrencies do you support?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We currently support Bitcoin (BTC), Ethereum (ETH), and USDT. More cryptocurrencies are being added regularly as we expand our platform.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in" style="animation-delay: 0.2s;">
+                    <button class="faq-question">
+                        <span>Which countries do you support?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Currently, we support transfers between Nigeria (NGN), India (INR), and the United Kingdom (GBP). We're actively working on expanding to more countries in 2025.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in" style="animation-delay: 0.3s;">
+                    <button class="faq-question">
+                        <span>Is Paydrak licensed?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            We're a startup in the process of obtaining full regulatory licenses. We follow strict compliance guidelines and maintain transparent operations as we work toward licensing in all our markets.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in" style="animation-delay: 0.4s;">
+                    <button class="faq-question">
+                        <span>How secure are my transactions?</span>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            Very secure. We use 256-bit SSL encryption, blockchain verification, and continuous fraud monitoring. Every transaction is recorded on the blockchain for complete transparency and security.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content fade-in">
+                <h2>Ready to send money faster?</h2>
+                <p>Join thousands using Paydrak for instant cross-border crypto payments. Get started in minutes.</p>
+                <div class="cta-buttons">
+                    <a href="auth/" class="btn btn-primary">
+                        <span>Sign Up - It's Free</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact Us</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4 class="logo"><img src="assets/logo.png" style="height: 35px;" alt=""></h4>
+                    <p class="footer-description">
+                        Crypto-powered cross-border payments. Send money between Nigeria, India, and the UK instantly.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#security">Security</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="convert/">Convert</a></li>
+                    </ul>
+                </div>
+
+                
+
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="mailto:helpdesk@paydrak.com">Help Center</a></li>
+                        <li><a href="privacy-policy.html">Privacy & Policy</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Paydrak. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="privacy-policy.html">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP ScrollTrigger -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        // Register ScrollTrigger plugin
+        gsap.registerPlugin(ScrollTrigger);
+
+        // ========================================
+        // ANIMATED TEXT IN HERO
+    
+      
+        let actionIndex = 0;
+        let currencyIndex = 0;
+
+   
+        // ========================================
+        // MOBILE NAVIGATION
+        // ========================================
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileToggle.addEventListener('click', () => {
+            mobileToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // ========================================
+        // HEADER SCROLL EFFECT
+        // ========================================
+        const header = document.querySelector('.header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ========================================
+        // SCROLL ANIMATIONS WITH GSAP
+        // ========================================
+
+        // Fade in animations
+        gsap.utils.toArray('.fade-in').forEach(element => {
+            gsap.fromTo(element, 
+                {
+                    opacity: 0,
+                    y: 50
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // Scale in animations
+        gsap.utils.toArray('.scale-in').forEach(element => {
+            gsap.fromTo(element,
+                {
+                    opacity: 0,
+                    scale: 0.8
+                },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.7)',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // Parallax effect on hero blobs
+        gsap.to('.blob-1', {
+            y: 200,
+            x: -100,
+            rotation: 45,
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        gsap.to('.blob-2', {
+            y: -200,
+            x: 100,
+            rotation: -45,
+            scrollTrigger: {
+                trigger: '.hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: 1
+            }
+        });
+
+        // Bento cards stagger animation
+        gsap.utils.toArray('.bento-card').forEach((card, index) => {
+            gsap.fromTo(card,
+                {
+                    opacity: 0,
+                    y: 60
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.7,
+                    delay: index * 0.1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none reverse'
+                    }
+                }
+            );
+        });
+
+        // ========================================
+        // FAQ ACCORDION
+        // ========================================
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+
+                // Close all items
+                faqItems.forEach(i => i.classList.remove('active'));
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ========================================
+        // CALCULATOR FUNCTIONALITY
+        // ========================================
+        const sendAmountInput = document.getElementById('sendAmount');
+        const receiveAmountInput = document.getElementById('receiveAmount');
+
+        const exchangeRate = 93; // ZAR to NGN
+
+        function calculateTransfer() {
+            const sendAmount = parseFloat(sendAmountInput.value) || 0;
+            const receiveAmount = sendAmount * exchangeRate;
+
+            receiveAmountInput.value = receiveAmount.toFixed(2);
+        }
+
+        sendAmountInput.addEventListener('input', calculateTransfer);
+
+        // Initial calculation
+        calculateTransfer();
+
+        // ========================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ========================================
+        // NUMBER COUNTER ANIMATION
+        // ========================================
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const value = Math.floor(progress * (end - start) + start);
+                element.textContent = value.toLocaleString() + (element.dataset.suffix || '');
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Trigger counter animation when stats are in view
+        const observerOptions = {
+            threshold: 0.5,
+            triggerOnce: true
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target.querySelector('.stat-number');
+                    const text = statNumber.textContent;
+                    const number = parseInt(text.replace(/[^0-9]/g, ''));
+
+                    if (number) {
+                        statNumber.dataset.suffix = text.replace(/[0-9,]/g, '');
+                        animateValue(statNumber, 0, number, 2000);
+                    }
+
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-item').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+
+        // ========================================
+        // PERFORMANCE OPTIMIZATION
+        // ========================================
+
+        // Lazy load images (if you add images later)
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img.lazy').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Page loaded
+        window.addEventListener('load', () => {
+            console.log('Paydrak landing page loaded successfully');
+        });
+
+        // APPLICATION STATE & CONFIGURATION
+// ========================================
+
+let state = {
+    sendCurrency: 'NGN',
+    receiveCurrency: 'INR',
+    sendAmount: 100,
+    selectedPaymentMethod: 'upi',
+    paymentTime: '2-5 minutes'
+};
+
+let liveRate = 0.0627; // Default fallback rate (NGN to INR)
+let rateRefreshInterval = null;
+
+// Currency configurations
+const currencies = {
+    send: [
+        { code: 'NGN', name: 'Nigerian Naira', flag: 'ng', available: true },
+        { code: 'ZAR', name: 'South African Rand', flag: 'za', available: false },
+        { code: 'XAF', name: 'Central African CFA', flag: 'cm', available: false },
+        { code: 'XOF', name: 'West African CFA', flag: 'ne', available: false },
+        { code: 'TZS', name: 'Tanzanian Shilling', flag: 'tz', available: false }
+    ],
+    receive: [
+        { code: 'INR', name: 'Indian Rupee', flag: 'in', available: true },
+        { code: 'GBP', name: 'British Pound', flag: 'gb', available: false },
+        { code: 'USD', name: 'US Dollar', flag: 'us', available: false }
+    ]
+};
+
+// ========================================
+// LIVE RATE FETCHING
+// ========================================
+
+function showRateLoading() {
+    const rateBadge = document.querySelector('.rate-badge');
+    if (rateBadge) {
+        rateBadge.classList.add('loading');
+    }
+}
+
+function showRateLive() {
+    const rateBadge = document.querySelector('.rate-badge');
+    if (rateBadge) {
+        rateBadge.classList.remove('loading');
+        updateRateBadgeDisplay();
+    }
+}
+
+function updateRateBadgeDisplay() {
+    const rateBadge = document.querySelector('.rate-badge');
+    if (rateBadge) {
+        const rate = getExchangeRate();
+        rateBadge.textContent = `1 ${state.sendCurrency} = ${rate.toFixed(4)} ${state.receiveCurrency}`;
+    }
+}
+
+async function fetchLiveRates() {
+    showRateLoading();
+    try {
+        const response = await fetch('https://secrets-of-secrets.onrender.com/api/rates');
+        const data = await response.json();
+        
+        console.log('API Response:', data);
+        
+        // Extract rate from the horizonPayRate field
+        if (data && data.rates && data.rates.horizonPayRate) {
+            // horizonPayRate is NGN per 1 INR, we need INR per 1 NGN
+            const ngnPerInr = parseFloat(data.rates.horizonPayRate);
+            liveRate = 1 / ngnPerInr; // Convert to INR per NGN
+            console.log('Live rate fetched:', liveRate, 'INR per NGN');
+            showRateLive();
+            updateReceiveAmount();
+        } else if (data && data.NGN_INR) {
+            // Fallback to old format if exists
+            liveRate = parseFloat(data.NGN_INR);
+            console.log('Live rate fetched (fallback):', liveRate);
+            showRateLive();
+            updateReceiveAmount();
+        } else {
+            throw new Error('Invalid rate data format');
+        }
+    } catch (error) {
+        console.error('Error fetching live rates:', error);
+        // Use fallback rate
+        liveRate = 0.0627; // Approximately 1/15.94
+        showRateLive();
+        updateReceiveAmount();
+    }
+}
+
+// ========================================
+// CALCULATOR FUNCTIONALITY
+// ========================================
+
+function getExchangeRate() {
+    const fromCurrency = state.sendCurrency;
+    const toCurrency = state.receiveCurrency;
+    
+    // Use live rate if available for NGN to INR
+    if (liveRate && fromCurrency === 'NGN' && toCurrency === 'INR') {
+        return liveRate;
+    }
+    
+    // Use inverse rate for INR to NGN
+    if (liveRate && fromCurrency === 'INR' && toCurrency === 'NGN') {
+        return 1 / liveRate;
+    }
+    
+    // Fallback rates for other currency pairs
+    const fallbackRates = {
+        'NGN_INR': 0.0627,
+        'INR_NGN': 15.94,
+        'NGN_GBP': 0.00088,
+        'GBP_NGN': 1136.36,
+        'INR_GBP': 0.014,
+        'GBP_INR': 71.43,
+        'NGN_NGN': 1,
+        'INR_INR': 1,
+        'GBP_GBP': 1
+    };
+    
+    const rateKey = `${fromCurrency}_${toCurrency}`;
+    return fallbackRates[rateKey] || 1;
+}
+
+function updateReceiveAmount() {
+    const sendAmountInput = document.getElementById('sendAmount');
+    const receiveAmountInput = document.getElementById('receiveAmount');
+    
+    if (sendAmountInput && receiveAmountInput) {
+        const sendAmount = parseFloat(sendAmountInput.value) || 0;
+        const rate = getExchangeRate();
+        const receiveAmount = sendAmount * rate;
+        
+        receiveAmountInput.value = receiveAmount.toFixed(2);
+        state.sendAmount = sendAmount;
+        
+        updateRateBadgeDisplay();
+    }
+}
+
+// ========================================
+// CURRENCY DROPDOWN FUNCTIONALITY
+// ========================================
+
+function initCurrencyDropdowns() {
+    // Find existing currency selects in the hero calculator
+    const currencySelects = document.querySelectorAll('.currency-select');
+    
+    if (currencySelects.length >= 2) {
+        // Create send currency dropdown
+        createCurrencyDropdown(currencySelects[0], 'send', currencies.send);
+        
+        // Create receive currency dropdown
+        createCurrencyDropdown(currencySelects[1], 'receive', currencies.receive);
+    }
+}
+
+function createCurrencyDropdown(selectElement, type, currencyList) {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'currency-select-wrapper';
+    
+    const selectedCurrency = type === 'send' ? state.sendCurrency : state.receiveCurrency;
+    const selectedCurrencyData = currencyList.find(c => c.code === selectedCurrency);
+    
+    wrapper.innerHTML = `
+        <div class="currency-select">
+            <span class="fi fi-${selectedCurrencyData.flag}"></span>
+            <span>${selectedCurrency}</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="currency-dropdown">
+            ${currencyList.map(currency => `
+                <div class="currency-option ${currency.code === selectedCurrency ? 'selected' : ''} ${!currency.available ? 'disabled' : ''}" 
+                     data-code="${currency.code}" 
+                     data-type="${type}">
+                    <span class="fi fi-${currency.flag}"></span>
+                    <div class="currency-info">
+                        <div class="currency-code">${currency.code}</div>
+                        <div class="currency-name">${currency.name}</div>
+                    </div>
+                    ${!currency.available ? '<span class="coming-soon-badge">Coming Soon</span>' : ''}
+                </div>
+            `).join('')}
+        </div>
+    `;
+    
+    selectElement.parentNode.replaceChild(wrapper, selectElement);
+    
+    // Add event listeners
+    const selectButton = wrapper.querySelector('.currency-select');
+    const dropdown = wrapper.querySelector('.currency-dropdown');
+    const options = wrapper.querySelectorAll('.currency-option');
+    
+    selectButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        wrapper.classList.toggle('open');
+    });
+    
+    options.forEach(option => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            if (option.classList.contains('disabled')) return;
+            
+            const code = option.dataset.code;
+            const optionType = option.dataset.type;
+            
+            selectCurrency(optionType, code);
+            wrapper.classList.remove('open');
+        });
+    });
+}
+
+function selectCurrency(type, code) {
+    if (type === 'send') {
+        state.sendCurrency = code;
+    } else {
+        state.receiveCurrency = code;
+    }
+    
+    // Update UI
+    const wrappers = document.querySelectorAll('.currency-select-wrapper');
+    const targetWrapper = type === 'send' ? wrappers[0] : wrappers[1];
+    
+    if (!targetWrapper) return;
+    
+    const currencyList = type === 'send' ? currencies.send : currencies.receive;
+    const selectedCurrency = currencyList.find(c => c.code === code);
+    
+    const selectButton = targetWrapper.querySelector('.currency-select');
+    selectButton.innerHTML = `
+        <span class="fi fi-${selectedCurrency.flag}"></span>
+        <span>${code}</span>
+        <i class="fas fa-chevron-down"></i>
+    `;
+    
+    // Update selected state in dropdown
+    targetWrapper.querySelectorAll('.currency-option').forEach(opt => {
+        opt.classList.toggle('selected', opt.dataset.code === code);
+    });
+    
+    // Update calculations and rate badge
+    updateReceiveAmount();
+}
+
+function closeAllDropdowns() {
+    document.querySelectorAll('.currency-select-wrapper').forEach(wrapper => {
+        wrapper.classList.remove('open');
+    });
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.currency-select-wrapper')) {
+        closeAllDropdowns();
+    }
+});
+
+// ========================================
+// ANIMATED TEXT IN HERO
+// ========================================
+const currencies_text = ['Naira', 'Pounds', 'Rupees', 'USDT'];
+
+
+function animateText() {
+    const animatedAction = document.getElementById('animatedAction');
+    
+    if (!animatedAction) return;
+
+    // Fade out
+    animatedAction.style.opacity = '0';
+    animatedAction.style.transform = 'translateY(-20px)';
+
+    setTimeout(() => {
+        // Change text
+        currencyIndex = (currencyIndex + 1) % currencies_text.length;
+        animatedAction.textContent = currencies_text[currencyIndex];
+
+        // Fade in
+        animatedAction.style.opacity = '1';
+        animatedAction.style.transform = 'translateY(0)';
+    }, 300);
+}
+
+
+// Change text every 3 seconds
+setInterval(animateText, 3000);
+// ========================================
+// INITIALIZATION
+// ========================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Paydrak landing page initializing...');
+    
+    // Initialize currency dropdowns
+    initCurrencyDropdowns();
+    
+    // Fetch rates immediately on page load
+    fetchLiveRates();
+    
+    // Refresh rates every 20 seconds
+    if (rateRefreshInterval) {
+        clearInterval(rateRefreshInterval);
+    }
+    rateRefreshInterval = setInterval(fetchLiveRates, 20000);
+    
+    // Add input listener for send amount
+    const sendAmountInput = document.getElementById('sendAmount');
+    if (sendAmountInput) {
+        sendAmountInput.addEventListener('input', updateReceiveAmount);
+        
+        // Prevent invalid input characters
+        sendAmountInput.addEventListener('keypress', (e) => {
+            if (e.key === '-' || e.key === '+' || e.key === 'e') {
+                e.preventDefault();
+            }
+        });
+    }
+    
+    // Initial calculation
+    updateReceiveAmount();
+    
+    console.log('Paydrak calculator initialized with live rates');
+});
+
+// ========================================
+// CLEANUP ON PAGE UNLOAD
+// ========================================
+
+window.addEventListener('beforeunload', () => {
+    if (rateRefreshInterval) {
+        clearInterval(rateRefreshInterval);
+    }
+});
+
+// ========================================
+// EXISTING GSAP AND OTHER SCRIPTS
+// ========================================
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
+// ========================================
+// MOBILE NAVIGATION
+// ========================================
+
+
+if (mobileToggle && navLinks) {
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+}
+
+// ========================================
+// HEADER SCROLL EFFECT
+// ========================================
+
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+
+// ========================================
+// SCROLL ANIMATIONS WITH GSAP
+// ========================================
+
+// Fade in animations
+gsap.utils.toArray('.fade-in').forEach(element => {
+    gsap.fromTo(element, 
+        {
+            opacity: 0,
+            y: 50
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: element,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        }
+    );
+});
+
+// Scale in animations
+gsap.utils.toArray('.scale-in').forEach(element => {
+    gsap.fromTo(element,
+        {
+            opacity: 0,
+            scale: 0.8
+        },
+        {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+                trigger: element,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        }
+    );
+});
+
+// Parallax effect on hero blobs
+gsap.to('.blob-1', {
+    y: 200,
+    x: -100,
+    rotation: 45,
+    scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+    }
+});
+
+gsap.to('.blob-2', {
+    y: -200,
+    x: 100,
+    rotation: -45,
+    scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+    }
+});
+
+// Bento cards stagger animation
+gsap.utils.toArray('.bento-card').forEach((card, index) => {
+    gsap.fromTo(card,
+        {
+            opacity: 0,
+            y: 60
+        },
+        {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            delay: index * 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+                trigger: card,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            }
+        }
+    );
+});
+
+// ========================================
+// FAQ ACCORDION
+// ========================================
+
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+
+    question.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+
+        // Close all items
+        faqItems.forEach(i => i.classList.remove('active'));
+
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+            item.classList.add('active');
+        }
+    });
+});
+
+// ========================================
+// SMOOTH SCROLL FOR ANCHOR LINKS
+// ========================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// ========================================
+// NUMBER COUNTER ANIMATION
+// ========================================
+function animateValue(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value.toLocaleString() + (element.dataset.suffix || '');
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+
+document.querySelectorAll('.stat-item').forEach(stat => {
+    statsObserver.observe(stat);
+});
+
+// ========================================
+// PERFORMANCE OPTIMIZATION
+// ========================================
+
+// Lazy load images (if you add images later)
+if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+// ========================================
+// MOBILE NAVIGATION TOGGLE
+// ========================================
+
+const mobileToggle = document.querySelector('.mobile-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileToggle && navLinks) {
+    // Toggle mobile menu when hamburger is clicked
+    mobileToggle.addEventListener('click', () => {
+        mobileToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Close mobile menu when clicking a navigation link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.nav') && navLinks.classList.contains('active')) {
+            mobileToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// ========================================
+// HEADER SCROLL EFFECT
+// ========================================
+
+const header = document.querySelector('.header');
+
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+    document.querySelectorAll('img.lazy').forEach(img => {
+        imageObserver.observe(img);
+    });
+}
+
+// Page loaded
+window.addEventListener('load', () => {
+   
+});
+    </script>
+
+</body>
+</html>
