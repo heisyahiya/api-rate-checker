@@ -2158,7 +2158,7 @@
                     <li><a href="#security">Security</a></li>
                     <li><a href="#faq">FAQ</a></li>
                     <div class="header-right">
-                       <a href="convert/" class="btn btn-app">Try it Now</a> 
+                       <a href="convert/" class="btn btn-app">Try it Now - Beta</a> 
                       
                     </div>
                 </ul>
@@ -2258,13 +2258,13 @@
                     <div class="fee-info">
                         <div class="fee-item">
                             <span>Transfer Fee</span>
-                            <span>2.5%</span>
+                            <span>0%</span>
                         </div>
                         <div class="fee-item">
                             <span>Delivery Time</span>
                             <span class="speed-badge">
                                 <i class="fas fa-bolt"></i>
-                                3-5 minutes
+                                5-15 minutes
                             </span>
                         </div>
                     </div>
@@ -2479,7 +2479,7 @@
                     </div>
                     <div class="bento-content">
                         <h3>Transparent Fees</h3>
-                        <p>Flat 2.5% fee. No hidden charges, no surprises.</p>
+                        <p> 0% fee. No hidden charges, no surprises.</p>
                     </div>
                 </div>
 
@@ -2625,7 +2625,7 @@
                         </tr>
                         <tr>
                             <td>Transfer Fees</td>
-                            <td><i class="fas fa-check-circle check-icon"></i> 2.5%</td>
+                            <td><i class="fas fa-check-circle check-icon"></i> 0%</td>
                             <td><i class="fas fa-times-circle cross-icon"></i> 3-5%</td>
                             <td>2-3%</td>
                         </tr>
@@ -2737,7 +2737,7 @@
                         <span>Sign Up - It's Free</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
-                    <a href="#" class="btn btn-secondary">
+                    <a href="mailto:helpdesk@paydrak.com" class="btn btn-secondary">
                         <i class="fas fa-envelope"></i>
                         <span>Contact Us</span>
                     </a>
@@ -2798,7 +2798,7 @@
                 <p>&copy; 2025 Paydrak. All rights reserved.</p>
                 <div class="footer-legal">
                     <a href="privacy-policy.html">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                    <a href="terms-and-conditions.html">Terms of Service</a>
                     <a href="#">Cookie Policy</a>
                 </div>
             </div>
@@ -2810,6 +2810,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
     <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const faqItem = button.closest('.faq-item');
+
+      // Close other open FAQs (optional)
+      document.querySelectorAll('.faq-item.active').forEach(item => {
+        if (item !== faqItem) item.classList.remove('active');
+      });
+
+      // Toggle current
+      faqItem.classList.toggle('active');
+    });
+  });
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
@@ -3071,7 +3084,7 @@
 
         // Page loaded
         window.addEventListener('load', () => {
-            console.log('Paydrak landing page loaded successfully');
+            console.log('Environment loaded successfully');
         });
 
         // APPLICATION STATE & CONFIGURATION

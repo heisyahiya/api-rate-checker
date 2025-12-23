@@ -60,93 +60,184 @@
             -webkit-font-smoothing: antialiased;
             min-height: 100vh;
         }
+/* Skeleton Preloader */
+.skeleton-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+    overflow: hidden;
+}
 
-        /* Blur Preloading Animation */
-        .blur-preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 1;
-            transition: opacity 0.6s ease;
-        }
+.skeleton-preloader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
 
-        .blur-preloader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+.skeleton-container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+}
 
-        .blur-preloader-content {
-            text-align: center;
-            position: relative;
-        }
+/* Base skeleton element with shimmer animation */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
 
-        .blur-circles {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 24px;
-            position: relative;
-        }
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
 
-        .blur-circle {
-            position: absolute;
-            border-radius: 50%;
-            animation: blurFloat 3s ease-in-out infinite;
-        }
+/* Header skeleton */
+.skeleton-header {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
 
-        .blur-circle:nth-child(1) {
-            width: 60px;
-            height: 60px;
-            background: rgba(107, 78, 246, 0.3);
-            top: 0;
-            left: 30px;
-            animation-delay: 0s;
-            filter: blur(8px);
-        }
+.skeleton-logo {
+    width: 140px;
+    height: 36px;
+}
 
-        .blur-circle:nth-child(2) {
-            width: 50px;
-            height: 50px;
-            background: rgba(107, 78, 246, 0.2);
-            top: 35px;
-            left: 0;
-            animation-delay: 0.5s;
-            filter: blur(12px);
-        }
+.skeleton-nav {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+    margin-left: 40px;
+}
 
-        .blur-circle:nth-child(3) {
-            width: 50px;
-            height: 50px;
-            background: rgba(107, 78, 246, 0.25);
-            top: 35px;
-            right: 0;
-            animation-delay: 1s;
-            filter: blur(12px);
-        }
+.skeleton-nav-item {
+    width: 80px;
+    height: 20px;
+}
 
-        @keyframes blurFloat {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-20px) scale(1.1); }
-        }
+.skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
 
-        .blur-preloader-text {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            letter-spacing: -0.3px;
-        }
+/* Main content skeleton */
+.skeleton-main {
+    padding: 0 20px;
+}
 
-        .blur-preloader-subtext {
-            font-size: 13px;
-            color: var(--text-secondary);
-        }
+.skeleton-title {
+    width: 300px;
+    height: 32px;
+    margin-bottom: 12px;
+}
+
+.skeleton-subtitle {
+    width: 200px;
+    height: 20px;
+    margin-bottom: 32px;
+}
+
+/* Cards grid */
+.skeleton-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.skeleton-card {
+    background: #fafafa;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 180px;
+}
+
+.skeleton-card-header {
+    width: 60%;
+    height: 24px;
+    margin-bottom: 16px;
+}
+
+.skeleton-card-body {
+    width: 100%;
+    height: 60px;
+    margin-bottom: 16px;
+}
+
+.skeleton-card-footer {
+    width: 40%;
+    height: 16px;
+}
+
+/* Brand badge */
+.skeleton-brand {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: 600;
+    color: #6B4EF6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skeleton-brand::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #6B4EF6;
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.2);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .skeleton-nav {
+        display: none;
+    }
+    
+    .skeleton-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .skeleton-title {
+        width: 200px;
+        height: 28px;
+    }
+}
+
 
         /* Header */
         .header {
@@ -157,32 +248,97 @@
             z-index: 100;
             box-shadow: 0 2px 8px var(--shadow);
         }
-
         .notice-bar {
-            background: linear-gradient(90deg, #6b4ef6 0%, #5a3dd9 100%);
-            padding: 10px 24px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
+    background: linear-gradient(90deg, #6b4ef6 0%, #5a3dd9 100%);
+    padding: 10px 24px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    position: relative;
+    transition: all 0.3s ease;
+}
 
-        .notice-bar .rate-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
+.notice-bar.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
 
-        .notice-bar .cta-link {
-            color: white;
-            text-decoration: underline;
-            margin-left: 12px;
-            font-weight: 700;
-        }
+.notice-bar .rate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 4px 12px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    color: white;
+}
+
+.notice-bar .cta-link {
+    color: white;
+    text-decoration: underline;
+    font-weight: 700;
+    cursor: pointer;
+    pointer-events: auto;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.notice-bar .cta-link:hover {
+    opacity: 0.9;
+}
+
+.notice-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.notice-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.notice-close svg {
+    display: block;
+}
+
+@media (max-width: 640px) {
+    .notice-bar {
+        padding: 10px 40px 10px 16px; /* Extra padding on right for close button */
+        font-size: 12px;
+        gap: 8px;
+    }
+    
+    .notice-bar .rate-badge {
+        font-size: 11px;
+        padding: 4px 10px;
+    }
+    
+    .notice-close {
+        right: 8px;
+        padding: 6px;
+    }
+}
+
 
         .header-main {
             padding: 16px 24px;
@@ -1141,25 +1297,402 @@
                 font-size: 26px;
             }
         }
+      
+/* ============================================================================
+   ERROR STATE - MATCHES PAYDRAK DESIGN ENERGY
+   ============================================================================ */
+
+   .error-state-container {
+    text-align: center;
+    padding: 40px 24px 48px;
+    animation: errorFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes errorFadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Image - Responsive & Floating */
+.error-illustration {
+    width: 100%;
+    max-width: 240px;
+    height: auto;
+    margin: 0 auto 32px;
+    opacity: 0.92;
+    animation: floatError 4s ease-in-out infinite;
+    filter: drop-shadow(0 8px 16px rgba(107, 78, 246, 0.12));
+}
+
+@keyframes floatError {
+    0%, 100% { 
+        transform: translateY(0px) rotate(0deg); 
+    }
+    50% { 
+        transform: translateY(-15px) rotate(2deg); 
+    }
+}
+
+/* Title - Modern Typography */
+.error-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: -0.6px;
+    line-height: 1.2;
+}
+
+/* Message - Clear & Readable */
+.error-message {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    line-height: 1.65;
+    font-weight: 500;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Retry Button - Inline Styling */
+.retry-button {
+    max-width: 240px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 16px 32px;
+    box-shadow: 0 4px 12px rgba(107, 78, 246, 0.2);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.retry-button:hover {
+    box-shadow: 0 6px 20px rgba(107, 78, 246, 0.35);
+    transform: translateY(-3px) scale(1.02);
+}
+
+.retry-button:active {
+    transform: translateY(-1px) scale(0.98);
+}
+
+/* Loading State for Retry Button */
+.retry-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN - MOBILE OPTIMIZED
+   ============================================================================ */
+
+@media (max-width: 640px) {
+    .error-state-container {
+        padding: 32px 20px 40px;
+    }
+    
+    .error-illustration {
+        max-width: 180px;
+        margin-bottom: 28px;
+    }
+    
+    .error-title {
+        font-size: 20px;
+        letter-spacing: -0.4px;
+        margin-bottom: 10px;
+    }
+    
+    .error-message {
+        font-size: 14px;
+        margin-bottom: 28px;
+        line-height: 1.6;
+    }
+    
+    .retry-button {
+        max-width: 100%;
+        padding: 15px 28px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    .error-illustration {
+        max-width: 160px;
+        margin-bottom: 24px;
+    }
+    
+    .error-title {
+        font-size: 18px;
+    }
+    
+    .error-message {
+        font-size: 13px;
+    }
+}
+
+/* ============================================================================
+   DARK MODE SUPPORT (Optional - Future Enhancement)
+   ============================================================================ */
+
+@media (prefers-color-scheme: dark) {
+    .error-illustration {
+        opacity: 0.85;
+        filter: drop-shadow(0 8px 16px rgba(107, 78, 246, 0.25));
+    }
+}
+/* ============================================================================
+   TERMS & CONDITIONS CHECKBOX
+   ============================================================================ */
+
+   .terms-section {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.terms-checkbox-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Hide default checkbox */
+.terms-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Custom checkbox */
+.checkmark {
+    position: relative;
+    height: 22px;
+    width: 22px;
+    min-width: 22px;
+    background-color: white;
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin-top: 2px;
+}
+
+/* Checkbox hover */
+.terms-checkbox-wrapper:hover .checkmark {
+    border-color: var(--accent);
+    background-color: var(--accent-light);
+}
+
+/* Checkbox checked state */
+.terms-checkbox:checked ~ .checkmark {
+    background-color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* Checkmark icon */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+}
+
+.terms-checkbox:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Terms text */
+.terms-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    user-select: none;
+}
+
+.terms-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+    color: var(--accent-hover);
+}
+
+/* ============================================================================
+   DISABLED BUTTON STATE WITH SHAKE EFFECT
+   ============================================================================ */
+
+.button:disabled {
+    background: var(--border);
+    color: var(--text-tertiary);
+    cursor: not-allowed;
+    opacity: 0.6;
+    box-shadow: none;
+}
+
+.button:disabled:hover {
+    transform: none;
+    box-shadow: none;
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Shake animation */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+/* Tooltip on hover when disabled */
+.button-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.button:disabled::after {
+    content: "Please accept Terms & Conditions";
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--text-primary);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.button:disabled::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--text-primary);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.button:disabled:hover::after,
+.button:disabled:hover::before {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Active/checked state highlight */
+.terms-section.active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+    .terms-section {
+        padding: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .checkmark {
+        height: 20px;
+        width: 20px;
+        min-width: 20px;
+    }
+    
+    .terms-text {
+        font-size: 13px;
+    }
+    
+    .button:disabled::after {
+        font-size: 12px;
+        padding: 8px 14px;
+        white-space: normal;
+        max-width: 240px;
+        text-align: center;
+    }
+}
+
     </style>
 </head>
 <body>
     <!-- Blur Preloader -->
-    <div class="blur-preloader" id="preloader">
-        <div class="blur-preloader-content">
-            <div class="blur-circles">
-                <div class="blur-circle"></div>
-                <div class="blur-circle"></div>
-                <div class="blur-circle"></div>
+   <!-- Skeleton Preloader -->
+<div class="skeleton-preloader" id="preloader">
+    <div class="skeleton-container">
+        <!-- Header skeleton -->
+        <div class="skeleton-header">
+            <div class="skeleton skeleton-logo"></div>
+            <div class="skeleton-nav">
+                <div class="skeleton skeleton-nav-item"></div>
+                <div class="skeleton skeleton-nav-item"></div>
+                <div class="skeleton skeleton-nav-item"></div>
             </div>
-            <div class="blur-preloader-text">Loading Paydrak</div>
-            <div class="blur-preloader-subtext">Preparing your experience...</div>
+            <div class="skeleton skeleton-avatar"></div>
         </div>
+
+        <!-- Main content skeleton -->
+        <div class="skeleton-main">
+            <div class="skeleton skeleton-title"></div>
+            <div class="skeleton skeleton-subtitle"></div>
+            
+            <!-- Cards grid -->
+            <div class="skeleton-cards">
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-card-header"></div>
+                    <div class="skeleton skeleton-card-body"></div>
+                    <div class="skeleton skeleton-card-footer"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-card-header"></div>
+                    <div class="skeleton skeleton-card-body"></div>
+                    <div class="skeleton skeleton-card-footer"></div>
+                </div>
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-card-header"></div>
+                    <div class="skeleton skeleton-card-body"></div>
+                    <div class="skeleton skeleton-card-footer"></div>
+                </div>
+            </div>
+        </div>
+
+     
     </div>
+</div>
+
 
     <!-- Header -->
     <div class="header">
-        <div class="notice-bar">
+        <div class="notice-bar" id="noticeBar">
             <span class="rate-badge">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
@@ -1167,7 +1700,13 @@
                 Live Rate: 1 NGN = 0.051 INR
             </span>
             <a href="../auth/" class="cta-link">🔥Sign in for better rates →</a>
+            <button class="notice-close" aria-label="Close notification">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
         </div>
+        
         <div class="header-main">
             <img class="logo" src="../assets/logo.png" style="height: 30px;">
         </div>
@@ -1185,104 +1724,113 @@
                 <h2 class="step-title">Send Money</h2>
                 <p class="step-subtitle">Enter amount and payment details</p>
             </div>
-
+        
             <div class="card-body">
-                <!-- Amount Section -->
-                <div class="amount-section">
-                    <div class="form-label">You send</div>
-                    <div class="amount-input-group">
-                        <div class="amount-wrapper">
-                            <span class="currency-symbol" id="sendSymbol">₦</span>
-                            <input type="number" class="amount-input" id="sendAmount" value="100" min="1">
-                        </div>
-                        <div class="custom-select">
-                            <div class="select-trigger" id="sendCurrencyTrigger">
-                                <span class="fi fi-ng flag-icon"></span>
-                                <span id="sendCurrencyCode">NGN</span>
-                                <span class="select-arrow">▼</span>
+                
+                <!-- ✅ ERROR STATE (Initially Hidden) -->
+                <div class="error-state-container hidden" id="errorState">
+                    <img src="../assets/error.png" alt="No rates available" class="error-illustration">
+                    
+                    <h3 class="error-title">Oops! Rates Unavailable</h3>
+                    
+                    <p class="error-message">
+                        We're having trouble fetching current exchange rates. 😢<br>
+                        Please check your connection and try again.
+                    </p>
+                    
+                    <button onclick="retryFetchRates()" class="button retry-button">
+                        Try Again
+                    </button>
+                </div>
+                
+        
+                <!-- ✅ FORM CONTENT WRAPPER (This was missing!) -->
+                <div id="formContent">
+                    
+                    <!-- Amount Section -->
+                    <div class="amount-section">
+                        <div class="form-label">You send</div>
+                        <div class="amount-input-group">
+                            <div class="amount-wrapper">
+                                <span class="currency-symbol" id="sendSymbol">₦</span>
+                                <input type="number" class="amount-input" id="sendAmount" value="100" min="1">
                             </div>
-                            <div class="select-dropdown" id="sendCurrencyDropdown">
-                                <div class="select-option" data-currency="NGN" data-symbol="₦" data-flag="fi-ng">
+                            <div class="custom-select">
+                                <div class="select-trigger" id="sendCurrencyTrigger">
                                     <span class="fi fi-ng flag-icon"></span>
-                                    <span>NGN</span>
+                                    <span id="sendCurrencyCode">NGN</span>
+                                    <span class="select-arrow">▼</span>
                                 </div>
-                                <div class="select-option disabled" data-currency="ZAR" data-symbol="R" data-flag="fi-za">
-                                    <span class="fi fi-za flag-icon"></span>
-                                    <span>ZAR</span>
-                                    <span class="coming-soon-badge">Soon</span>
-                                </div>
-                                <div class="select-option disabled" data-currency="USD" data-symbol="$" data-flag="fi-us">
-                                    <span class="fi fi-us flag-icon"></span>
-                                    <span>USD</span>
-                                    <span class="coming-soon-badge">Soon</span>
-                                </div>
-                                <div class="select-option disabled" data-currency="TSH" data-symbol="TSh" data-flag="fi-tz">
-                                    <span class="fi fi-tz flag-icon"></span>
-                                    <span>TSH</span>
-                                    <span class="coming-soon-badge">Soon</span>
-                                </div>
-                                <div class="select-option disabled" data-currency="KES" data-symbol="KSh" data-flag="fi-ke">
-                                    <span class="fi fi-ke flag-icon"></span>
-                                    <span>KES</span>
-                                    <span class="coming-soon-badge">Soon</span>
+                                <div class="select-dropdown" id="sendCurrencyDropdown">
+                                    <div class="select-option" data-currency="NGN" data-symbol="₦" data-flag="fi-ng">
+                                        <span class="fi fi-ng flag-icon"></span>
+                                        <span>NGN</span>
+                                    </div>
+                                    <div class="select-option disabled" data-currency="ZAR" data-symbol="R" data-flag="fi-za">
+                                        <span class="fi fi-za flag-icon"></span>
+                                        <span>ZAR</span>
+                                        <span class="coming-soon-badge">Soon</span>
+                                    </div>
+                                    <div class="select-option disabled" data-currency="USD" data-symbol="$" data-flag="fi-us">
+                                        <span class="fi fi-us flag-icon"></span>
+                                        <span>USD</span>
+                                        <span class="coming-soon-badge">Soon</span>
+                                    </div>
+                                    <div class="select-option disabled" data-currency="TSH" data-symbol="TSh" data-flag="fi-tz">
+                                        <span class="fi fi-tz flag-icon"></span>
+                                        <span>TSH</span>
+                                        <span class="coming-soon-badge">Soon</span>
+                                    </div>
+                                    <div class="select-option disabled" data-currency="KES" data-symbol="KSh" data-flag="fi-ke">
+                                        <span class="fi fi-ke flag-icon"></span>
+                                        <span>KES</span>
+                                        <span class="coming-soon-badge">Soon</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="amount-section">
-                    <div class="form-label">They receive</div>
-                    <div class="amount-input-group">
-                        <div class="amount-wrapper">
-                            <span class="currency-symbol" id="receiveSymbol">₹</span>
-                            <input type="number" class="amount-input" id="receiveAmount" value="5.10" min="0.01">
-                        </div>
-                        <div class="custom-select">
-                            <div class="select-trigger" id="receiveCurrencyTrigger">
-                                <span class="fi fi-in flag-icon"></span>
-                                <span id="receiveCurrencyCode">INR</span>
-                                <span class="select-arrow">▼</span>
+        
+                    <!-- They Receive Section -->
+                    <div class="amount-section">
+                        <div class="form-label">They receive</div>
+                        <div class="amount-input-group">
+                            <div class="amount-wrapper">
+                                <span class="currency-symbol" id="receiveSymbol">₹</span>
+                                <input type="number" class="amount-input" id="receiveAmount" value="5.10" min="0.01">
                             </div>
-                            <div class="select-dropdown" id="receiveCurrencyDropdown">
-                                <div class="select-option" data-currency="INR" data-symbol="₹" data-flag="fi-in">
+                            <div class="custom-select">
+                                <div class="select-trigger" id="receiveCurrencyTrigger">
                                     <span class="fi fi-in flag-icon"></span>
-                                    <span>INR</span>
+                                    <span id="receiveCurrencyCode">INR</span>
+                                    <span class="select-arrow">▼</span>
                                 </div>
-                                <div class="select-option disabled" data-currency="UK" data-symbol="£" data-flag="fi-uk">
-                                    <span class="fi fi-gb flag-icon"></span>
-                                    <span>UK</span>
-                                    <span class="coming-soon-badge">Paused</span>
+                                <div class="select-dropdown" id="receiveCurrencyDropdown">
+                                    <div class="select-option" data-currency="INR" data-symbol="₹" data-flag="fi-in">
+                                        <span class="fi fi-in flag-icon"></span>
+                                        <span>INR</span>
+                                    </div>
+                                    <div class="select-option disabled" data-currency="UK" data-symbol="£" data-flag="fi-uk">
+                                        <span class="fi fi-gb flag-icon"></span>
+                                        <span>UK</span>
+                                        <span class="coming-soon-badge">Paused</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="exchange-display">
-                    <span class="exchange-label">Exchange Rate</span>
-                    <span class="exchange-value" id="exchangeRate">1 NGN = 0.051 INR</span>
-                </div>
-
-                <!-- Payment Method -->
-                <div class="form-group">
-                    <label class="form-label">Pay with</label>
-                    <div class="payment-select">
-                        <div class="payment-trigger" id="payMethodTrigger">
-                            <div class="payment-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="2" y="4" width="20" height="16" rx="2"/>
-                                    <path d="M2 10h20"/>
-                                </svg>
-                            </div>
-                            <div class="payment-info">
-                                <div class="payment-name" id="payMethodName">Bank Transfer</div>
-                                <div class="payment-desc">via Paystack • Instant</div>
-                            </div>
-                            <span class="select-arrow">▼</span>
-                        </div>
-                        <div class="payment-dropdown" id="payMethodDropdown">
-                            <div class="payment-option selected" data-method="bank" data-desc="via Paystack • Instant">
+        
+                    <!-- Exchange Rate Display -->
+                    <div class="exchange-display">
+                        <span class="exchange-label">Exchange Rate</span>
+                        <span class="exchange-value" id="exchangeRate">1 NGN = 0.051 INR</span>
+                    </div>
+        
+                    <!-- Payment Method -->
+                    <div class="form-group">
+                        <label class="form-label">Pay with</label>
+                        <div class="payment-select">
+                            <div class="payment-trigger" id="payMethodTrigger">
                                 <div class="payment-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <rect x="2" y="4" width="20" height="16" rx="2"/>
@@ -1290,57 +1838,57 @@
                                     </svg>
                                 </div>
                                 <div class="payment-info">
-                                    <div class="payment-name">Bank Transfer</div>
+                                    <div class="payment-name" id="payMethodName">Bank Transfer</div>
                                     <div class="payment-desc">via Paystack • Instant</div>
                                 </div>
+                                <span class="select-arrow">▼</span>
                             </div>
-                            <div class="payment-option" data-method="card" data-desc="via Paystack • Instant">
-                                <div class="payment-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="2" y="5" width="20" height="14" rx="2"/>
-                                        <path d="M2 10h20"/>
-                                    </svg>
+                            <div class="payment-dropdown" id="payMethodDropdown">
+                                <div class="payment-option selected" data-method="bank" data-desc="via Paystack • Instant">
+                                    <div class="payment-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                            <path d="M2 10h20"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">Bank Transfer</div>
+                                        <div class="payment-desc">via Paystack • Instant</div>
+                                    </div>
                                 </div>
-                                <div class="payment-info">
-                                    <div class="payment-name">Debit Card</div>
-                                    <div class="payment-desc">via Paystack • Instant</div>
+                                <div class="payment-option" data-method="card" data-desc="via Paystack • Instant">
+                                    <div class="payment-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="2" y="5" width="20" height="14" rx="2"/>
+                                            <path d="M2 10h20"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">Debit Card</div>
+                                        <div class="payment-desc">via Paystack • Instant</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="payment-option" data-method="ussd" data-desc="via USSD Code • 2-5 min">
-                                <div class="payment-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <rect x="5" y="2" width="14" height="20" rx="2"/>
-                                        <path d="M12 18h.01"/>
-                                    </svg>
-                                </div>
-                                <div class="payment-info">
-                                    <div class="payment-name">USSD</div>
-                                    <div class="payment-desc">via USSD Code • 2-5 min</div>
+                                <div class="payment-option" data-method="ussd" data-desc="via USSD Code • 2-5 min">
+                                    <div class="payment-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="5" y="2" width="14" height="20" rx="2"/>
+                                            <path d="M12 18h.01"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">USSD</div>
+                                        <div class="payment-desc">via USSD Code • 2-5 min</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Receive Method -->
-                <div class="form-group">
-                    <label class="form-label">Receive via</label>
-                    <div class="payment-select">
-                        <div class="payment-trigger" id="receiveMethodTrigger">
-                            <div class="payment-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <path d="M12 6v6l4 2"/>
-                                </svg>
-                            </div>
-                            <div class="payment-info">
-                                <div class="payment-name" id="receiveMethodName">UPI Transfer</div>
-                                <div class="payment-desc" id="receiveMethodDesc">5-10 minutes</div>
-                            </div>
-                            <span class="select-arrow">▼</span>
-                        </div>
-                        <div class="payment-dropdown" id="receiveMethodDropdown">
-                            <div class="payment-option selected" data-method="upi" data-time="5-10 minutes">
+        
+                    <!-- Receive Method -->
+                    <div class="form-group">
+                        <label class="form-label">Receive via</label>
+                        <div class="payment-select">
+                            <div class="payment-trigger" id="receiveMethodTrigger">
                                 <div class="payment-icon">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <circle cx="12" cy="12" r="10"/>
@@ -1348,75 +1896,110 @@
                                     </svg>
                                 </div>
                                 <div class="payment-info">
-                                    <div class="payment-name">UPI Transfer</div>
-                                    <div class="payment-desc">5-10 minutes</div>
+                                    <div class="payment-name" id="receiveMethodName">UPI Transfer</div>
+                                    <div class="payment-desc" id="receiveMethodDesc">5-10 minutes</div>
+                                </div>
+                                <span class="select-arrow">▼</span>
+                            </div>
+                            <div class="payment-dropdown" id="receiveMethodDropdown">
+                                <div class="payment-option selected" data-method="upi" data-time="5-10 minutes">
+                                    <div class="payment-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 6v6l4 2"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">UPI Transfer</div>
+                                        <div class="payment-desc">5-10 minutes</div>
+                                    </div>
+                                </div>
+                                <div class="payment-option" data-method="bank" data-time="15-30 minutes">
+                                    <div class="payment-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                            <polyline points="9 22 9 12 15 12 15 22"/>
+                                        </svg>
+                                    </div>
+                                    <div class="payment-info">
+                                        <div class="payment-name">Bank Transfer</div>
+                                        <div class="payment-desc">15-30 minutes</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="payment-option" data-method="bank" data-time="15-30 minutes">
-                                <div class="payment-icon">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                        <polyline points="9 22 9 12 15 12 15 22"/>
+                        </div>
+                    </div>
+        
+                    <!-- UPI Details -->
+                    <div id="upiDetails">
+                        <div class="form-group">
+                            <label class="form-label">UPI ID</label>
+                            <div class="input-with-icon">
+                                <input type="text" class="input-field" placeholder="username@upi" id="upiId">
+                                <button class="qr-scan-btn" id="scanQrBtn" type="button">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                        <rect x="3" y="3" width="7" height="7"/>
+                                        <rect x="14" y="3" width="7" height="7"/>
+                                        <rect x="14" y="14" width="7" height="7"/>
+                                        <rect x="3" y="14" width="7" height="7"/>
                                     </svg>
-                                </div>
-                                <div class="payment-info">
-                                    <div class="payment-name">Bank Transfer</div>
-                                    <div class="payment-desc">15-30 minutes</div>
-                                </div>
+                                </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- UPI Details -->
-                <div id="upiDetails">
-                    <div class="form-group">
-                        <label class="form-label">UPI ID</label>
-                        <div class="input-with-icon">
-                            <input type="text" class="input-field" placeholder="username@upi" id="upiId">
-                            <button class="qr-scan-btn" id="scanQrBtn" type="button">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <rect x="3" y="3" width="7" height="7"/>
-                                    <rect x="14" y="3" width="7" height="7"/>
-                                    <rect x="14" y="14" width="7" height="7"/>
-                                    <rect x="3" y="14" width="7" height="7"/>
-                                </svg>
-                            </button>
+        
+                        <div class="form-group">
+                            <label class="form-label">Receiver Name</label>
+                            <input type="text" class="input-field" placeholder="Full name as per UPI" id="receiverName">
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="input-field" placeholder="Enter your email" id="email">
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Receiver Name</label>
-                        <input type="text" class="input-field" placeholder="Full name as per UPI" id="receiverName">
+        
+                    <!-- Bank Details -->
+                    <div id="bankDetails" class="hidden">
+                        <div class="form-group">
+                            <label class="form-label">Account Number</label>
+                            <input type="text" class="input-field" placeholder="Enter account number" id="accountNumber">
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="form-label">IFSC Code</label>
+                            <input type="text" class="input-field" placeholder="Enter IFSC code" id="ifscCode">
+                        </div>
+        
+                        <div class="form-group">
+                            <label class="form-label">Account Holder Name</label>
+                            <input type="text" class="input-field" placeholder="Full name as per bank" id="accountName">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Email</label>
-                        <input type="text" class="input-field" placeholder="Enter your email" id="email">
+        
+                    <div class="terms-section">
+                        <label class="terms-checkbox-wrapper">
+                            <input type="checkbox" class="terms-checkbox" id="termsCheckbox">
+                            <span class="checkmark"></span>
+                            <span class="terms-text">
+                                I agree to the 
+                                <a class='terms-link' href='/terms-and-conditions' target='_blank'>Terms of Service</a> 
+                                and 
+                                <a class='terms-link' href='/privacy-policy' target='_blank'>Privacy Policy</a>
+                            </span>
+                        </label>
                     </div>
-
+                    
+                    <!-- Modified Continue Button -->
+                    <button class="button" id="continueBtn" disabled>
+                        Continue to Payment
+                    </button>
+        
                 </div>
-
-                <!-- Bank Details -->
-                <div id="bankDetails" class="hidden">
-                    <div class="form-group">
-                        <label class="form-label">Account Number</label>
-                        <input type="text" class="input-field" placeholder="Enter account number" id="accountNumber">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">IFSC Code</label>
-                        <input type="text" class="input-field" placeholder="Enter IFSC code" id="ifscCode">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Account Holder Name</label>
-                        <input type="text" class="input-field" placeholder="Full name as per bank" id="accountName">
-                    </div>
-                </div>
-
-                <button class="button" id="continueBtn">Continue to Payment</button>
+                <!-- ✅ END FORM CONTENT WRAPPER -->
+        
             </div>
         </div>
+        
 
         <!-- Step 2: Payment Summary -->
         <div class="card hidden" id="step2">

@@ -3,391 +3,1125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paydrak - Payment Successful</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Paydrak - Instant Mobile Recharge</title>
+    
+    <!-- Flag Icons Library -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css">
+    
+    <!-- Premium Satoshi Font -->
+    <link href="https://fonts.cdnfonts.com/css/satoshi" rel="stylesheet">
     
     <style>
-        *, *::before, *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --surface: #ffffff;
-            --text-primary: #1a1a1a;
-            --text-secondary: #6c757d;
-            --text-tertiary: #adb5bd;
-            --accent: #6b4ef6;
-            --accent-hover: #5a3dd9;
-            --success: #00d4aa;
-            --success-dark: #00b894;
-            --border: #e9ecef;
-            --shadow: rgba(0, 0, 0, 0.08);
-        }
-
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' /%3E%3C/svg%3E");
+        }
+        
+        /* Purple Announcement Bar */
+        .announcement-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            gap: 12px;
         }
-
-        /* Container */
-        .success-container {
+        
+        .announcement-bar.hidden {
+            display: none;
+        }
+        
+        .announcement-text {
+            flex: 1;
+            max-width: 800px;
+        }
+        
+        .announcement-text strong {
+            font-weight: 700;
+        }
+        
+        .close-announcement {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #ffffff;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-announcement:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+        
+        header {
+            padding: 32px 0;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            height: 28px;
+        }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+        
+        .nav-btn {
+            padding: 12px 24px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        
+        .nav-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .hero {
+            min-height: calc(100vh - 180px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 60px 0;
+        }
+        
+        .hero-content {
             width: 100%;
-            max-width: 480px;
-            animation: fadeIn 0.4s ease;
+            max-width: 1200px;
+            position: relative;
+            z-index: 2;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
         }
-
-        /* Card */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            box-shadow: 0 4px 16px var(--shadow);
-            padding: 48px 40px;
-            text-align: center;
+        
+        .hero-left {
+            max-width: 600px;
         }
-
-        /* Success Icon */
-        .success-icon {
-            width: 80px;
+        
+        /* Social Proof Badge */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .user-avatars {
+            display: flex;
+            margin-right: 4px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid #000000;
+            margin-left: -12px;
+            object-fit: cover;
+        }
+        
+        .user-avatar:first-child {
+            margin-left: 0;
+        }
+        
+        .social-proof-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .trust-count {
+            font-size: 15px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        
+        .trust-subtext {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .rating-stars {
+            color: #FFD700;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Flag icon styling */
+        .flag {
+            font-size: 24px;
+            display: inline-block;
+            width: 1.5em;
+            height: 1.125em;
+            vertical-align: middle;
+        }
+        
+        .badge .fi {
+            font-size: 16px;
+            width: 1.33em;
+            height: 1em;
+        }
+        
+        h1 {
+            font-size: 72px;
+            font-weight: 600;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             height: 80px;
-            margin: 0 auto 28px;
-            background: var(--success);
+            display: flex;
+            align-items: center;
+        }
+        
+        .typing-wrapper {
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .typing-text {
+            color: #ffffff;
+            -webkit-text-fill-color: #ffffff;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 4px;
+            height: 60px;
+            background: #ffffff;
+            margin-left: 8px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            margin-bottom: 48px;
+            max-width: 520px;
+        }
+        
+        .recharge-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 48px;
+            max-width: 520px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+        }
+        
+        .input-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .custom-select {
+            position: relative;
+            margin-bottom: 12px;
+        }
+        
+        .select-trigger {
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+        
+        .select-trigger:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .select-trigger.active {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .selected-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .arrow {
+            width: 12px;
+            height: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .arrow.rotate {
+            transform: rotate(180deg);
+        }
+        
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        
+        .select-dropdown.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        
+        .select-option {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .select-option:last-child {
+            border-bottom: none;
+        }
+        
+        .select-option:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .option-info {
+            flex: 1;
+        }
+        
+        .option-country {
+            font-size: 15px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+        
+        .option-code {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .phone-input {
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+        
+        .phone-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .phone-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .continue-btn {
+            width: 100%;
+            padding: 20px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: inherit;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+        }
+        
+        .continue-btn:active {
+            transform: translateY(0);
+        }
+        
+        .how-it-works {
+            margin-top: 120px;
+            padding-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 48px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+        }
+        
+        .step {
+            position: relative;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: scaleIn 0.3s ease 0.1s both;
-        }
-
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .success-icon svg {
-            width: 42px;
-            height: 42px;
-            stroke: white;
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            fill: none;
-        }
-
-        /* Title */
-        .success-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-        }
-
-        /* Subtitle */
-        .success-subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-            font-weight: 500;
-            margin-bottom: 36px;
-        }
-
-        /* Amount Display */
-        .amount-display {
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 28px;
-        }
-
-        .amount-label {
-            font-size: 13px;
-            color: var(--text-secondary);
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            margin-bottom: 20px;
         }
-
-        .amount-value {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--text-primary);
-            font-family: 'JetBrains Mono', monospace;
+        
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .step-desc {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 120px;
+            padding-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .faq-title {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 16px;
             letter-spacing: -1px;
         }
-
-        /* Transaction Details */
-        .transaction-details {
-            text-align: left;
-            margin-bottom: 32px;
+        
+        .faq-subtitle {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.6);
         }
-
-        .detail-row {
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+        
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .faq-question {
+            width: 100%;
+            padding: 24px;
+            background: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border);
+            font-family: inherit;
+            gap: 20px;
         }
-
-        .detail-row:last-child {
-            border-bottom: none;
+        
+        .faq-icon {
+            font-size: 24px;
+            transition: transform 0.3s;
+            flex-shrink: 0;
         }
-
-        .detail-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            font-weight: 500;
+        
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
         }
-
-        .detail-value {
-            font-size: 14px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-family: 'JetBrains Mono', monospace;
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
         }
-
-        /* Buttons */
-        .button-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .button {
-            flex: 1;
-            padding: 16px;
-            border-radius: 12px;
+        
+        .faq-answer-content {
+            padding: 0 24px 24px;
             font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-            border: none;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
         }
-
-        .button-primary {
-            background: var(--accent);
-            color: white;
+        
+        .faq-answer-content p {
+            margin-bottom: 12px;
         }
-
-        .button-primary:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 16px rgba(107, 78, 246, 0.3);
+        
+        .faq-answer-content p:last-child {
+            margin-bottom: 0;
         }
-
-        .button-secondary {
-            background: white;
-            color: var(--text-primary);
-            border: 2px solid var(--border);
+        
+        .bg-orb {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+            z-index: 0;
         }
-
-        .button-secondary:hover {
-            background: var(--bg-secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
+        
+        .orb-1 {
+            top: -200px;
+            right: -200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-
-        .button:active {
-            transform: translateY(0);
+        
+        .orb-2 {
+            bottom: -200px;
+            left: -200px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         }
-
-        /* Download Link */
-        .download-link {
+        
+        footer {
+            padding: 60px 0 40px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 120px;
         }
-
-        .download-link a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
+        
+        .footer-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
         }
-
-        .download-link a:hover {
-            color: var(--accent-hover);
-            gap: 8px;
-        }
-
-        .download-link svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Security Badge */
-        .security-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 28px;
-            font-size: 12px;
-            color: var(--text-tertiary);
-            font-weight: 500;
-        }
-
-        .security-icon {
-            width: 14px;
-            height: 14px;
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            .card {
-                padding: 40px 28px;
+        
+        /* Desktop optimization */
+        @media (min-width: 1200px) {
+            .container {
+                padding: 0 60px;
             }
-
-            .success-title {
-                font-size: 24px;
+            
+            .hero {
+                min-height: calc(100vh - 150px);
             }
-
-            .amount-value {
-                font-size: 30px;
+        }
+        
+        /* Tablet & Mobile */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 60px;
             }
-
-            .button-group {
+            
+            .recharge-card {
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .announcement-bar {
+                font-size: 12px;
+                padding: 10px 16px;
+            }
+            
+            .container {
+                padding: 0 24px;
+            }
+            
+            nav {
+                gap: 24px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .social-proof {
                 flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            h1 {
+                font-size: 48px;
+                height: 56px;
+            }
+            
+            .cursor {
+                height: 40px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .recharge-card {
+                padding: 32px 24px;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-title {
+                font-size: 36px;
+            }
+            
+            .how-it-works,
+            .faq-section {
+                margin-top: 80px;
+                padding-top: 60px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="success-container">
-        <div class="card">
-            <!-- Success Icon -->
-            <div class="success-icon">
-                <svg viewBox="0 0 52 52">
-                    <path d="M14 27l10 10 20-20"/>
-                </svg>
-            </div>
-
-            <!-- Title -->
-            <h1 class="success-title">Payment Successful</h1>
-            <p class="success-subtitle">Your transaction has been completed</p>
-
-            <!-- Amount Display -->
-            <div class="amount-display">
-                <div class="amount-label">Amount Paid</div>
-                <div class="amount-value">₦25,000.00</div>
-            </div>
-
-            <!-- Transaction Details -->
-            <div class="transaction-details">
-                <div class="detail-row">
-                    <span class="detail-label">Transaction ID</span>
-                    <span class="detail-value">TX-29384756</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Date & Time</span>
-                    <span class="detail-value" id="dateTime">Nov 22, 2025 6:01 PM</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Recipient</span>
-                    <span class="detail-value">John Doe</span>
-                </div>
-                <div class="detail-row">
-                    <span class="detail-label">Status</span>
-                    <span class="detail-value" style="color: var(--success);">Completed</span>
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="button-group">
-                <button class="button button-primary" id="viewReceipt">
-                    View Receipt
-                </button>
-                <button class="button button-secondary" id="newPayment">
-                    New Payment
-                </button>
-            </div>
-
-            <!-- Download Link -->
-            <div class="download-link">
-                <a href="#download" id="downloadReceipt">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="7 10 12 15 17 10"/>
-                        <line x1="12" y1="15" x2="12" y2="3"/>
-                    </svg>
-                    Download PDF
-                </a>
-            </div>
+    
+    <!-- Purple Announcement Bar -->
+    <div class="announcement-bar" id="announcementBar">
+        <div class="announcement-text">
+            🎉 <strong>Limited Offer:</strong> Get ₦100 bonus on your first recharge of ₦1,000 or more! No promo code needed.
         </div>
-
-        <!-- Security Badge -->
-        <div class="security-badge">
-            <svg class="security-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            Secured by Paystack • 256-bit encryption
-        </div>
+        <button class="close-announcement" id="closeAnnouncement" aria-label="Close announcement">×</button>
     </div>
-
+    
+    <div class="grain"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    
+    <div class="container">
+        <header>
+            <img src="https://paydrak.netlify.app/assets/logo.png" alt="Paydrak" class="logo">
+            
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#how">How it works</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <a href="#send-money" class="nav-btn">Try Send Money</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-grid">
+                    <div class="hero-left">
+                        <!-- Social Proof with User Avatars -->
+                        <div class="social-proof">
+                            <div class="user-avatars">
+                                <img src="https://i.pravatar.cc/150?img=1" alt="User" class="user-avatar">
+                                <img src="https://i.pravatar.cc/150?img=5" alt="User" class="user-avatar">
+                                <img src="https://i.pravatar.cc/150?img=9" alt="User" class="user-avatar">
+                                <img src="https://i.pravatar.cc/150?img=12" alt="User" class="user-avatar">
+                            </div>
+                            <div class="social-proof-text">
+                                <div class="trust-count">
+                                    <span class="rating-stars">★★★★★</span> 4.9/5
+                                </div>
+                                <div class="trust-subtext">Trusted by 12,000+ users across Africa</div>
+                            </div>
+                        </div>
+                        
+                        <div class="badge">
+                            <span class="fi fi-ng"></span>
+                            <span class="fi fi-in"></span>
+                            <span class="fi fi-au"></span>
+                            <span>Nigeria · India · Australia</span>
+                        </div>
+                        
+                        <h1>
+                            <div class="typing-wrapper">
+                                <span class="typing-text" id="typingText"></span><span class="cursor"></span>
+                            </div>
+                        </h1>
+                        
+                        <p class="subtitle">Recharge any international mobile number from Nigeria without leaving your home. Pay in Naira, no foreign account needed.</p>
+                    </div>
+                    
+                    <div class="recharge-card">
+                        <form id="rechargeForm">
+                            <div class="input-group">
+                                <label class="input-label">Select Country</label>
+                                <div class="custom-select">
+                                    <div class="select-trigger" id="selectTrigger">
+                                        <div class="selected-option">
+                                            <span class="fi fi-ng flag"></span>
+                                            <span>Nigeria</span>
+                                        </div>
+                                        <svg class="arrow" viewBox="0 0 12 8" fill="none">
+                                            <path d="M1 1.5L6 6.5L11 1.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+                                        </svg>
+                                    </div>
+                                    <div class="select-dropdown" id="selectDropdown">
+                                        <div class="select-option" data-value="ng" data-code="+234" data-flag-class="fi-ng" data-name="Nigeria">
+                                            <span class="fi fi-ng flag"></span>
+                                            <div class="option-info">
+                                                <div class="option-country">Nigeria</div>
+                                                <div class="option-code">+234</div>
+                                            </div>
+                                        </div>
+                                        <div class="select-option" data-value="in" data-code="+91" data-flag-class="fi-in" data-name="India">
+                                            <span class="fi fi-in flag"></span>
+                                            <div class="option-info">
+                                                <div class="option-country">India</div>
+                                                <div class="option-code">+91</div>
+                                            </div>
+                                        </div>
+                                        <div class="select-option" data-value="au" data-code="+61" data-flag-class="fi-au" data-name="Australia">
+                                            <span class="fi fi-au flag"></span>
+                                            <div class="option-info">
+                                                <div class="option-country">Australia</div>
+                                                <div class="option-code">+61</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label">Phone Number</label>
+                                <input 
+                                    type="tel" 
+                                    class="phone-input" 
+                                    id="phoneNumber"
+                                    placeholder="8012345678"
+                                    required
+                                >
+                            </div>
+                            
+                            <button type="submit" class="continue-btn">Continue to Payment</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="how-it-works" id="how">
+                    <div class="section-title">How it works</div>
+                    <div class="steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-title">Enter Number</div>
+                            <div class="step-desc">Choose country and enter the mobile number you want to recharge</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-title">Pay in Naira</div>
+                            <div class="step-desc">Select amount and pay with your Nigerian bank account, card, or USDT</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-title">Get Airtime</div>
+                            <div class="step-desc">Instant delivery in under 10 seconds. No waiting, no trips outside</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <div class="faq-header">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <p class="faq-subtitle">Everything you need to know about recharging international lines</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Why can't I recharge my Indian number from Nigeria?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Most international telecom companies require a local bank account or payment method to recharge mobile numbers. As an African without an Indian, Australian, or other foreign bank account, you're locked out of online recharge platforms.</p>
+                            <p>Paydrak solves this by letting you pay in your local currency (Naira) using your Nigerian bank account, card, or crypto, and we handle the international recharge instantly.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Do I need to leave my house or visit any agent?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>No! That's the whole point of Paydrak. You can recharge any international number from the comfort of your home in seconds.</p>
+                            <p>No more searching for agents who charge extra fees, no trips to recharge centers, and no unreliable middlemen. Just enter the number, pay, and it's done.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Which countries can I recharge from Nigeria?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Currently, we support recharges to Nigeria, India, and Australia. We're constantly adding more countries based on user demand.</p>
+                            <p>If there's a specific country you need, reach out to helpdesk@paydrak.com and we'll prioritize it.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        How long does the recharge take?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Most recharges are delivered in under 10 seconds. In rare cases where there's a network delay, it may take up to 5 minutes.</p>
+                            <p>You'll receive instant confirmation once the airtime is successfully delivered to the number.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        What payment methods do you accept?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We accept Nigerian bank transfers, debit cards (Mastercard/Visa), and USDT cryptocurrency payments.</p>
+                            <p>All payments are processed securely and you pay in Naira - no need for foreign currency or accounts.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Are there any hidden fees?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>No hidden fees. The price you see is exactly what you pay. We're transparent about our small service fee, which is included in the displayed amount.</p>
+                            <p>Unlike street agents who can charge 20-30% extra, our fees are fair and clearly shown before payment.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question">
+                        Is my payment information secure?
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Absolutely. We use bank-level encryption and partner with trusted payment processors. We never store your card details.</p>
+                            <p>All transactions are PCI-DSS compliant and your data is protected with the highest security standards.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p class="footer-text">© 2025 Paydrak · Crypto-Powered Remittance · helpdesk@paydrak.com</p>
+        </footer>
+    </div>
+    
     <script>
-        // Update date/time to current
-        const now = new Date();
-        const options = { 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric',
-            hour: 'numeric',
-            minute: 'numeric',
-            hour12: true
+        // Announcement Bar Close
+        const announcementBar = document.getElementById('announcementBar');
+        const closeAnnouncement = document.getElementById('closeAnnouncement');
+        
+        // Check if user has closed the announcement before
+        if (localStorage.getItem('announcementClosed') === 'true') {
+            announcementBar.classList.add('hidden');
+        }
+        
+        closeAnnouncement.addEventListener('click', () => {
+            announcementBar.classList.add('hidden');
+            localStorage.setItem('announcementClosed', 'true');
+        });
+        
+        // Typing Animation
+        const phrases = [
+            "Pay in Naira",
+            "Top up family back home",
+            "Recharge in seconds",
+            "No more stress",
+            "Send airtime instantly"
+        ];
+        
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingText = document.getElementById('typingText');
+        
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                typingText.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            let typeSpeed = isDeleting ? 50 : 100;
+            
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+            
+            setTimeout(type, typeSpeed);
+        }
+        
+        setTimeout(type, 500);
+        
+        // Custom Select
+        const selectTrigger = document.getElementById('selectTrigger');
+        const selectDropdown = document.getElementById('selectDropdown');
+        const selectOptions = document.querySelectorAll('.select-option');
+        const arrow = selectTrigger.querySelector('.arrow');
+        
+        let selectedCountry = {
+            code: '+234',
+            name: 'Nigeria',
+            flagClass: 'fi-ng',
+            value: 'ng'
         };
-        document.getElementById('dateTime').textContent = now.toLocaleString('en-US', options);
-
-        // Button event listeners
-        document.getElementById('viewReceipt').addEventListener('click', function() {
-            console.log('View receipt clicked');
-            alert('Opening receipt details...');
+        
+        selectTrigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectDropdown.classList.toggle('show');
+            selectTrigger.classList.toggle('active');
+            arrow.classList.toggle('rotate');
         });
-
-        document.getElementById('newPayment').addEventListener('click', function() {
-            console.log('New payment clicked');
-            window.location.href = '/'; // Change to your payment route
+        
+        selectOptions.forEach(option => {
+            option.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                selectedCountry = {
+                    code: option.dataset.code,
+                    name: option.dataset.name,
+                    flagClass: option.dataset.flagClass,
+                    value: option.dataset.value
+                };
+                
+                selectTrigger.querySelector('.selected-option').innerHTML = `
+                    <span class="fi ${selectedCountry.flagClass} flag"></span>
+                    <span>${selectedCountry.name}</span>
+                `;
+                
+                selectDropdown.classList.remove('show');
+                selectTrigger.classList.remove('active');
+                arrow.classList.remove('rotate');
+            });
         });
-
-        document.getElementById('downloadReceipt').addEventListener('click', function(e) {
+        
+        document.addEventListener('click', () => {
+            selectDropdown.classList.remove('show');
+            selectTrigger.classList.remove('active');
+            arrow.classList.remove('rotate');
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all other items
+                faqItems.forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                });
+                
+                // Toggle current item
+                if (!isActive) {
+                    item.classList.add('active');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                }
+            });
+        });
+        
+        // Form Submit
+        const form = document.getElementById('rechargeForm');
+        const phoneInput = document.getElementById('phoneNumber');
+        
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log('Download receipt clicked');
-            alert('Downloading receipt as PDF...');
+            
+            const phone = phoneInput.value.replace(/\D/g, '');
+            
+            if (phone.length < 8) {
+                alert('Please enter a valid phone number');
+                return;
+            }
+            
+            window.location.href = `/recharge?country=${selectedCountry.value}&code=${selectedCountry.code}&phone=${phone}`;
+        });
+        
+        phoneInput.addEventListener('input', function(e) {
+            this.value = this.value.replace(/\D/g, '');
         });
     </script>
+    
 </body>
 </html>

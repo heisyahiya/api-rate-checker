@@ -1,0 +1,3474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paydrak - Mobile Recharge</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', Roboto, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            color: #000000;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Screen Container */
+        .screen {
+            display: none;
+            min-height: 100vh;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+        }
+
+        .mobile-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 20px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f3f4f6;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .back-btn {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-btn:hover {
+            background: #f3f4f6;
+            transform: translateX(-2px);
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
+            stroke: #000000;
+            stroke-width: 2.5;
+            fill: none;
+        }
+
+        .contacts-btn {
+            background: #000000;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .contacts-btn:hover {
+            background: #1a1a1a;
+            transform: translateY(-1px);
+        }
+
+        .contacts-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+            padding: 32px 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+/* CRITICAL: Global utility - add this! */
+.hidden {
+    display: none !important;
+}
+
+        .content-card {
+            max-width: 100%;
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 40px;
+            color: #000000;
+            letter-spacing: -1px;
+        }
+
+        /* Phone Input */
+        .phone-input-wrapper,
+        .network-input-wrapper {
+            display: flex;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #f9fafb;
+            transition: all 0.3s;
+            margin-bottom: 16px;
+        }
+
+        .phone-input-wrapper:focus-within,
+        .network-input-wrapper:focus-within {
+            border-color: #000000;
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .country-selector,
+        .network-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 18px;
+            border-right: 2px solid #e5e7eb;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .country-selector:hover,
+        .network-selector:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .flag {
+            font-size: 28px;
+            line-height: 1;
+        }
+
+        .network-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .network-placeholder {
+            font-size: 15px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .chevron-down {
+            width: 16px;
+            height: 16px;
+            stroke: #6b7280;
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.3s;
+        }
+
+        .phone-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #000000;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 18px 20px;
+            outline: none;
+        }
+
+        .phone-input::placeholder {
+            color: #9ca3af;
+        }
+
+        /* Bottom Section */
+        .bottom-section {
+            padding: 20px;
+            background: #ffffff;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .confirm-btn,
+        .checkout-btn,
+        .pay-btn {
+            width: 100%;
+            background: #6366F1;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 18px;
+            border: none;
+            border-radius: 80px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .confirm-btn::before,
+        .checkout-btn::before,
+        .pay-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .confirm-btn:hover::before,
+        .checkout-btn:hover::before,
+        .pay-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .confirm-btn:hover,
+        .checkout-btn:hover,
+        .pay-btn:hover {
+            background: #1a1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .confirm-btn:active,
+        .checkout-btn:active,
+        .pay-btn:active {
+            transform: translateY(0);
+        }
+
+        .confirm-btn span,
+        .checkout-btn span,
+        .pay-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            align-items: flex-end;
+            z-index: 100;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            width: 100%;
+            max-height: 70vh;
+            overflow-y: auto;
+            animation: slideUpModal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUpModal {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 24px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #000000;
+        }
+
+        .country-list,
+        .network-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .country-item,
+        .network-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border: 1px solid #f3f4f6;
+            color: #000000;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .country-item:hover,
+        .network-item:hover {
+            background: #f3f4f6;
+            transform: translateX(4px);
+            border-color: #e5e7eb;
+        }
+
+        .country-flag {
+            font-size: 28px;
+        }
+
+        .network-logo-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .network-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .network-item-name {
+            flex: 1;
+        }
+
+        /* Screen 2 Styles */
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+        }
+
+        .title-section {
+            text-align: center;
+            margin-bottom: 24px;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #000000;
+            letter-spacing: -0.5px;
+        }
+
+        .phone-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .phone-number-display {
+            font-size: 16px;
+            color: #6b7280;
+        }
+
+        .edit-icon {
+            width: 18px;
+            height: 18px;
+            stroke: #000000;
+            stroke-width: 2;
+            fill: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 4px;
+            margin: 0 20px 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .tab-btn.active {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        /* Plans */
+        .plans-screen,
+        .postpaid-screen {
+            padding: 0 20px 100px;
+        }
+
+        .plans-screen.hidden,
+        .postpaid-screen.hidden {
+            display: none;
+        }
+
+        /* Plans List */
+.plans-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.plan-card {
+    border-radius: 20px;
+    padding: 24px;
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.plan-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    
+    transform: scaleX(0);
+    transition: transform 0.3s;
+}
+
+.plan-card:hover::before {
+    transform: scaleX(1);
+}
+
+.plan-card:hover {
+    border-color: #6366F1;
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.15);
+}
+
+.plan-card.popular {
+    background: linear-gradient(135deg, #6366F1 0%, #8b5cf6 100%);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 8px 32px rgba(99, 102, 241, 0.3);
+}
+
+.plan-card.popular:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 24px 48px rgba(99, 102, 241, 0.4);
+}
+
+.badge {
+    display: inline-block;
+    background: #ffffff;
+    color: #6366F1;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.plan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.plan-info {
+    flex: 1;
+}
+
+.plan-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    line-height: 1.3;
+    color: #000000;
+}
+
+.plan-card.popular .plan-title {
+    color: #ffffff;
+}
+
+.plan-validity {
+    color: #6b7280;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.plan-card.popular .plan-validity {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.plan-btn {
+    background: #000000;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 80px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card.popular .plan-btn {
+    background: #ffffff;
+    color: #6366F1;
+}
+
+.plan-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.plan-card.popular .plan-btn:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+}
+
+.plan-description {
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 16px;
+}
+
+.plan-card.popular .plan-description {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+        /* Postpaid Styles */
+        .bill-skeleton {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding: 24px;
+            background: #f9fafb;
+            border-radius: 16px;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .skeleton-line {
+            height: 20px;
+        }
+
+        .skeleton-line.short {
+            width: 40%;
+        }
+
+        .skeleton-line.medium {
+            width: 60%;
+        }
+
+        .skeleton-line.tall {
+            height: 48px;
+            width: 100%;
+        }
+
+        .bill-card {
+            padding: 24px;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            margin-bottom: 24px;
+        }
+
+        .bill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .bill-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .bill-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .bill-amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .error-message {
+            padding: 20px;
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .error-message p {
+            color: #dc2626;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .retry-btn {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: #dc2626;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .retry-btn:hover {
+            background: #b91c1c;
+        }
+
+        .manual-input-form {
+            margin-top: 24px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .bill-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: #f9fafb;
+        }
+
+        .bill-input:focus {
+            outline: none;
+            border-color: #000000;
+            background: #ffffff;
+        }
+
+        /* Screen 3 Styles */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .illustration {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .illustration img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .points-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border: 2px solid #f3f4f6;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            background: #f9fafb;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .points-badge:hover {
+            border-color: #e5e7eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .star-icon {
+            width: 24px;
+            height: 24px;
+            background: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .points-text, .points-text2 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            background: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        .order-card {
+            background: #f9fafb;
+            border: 2px solid #f3f4f6;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .airtel-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-shape {
+            width: 32px;
+            height: 32px;
+            background: #e60000;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .logo-text {
+            color: #e60000;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .menu-dots {
+            display: flex;
+            gap: 4px;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .menu-dots:hover {
+            background: #f3f4f6;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background: #9ca3af;
+            border-radius: 50%;
+        }
+
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .detail-left {
+            flex: 1;
+        }
+
+        .phone-number {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .detail-right {
+            flex: 1;
+            text-align: right;
+        }
+
+        .receives-label {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+
+        .plan-name {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.3;
+            color: #000000;
+        }
+
+        /* Bottom Fixed */
+        .bottom-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 600px;
+            background: #ffffff;
+            padding: 20px;
+            border-top: 1px solid #f3f4f6;
+            z-index: 10;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 12px;
+            transition: background 0.2s;
+        }
+
+        .total-section:hover {
+            background: #f9fafb;
+        }
+
+        .total-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .total-amount {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .chevron {
+            width: 20px;
+            height: 20px;
+            stroke: #6b7280;
+            stroke-width: 2;
+            fill: none;
+            transition: transform 0.3s;
+        }
+
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+
+        .breakdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 16px;
+        }
+
+        .breakdown.open {
+            max-height: 400px;
+        }
+
+        .breakdown-content {
+            padding: 20px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .breakdown-row:last-child {
+            margin-bottom: 0;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+            font-weight: 600;
+        }
+
+        .breakdown-label {
+            color: #6b7280;
+        }
+
+        .breakdown-value {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        /* Screen 4 Styles */
+        .currency-selector {
+            display: flex;
+            gap: 8px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 4px;
+        }
+
+        .currency-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: #6b7280;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .currency-btn:hover:not(.active) {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .currency-btn.active {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .arrival-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 10px;
+            margin-bottom: 16px;
+        }
+
+        .clock-icon {
+            width: 18px;
+            height: 18px;
+            color: #16a34a;
+        }
+
+        .arrival-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #16a34a;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #000000;
+        }
+
+        .exchange-rate {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rate-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .rate-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .rate-update {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-top: 4px;
+        }
+
+        .payment-options {
+            margin-bottom: 24px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 2px solid #e5e7eb;
+            background: #f9fafb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .payment-option:hover {
+            border-color: #d1d5db;
+            background: #f3f4f6;
+        }
+
+        .payment-option.selected {
+            border-color: #000000;
+            background: #ffffff;
+        }
+
+        .payment-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .radio-btn {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d1d5db;
+            border-radius: 50%;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .payment-option.selected .radio-btn {
+            border-color: #000000;
+            background: #000000;
+        }
+
+        .payment-option.selected .radio-btn::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .payment-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #000000;
+        }
+
+        .payment-logo {
+            height: 24px;
+            width: auto;
+            max-width: 80px;
+            object-fit: contain;
+        }
+
+        .plan-details {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Info Modal */
+        .info-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .info-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+
+        .info-modal-content {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f3f4f6;
+            border: none;
+            color: #000000;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px 12px;
+            line-height: 1;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: #e5e7eb;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #6b7280;
+            margin-top: 12px;
+        }
+
+        .modal-points {
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .points-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+
+        /* Desktop Responsive */
+        @media (min-width: 768px) {
+            .container {
+                border-left: 1px solid #f3f4f6;
+                border-right: 1px solid #f3f4f6;
+            }
+
+            .phone-input-wrapper,
+            .network-input-wrapper {
+                border-radius: 14px;
+            }
+
+            .plan-card:hover {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .title {
+                font-size: 28px;
+            }
+
+            .page-title {
+                font-size: 22px;
+            }
+
+            .illustration {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        /* Enhanced Loading States */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 20;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #6366F1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Better skeleton shimmer */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+/* LP Points Card */
+.lp-points-card {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 2px solid #fbbf24;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 24px;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.lp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lp-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.lp-icon {
+    font-size: 32px;
+}
+
+.lp-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #92400e;
+    margin-bottom: 4px;
+}
+
+.lp-subtitle {
+    font-size: 13px;
+    color: #b45309;
+}
+
+/* Toggle Switch */
+.lp-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.lp-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.lp-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d1d5db;
+    border-radius: 34px;
+    transition: 0.3s;
+}
+
+.lp-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.lp-toggle input:checked + .lp-slider {
+    background-color: #16a34a;
+}
+
+.lp-toggle input:checked + .lp-slider:before {
+    transform: translateX(22px);
+}
+
+/* LP Benefit Message */
+.lp-benefit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.check-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.lp-benefit-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #16a34a;
+}
+/* Skeleton Loading */
+.skeleton-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.skeleton-plan-card {
+    border-radius: 20px;
+    padding: 24px;
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.skeleton-plan-card.popular {
+    background: linear-gradient(135deg, #e0e7ff 0%, #ddd6fe 100%);
+}
+
+.skeleton {
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-badge {
+    width: 100px;
+    height: 24px;
+    margin-bottom: 16px;
+}
+
+.skeleton-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 16px;
+}
+
+.skeleton-info {
+    flex: 1;
+}
+
+.skeleton-title {
+    width: 80%;
+    height: 20px;
+    margin-bottom: 8px;
+}
+
+.skeleton-validity {
+    width: 40%;
+    height: 16px;
+}
+
+.skeleton-btn {
+    width: 80px;
+    height: 44px;
+    border-radius: 80px;
+}
+
+.skeleton-description {
+    width: 100%;
+    height: 14px;
+    margin-bottom: 8px;
+}
+
+.skeleton-description:last-child {
+    width: 70%;
+    margin-bottom: 0;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Screen 1: Phone Number Entry -->
+    <div class="screen active" id="screen1">
+        <div class="container">
+            <div class="mobile-wrapper">
+                <div class="header">
+                    <button class="back-btn" onclick="goBack()">
+                        <svg class="back-icon" viewBox="0 0 24 24">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    <button class="contacts-btn">Need Help?</button>
+                </div>
+
+                <div class="content">
+                    <div class="content-card">
+                        <h1 class="title">Please enter the phone number<br>you want to top-up</h1>
+
+                        <div class="phone-input-wrapper">
+                            <button class="country-selector" onclick="toggleCountryModal()">
+                                <span class="flag" id="selectedFlag">🇮🇳</span>
+                                <svg class="chevron-down" viewBox="0 0 24 24">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            <input 
+                                type="tel" 
+                                class="phone-input" 
+                                id="phoneInput"
+                                value=""
+                                placeholder="+91"
+                            >
+                        </div>
+                        <!-- Network Operator Selector -->
+<!-- Network Selector - Exact Phone Input Wrapper Clone -->
+<div class="network-input-wrapper">
+    <button class="network-selector" onclick="toggleNetworkModal()">
+        <img src="" alt="" class="network-logo" id="selectedNetworkLogo" >
+        <span class="network-placeholder" id="selectedNetworkName">Select Network</span>
+        <svg class="chevron-down" viewBox="0 0 24 24">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+</div>
+
+
+                    </div>
+                </div>
+
+                <div class="bottom-section">
+                    <button class="confirm-btn" onclick="confirmPhoneNumber(this)">
+                        <span>Confirm phone number</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: Plan Selection -->
+    <div class="screen" id="screen2">
+        <div class="container">
+            <div class="header">
+                <button class="back-btn" onclick="navigateToScreen(1)">
+                    <svg class="back-icon" viewBox="0 0 24 24">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                
+                <div class="logo-wrapper">
+                    <img src="https://freelogopng.com/images/all_img/1680513237airtel-logo-png.png" alt="Airtel" class="logo-img">
+                </div>
+            </div>
+
+            <div class="desktop-layout">
+                <div class="left-column">
+                    <div class="title-section">
+                        <h1 class="page-title">How much do you want to send?</h1>
+                        <div class="phone-display">
+                            <span class="flag" id="displayFlag">🇮🇳</span>
+                            <span class="phone-number-display" id="displayPhoneNumber">+91 97739 51354</span>
+                            <svg class="edit-icon" viewBox="0 0 24 24" onclick="navigateToScreen(1)">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="tabs">
+                        <button class="tab-btn active" id="plansTab" onclick="switchTab('plans')">Plans</button>
+                        <button class="tab-btn" id="topupTab" onclick="switchTab('topup')">Postpaid</button>
+                    </div>
+                </div>
+<!-- Postpaid Screen -->
+<div class="postpaid-screen hidden" id="postpaidScreen">
+    <!-- Skeleton Loading State (Initially visible) -->
+    <div class="bill-skeleton" id="billSkeleton">
+        <div class="skeleton skeleton-line short"></div>
+        <div class="skeleton skeleton-line tall"></div>
+        <div class="skeleton skeleton-line medium"></div>
+        <div class="skeleton skeleton-line short"></div>
+    </div>
+    
+    <!-- Bill Display (Initially hidden) -->
+    <div class="bill-card hidden" id="billCard">
+        <div class="bill-header">
+            <div>
+                <div class="bill-label">Bill Month</div>
+                <div class="bill-value" id="billMonth">-</div>
+            </div>
+            <div style="text-align: right;">
+                <div class="bill-label">Bill Amount</div>
+                <div class="bill-amount" id="billAmount">₹0</div>
+            </div>
+        </div>
+        
+        <div>
+            <div class="bill-label">Due Date</div>
+            <div class="bill-value" id="billDueDate">-</div>
+            <div class="bill-due" id="overdueBadge"></div>
+        </div>
+    </div>
+    
+    <!-- Error State (Initially hidden) -->
+    <div class="error-message hidden" id="billError">
+        <p>⚠️ Could not fetch your bill automatically.</p>
+        <p>Please enter your bill amount manually below.</p>
+        <button class="retry-btn" onclick="fetchPostpaidBill()">Retry</button>
+    </div>
+    
+    <!-- Manual Input Form (Initially hidden) - ADD hidden CLASS -->
+    <div class="manual-input-form hidden" id="manualInputForm">
+        <div class="input-group">
+            <label class="input-label">Bill Amount (INR)</label>
+            <input type="number" class="bill-input" id="manualBillAmount" 
+                   placeholder="Enter bill amount" min="1" step="0.01">
+        </div>
+        
+        <div class="input-group">
+            <label class="input-label">Bill Month (Optional)</label>
+            <input type="text" class="bill-input" id="manualBillMonth" 
+                   placeholder="e.g., January 2025">
+        </div>
+    </div>
+    
+    <!-- Continue Button -->
+    <div style="margin-top: 32px;">
+        <button class="confirm-btn" onclick="proceedWithPostpaid(this)">
+            <span>Continue to Payment</span>
+        </button>
+    </div>
+</div>
+
+    
+  
+
+                <div class="plans-screen" id="plansScreen">
+                    <div class="plans-list">
+                        <div class="plan-card popular" onclick="selectPlan(979, 'UL Calls+2 GB Day/84D')">
+                            <span class="badge">Most Popular</span>
+                            <div class="plan-header">
+                                <div class="plan-info">
+                                    <div class="plan-title">INR 979:UL Calls+2 GB Day/84D</div>
+                                    <div class="plan-validity">Valid for 2 months, 25 days</div>
+                                </div>
+                                <button class="plan-btn" onclick="event.stopPropagation(); selectPlan(979, 'UL Calls+2 GB Day/84D')">979.00 INR</button>
+                            </div>
+                            <p class="plan-description">
+                                • Get Unlimited Local STD & Roaming calls + 2 GB/Day Data + 100 SMS/Day + Airtel Xstream Play Premium (includes 22+ OTTs), Enjoy 84 days full access to 22+ OTTs
+                            </p>
+                        </div>
+
+                        <div class="plan-card" onclick="selectPlan(2998, 'International Roaming')">
+                            <div class="plan-header">
+                                <div class="plan-info">
+                                    <div class="plan-title">INR 2998:International Roaming</div>
+                                    <div class="plan-validity">Valid for 30 days</div>
+                                </div>
+                                <button class="plan-btn" onclick="event.stopPropagation(); selectPlan(2998, 'International Roaming')">2998.00 INR</button>
+                            </div>
+                            <p class="plan-description">
+                                • Get 5 GB Data + (10 GB for USA) 200 Mins IC+OG (India + Local) + 20 SMS (Covers USA, Europe, Gulf & more), In-Flight 250 MB Data + 100 Mins OG + 100 SMS, 24 Hr Validity (Selected INTL Flights)
+                            </p>
+                        </div>
+
+                        <div class="plan-card" onclick="selectPlan(859, 'UL Calls+1.5GB Day/84D')">
+                            <div class="plan-header">
+                                <div class="plan-info">
+                                    <div class="plan-title">INR 859:UL Calls+1.5GB Day/84D</div>
+                                    <div class="plan-validity">Valid for 84 days</div>
+                                </div>
+                                <button class="plan-btn" onclick="event.stopPropagation(); selectPlan(859, 'UL Calls+1.5GB Day/84D')">859.00 INR</button>
+                            </div>
+                            <p class="plan-description">
+                                • Get Unlimited Local STD & Roaming calls + 1.5 GB/Day Data + 100 SMS/Day + Airtel Xstream Play Premium (includes 22+ OTTs)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  <!-- Screen 3: Order Summary & Payment (Merged) -->
+<div class="screen" id="screen3">
+    <div class="container">
+        <div class="header">
+            <button class="back-btn" onclick="navigateToScreen(2)">
+                <svg class="back-icon" viewBox="0 0 24 24">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+        </div>
+
+        <div class="content" style="padding-bottom: 300px;">
+            <div class="page-header">
+                <h1 class="page-title">Review & Pay</h1>
+               
+            </div>
+
+            <div class="points-badge" onclick="openPointsModal()">
+                <div class="star-icon">★</div>
+                <span class="points-text" id="earnPointsText">You will earn +21 points</span>
+                <div class="info-icon">i</div>
+            </div>
+
+            <!-- Order Card -->
+            <div class="order-card">
+                <div class="card-header">
+                    <div class="airtel-logo" id="operatorLogoSection">
+                        <div class="logo-shape"></div>
+                        <span class="logo-text">airtel</span>
+                    </div>
+                    <div class="arrival-time">
+                        <svg class="clock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                        <span class="arrival-text">Arrives in ~3 minutes</span>
+                    </div>
+                </div>
+
+                <div class="order-details">
+                    <div class="detail-left">
+                        <div class="phone-number" id="orderPhoneNumber">+91 97739 51354</div>
+                    </div>
+                    <div class="detail-right">
+                        <div class="receives-label">Receives</div>
+                        <div class="plan-name" id="orderPlanName">INR 979:UL Calls+2 GB Day/84D</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrival Time -->
+            
+
+            <!-- LP Points Redemption Card (NEW!) -->
+            <div class="lp-points-card" id="lpPointsCard">
+                <div class="lp-header">
+                    <div class="lp-left">
+                        <div class="lp-icon">🎁</div>
+                        <div>
+                            <div class="lp-title">Use LP Points</div>
+                            <div class="lp-subtitle">You have <span id="userLPPoints">250</span> points</div>
+                        </div>
+                    </div>
+                    <label class="lp-toggle">
+                        <input type="checkbox" id="useLPPoints" onchange="toggleLPPoints()">
+                        <span class="lp-slider"></span>
+                    </label>
+                </div>
+                <div class="lp-benefit hidden" id="lpBenefit">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span class="lp-benefit-text">Convenience fee waived! Saving ₹<span id="feeSaved">164.99</span></span>
+                </div>
+            </div>
+
+           
+
+         
+
+            <!-- Payment Options -->
+            <h2 class="section-title">Choose payment method</h2>
+
+            <div class="payment-options" id="paymentOptions">
+                
+                <div class="payment-option ngn-option" onclick="selectPayment('paystack')">
+                    <div class="payment-left">
+                        <div class="radio-btn"></div>
+                        <span class="payment-name">Paystack</span>
+                    </div>
+                    <div class="payment-right">
+                        <span style="font-size: 20px; font-weight: 700; color: #00C3F7;">paystack</span>
+                    </div>
+                </div>
+
+              
+
+            </div>
+        </div>
+
+        <!-- Bottom Fixed -->
+        <div class="bottom-fixed">
+            <!-- Collapsible Breakdown -->
+            <div class="breakdown" id="breakdown">
+                <div class="breakdown-content">
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Plan amount</span>
+                        <span class="breakdown-value" id="breakdownPlanAmount">-</span>
+                    </div>
+                    <div class="breakdown-row" id="feeRow">
+                        <span class="breakdown-label">Convenience fee</span>
+                        <span class="breakdown-value" id="breakdownFee">-</span>
+                    </div>
+                    <div class="breakdown-row" id="lpDiscountRow" style="display: none;">
+                        <span class="breakdown-label" style="color: #16a34a;">LP Points discount</span>
+                        <span class="breakdown-value" style="color: #16a34a;" id="breakdownDiscount">-</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Total</span>
+                        <span class="breakdown-value" id="breakdownTotal">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Section (Click to expand breakdown) -->
+            <div class="total-section" onclick="toggleBreakdown()">
+                <span class="total-label">Your total</span>
+                <div class="total-amount">
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <span id="displayTotal" style="font-size: 20px; font-weight: 700;">₦19,435.00</span>
+                        <span id="totalConverted" style="font-size: 13px; color: #6b7280;">(₹1,178.99)</span>
+                    </div>
+                    <svg class="chevron" id="chevron" viewBox="0 0 24 24">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Pay Button with Amount -->
+            <button class="pay-btn" id="payBtn" onclick="processPayment(this)">
+                <span id="payBtnText">Pay ₦19,435.00</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+    <!-- Country Picker Modal -->
+    <div class="modal-overlay" id="countryModal" onclick="closeCountryModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h3 class="modal-title">Select Country</h3>
+                <div class="country-list">
+                    <button class="country-item" onclick="selectCountry('🇮🇳', '+91', 'India')">
+                        <span class="country-flag">🇮🇳</span>
+                        <span>India (+91)</span>
+                    </button>
+                    <button class="country-item" onclick="selectCountry('🇺🇸', '+1', 'United States')">
+                        <span class="country-flag">🇺🇸</span>
+                        <span>United States (+1)</span>
+                    </button>
+                    <button class="country-item" onclick="selectCountry('🇬🇧', '+44', 'United Kingdom')">
+                        <span class="country-flag">🇬🇧</span>
+                        <span>United Kingdom (+44)</span>
+                    </button>
+                    <button class="country-item" onclick="selectCountry('🇳🇬', '+234', 'Nigeria')">
+                        <span class="country-flag">🇳🇬</span>
+                        <span>Nigeria (+234)</span>
+                    </button>
+                    <button class="country-item" onclick="selectCountry('🇦🇺', '+61', 'Australia')">
+                        <span class="country-flag">🇦🇺</span>
+                        <span>Australia (+61)</span>
+                    </button>
+                    <button class="country-item" onclick="selectCountry('🇨🇦', '+1', 'Canada')">
+                        <span class="country-flag">🇨🇦</span>
+                        <span>Canada (+1)</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Network Operator Modal -->
+<div class="modal-overlay" id="networkModal" onclick="closeNetworkModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 class="modal-title">Select Network Operator</h3>
+            <div class="network-list">
+                <button class="network-item" onclick="selectNetwork('Airtel', 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg')">
+                    <div class="network-logo-circle">
+                        <img src="https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg" alt="Airtel" class="network-logo-img">
+                    </div>
+                    <span class="network-item-name">Airtel</span>
+                </button>
+                <button class="network-item" onclick="selectNetwork('Jio', 'https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg')">
+                    <div class="network-logo-circle">
+                        <img src="https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg" alt="Jio" class="network-logo-img">
+                    </div>
+                    <span class="network-item-name">Jio</span>
+                </button>
+                
+                <button class="network-item" onclick="selectNetwork('VI', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s')">
+                    <div class="network-logo-circle">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s" alt="VI" class="network-logo-img">
+                    </div>
+                    <span class="network-item-name">VI (Vodafone Idea)</span>
+                </button>
+                <button class="network-item" onclick="selectNetwork('BSNL', 'https://static.vecteezy.com/system/resources/previews/051/805/644/non_2x/bsnl-transparent-orange-color-logo-free-png.png')">
+                    <div class="network-logo-circle">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbYhIylCWlp7uCBkFoA7_uR8ahA_-78rCueQ&s" alt="BSNL" class="network-logo-img">
+                    </div>
+                    <span class="network-item-name">BSNL</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Points Info Modal -->
+    <div class="info-modal" id="pointsModal" onclick="closePointsModal(event)">
+        <div class="info-modal-content" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closePointsModal()">&times;</button>
+            <h2 class="modal-title">Rewards Points</h2>
+            <p class="modal-text">
+                Every time you complete a recharge, you earn points! These points can be used for discounts on future purchases.
+            </p>
+            <div class="modal-points">
+                <div class="points-value">+21 Points</div>
+                <p class="modal-text" style="margin: 0;">Will be added to your account after this purchase</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
+    <script>
+        // ==================== CONFIGURATION ====================
+        const API_BASE = 'https://paydrak-v2.onrender.com';
+        const USER_UID = 'wneVxDAdXiSfhIjYHcd6EmxAa3j1';
+        
+        // ==================== COUNTRY & NETWORK CONFIG ====================
+        const SUPPORTED_COUNTRIES = {
+          'india': {
+            flag: '🇮🇳',
+            code: '91',
+            name: 'India',
+            networks: [
+              { name: 'Airtel', logo: 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg' },
+              { name: 'Jio', logo: 'https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg' },
+              { name: 'VI', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s' },
+              { name: 'BSNL', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbYhIylCWlp7uCBkFoA7_uR8ahA_-78rCueQ&s' }
+            ]
+          },
+          'nigeria': {
+            flag: '🇳🇬',
+            code: '234',
+            name: 'Nigeria',
+            networks: [
+              { name: 'MTN', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/MTN_Logo.svg/2560px-MTN_Logo.svg.png' },
+              { name: 'Airtel', logo: 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg' },
+              { name: 'Glo', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Glo_logo.svg/2560px-Glo_logo.svg.png' },
+              { name: '9mobile', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/9mobile_logo.svg/2560px-9mobile_logo.svg.png' }
+            ]
+          }
+        };
+        
+        const COMING_SOON_COUNTRIES = [
+          { flag: '🇺🇸', code: '1', name: 'United States' },
+          { flag: '🇬🇧', code: '44', name: 'United Kingdom' },
+          { flag: '🇦🇺', code: '61', name: 'Australia' },
+          { flag: '🇨🇦', code: '1', name: 'Canada' }
+        ];
+        
+        // ==================== STATE MANAGEMENT ====================
+        const appState = {
+          currentScreen: 1,
+          selectedCountry: {
+            flag: '🇮🇳',
+            code: '91',
+            name: 'India'
+          },
+          phoneNumber: '',
+          mobile: '',
+          operator: '',
+          operatorType: 'prepaid',
+          selectedPlan: null,
+          allPlans: [],
+          quote: null,
+          sessionId: '',
+          paymentReference: '',
+          currency: 'NGN',
+          exchangeRate: 17.0,
+          paymentMethod: 'paystack', // FIX: Default to paystack (your backend uses it)
+          loyaltyPoints: 0,
+          plansLoaded: false // ADDED: Track if plans are already loaded
+        };
+        
+        // ==================== IMPROVED UTILITY FUNCTIONS ====================
+        function showError(message) {
+          // TODO: Replace with your custom error UI component
+          console.error('❌ Error:', message);
+          alert(`Error: ${message}`);
+        }
+        
+        function showLoading(show) {
+          // TODO: Replace with your loading spinner UI
+          const loader = document.getElementById('loadingSpinner');
+          if (loader) {
+            loader.style.display = show ? 'block' : 'none';
+          }
+          console.log(show ? '⏳ Loading...' : '✅ Done');
+        }
+        
+        // IMPROVED: Validate phone number based on country
+        function validatePhoneNumber(phone, countryCode) {
+          const cleanPhone = phone.replace(/\D/g, '');
+          
+          // India: 10 digits starting with 6-9
+          if (countryCode === '91') {
+            return /^[6-9]\d{9}$/.test(cleanPhone);
+          }
+          
+          // Nigeria: 10 digits starting with 7-9
+          if (countryCode === '234') {
+            return /^[7-9][0-1]\d{8}$/.test(cleanPhone);
+          }
+          
+          return cleanPhone.length === 10;
+        }
+        
+        // ==================== MODALS ====================
+        function toggleCountryModal() {
+          const modal = document.getElementById('countryModal');
+          if (modal) modal.classList.toggle('active');
+        }
+        
+        function closeCountryModal(event) {
+          if (!event || event.target.id === 'countryModal') {
+            toggleCountryModal();
+          }
+        }
+        
+        function toggleNetworkModal() {
+          const modal = document.getElementById('networkModal');
+          if (modal) modal.classList.toggle('active');
+        }
+        
+        function closeNetworkModal(event) {
+          if (!event || event.target.id === 'networkModal') {
+            toggleNetworkModal();
+          }
+        }
+        
+        function openPointsModal() {
+          const modal = document.getElementById('pointsModal');
+          if (modal) modal.classList.add('active');
+        }
+        
+        function closePointsModal(event) {
+          if (!event || event.target.id === 'pointsModal' || event.target.classList.contains('modal-close')) {
+            const modal = document.getElementById('pointsModal');
+            if (modal) modal.classList.remove('active');
+          }
+        }
+        
+        // Keyboard ESC handling
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            const countryModal = document.getElementById('countryModal');
+            const networkModal = document.getElementById('networkModal');
+            const pointsModal = document.getElementById('pointsModal');
+        
+            if (countryModal && countryModal.classList.contains('active')) {
+              closeCountryModal();
+            }
+            if (networkModal && networkModal.classList.contains('active')) {
+              closeNetworkModal();
+            }
+            if (pointsModal && pointsModal.classList.contains('active')) {
+              closePointsModal();
+            }
+          }
+        });
+        
+        // ==================== COUNTRY & NETWORK SELECTION ====================
+        function selectCountry(flag, code, name, silent = false) {
+          const countryKey = name.toLowerCase();
+          const isSupported = SUPPORTED_COUNTRIES[countryKey];
+        
+          if (!isSupported && !silent) {
+            alert(`${name} is coming soon! Currently supporting India and Nigeria.`);
+            return;
+          }
+        
+          appState.selectedCountry = { flag, code, name };
+          const flagEl = document.getElementById('selectedFlag');
+          if (flagEl) flagEl.textContent = flag;
+        
+          const phoneInput = document.getElementById('phoneInput');
+          if (phoneInput) {
+            phoneInput.value = code;
+            phoneInput.focus();
+            setTimeout(() => {
+              phoneInput.setSelectionRange(code.length, code.length);
+            }, 10);
+          }
+        
+          if (isSupported) {
+            loadNetworksForCountry(countryKey);
+          }
+        
+          if (!silent) toggleCountryModal();
+        }
+        
+        function loadNetworksForCountry(countryKey) {
+          const country = SUPPORTED_COUNTRIES[countryKey];
+          if (!country) return;
+        
+          const networkList = document.querySelector('.network-list');
+          if (!networkList) return;
+        
+          networkList.innerHTML = '';
+        
+          country.networks.forEach((network, index) => {
+            const networkItem = document.createElement('button');
+            networkItem.className = 'network-item';
+            networkItem.style.animationDelay = `${0.3 + (index * 0.05)}s`;
+            networkItem.onclick = () => selectNetwork(network.name, network.logo);
+        
+            networkItem.innerHTML = `
+              <div class="network-logo-circle">
+                <img src="${network.logo}" alt="${network.name}" class="network-logo-img">
+              </div>
+              <span class="network-item-name">${network.name}</span>
+            `;
+        
+            networkList.appendChild(networkItem);
+          });
+        }
+        
+        function updateCountryModalHTML() {
+          const countryList = document.querySelector('.country-list');
+          if (!countryList) return;
+        
+          countryList.innerHTML = '';
+        
+          Object.values(SUPPORTED_COUNTRIES).forEach((country, index) => {
+            const item = document.createElement('button');
+            item.className = 'country-item';
+            item.style.animationDelay = `${0.3 + (index * 0.05)}s`;
+            item.onclick = () => selectCountry(country.flag, country.code, country.name);
+            item.innerHTML = `
+              <span class="country-flag">${country.flag}</span>
+              <span>${country.name} +${country.code}</span>
+            `;
+            countryList.appendChild(item);
+          });
+        
+          COMING_SOON_COUNTRIES.forEach((country, index) => {
+            const item = document.createElement('button');
+            item.className = 'country-item coming-soon';
+            item.style.animationDelay = `${0.3 + (Object.keys(SUPPORTED_COUNTRIES).length + index) * 0.05}s`;
+            item.disabled = true;
+            item.innerHTML = `
+              <span class="country-flag">${country.flag}</span>
+              <span>${country.name} +${country.code}</span>
+              <span class="coming-soon-badge">Soon</span>
+            `;
+            countryList.appendChild(item);
+          });
+        }
+        
+        function setNetworkSilent(networkName) {
+          const networks = {
+            'airtel': { name: 'Airtel', logo: 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg' },
+            'jio': { name: 'Jio', logo: 'https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg' },
+            'vi': { name: 'VI', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s' },
+            'bsnl': { name: 'BSNL', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbYhIylCWlp7uCBkFoA7_uR8ahA_-78rCueQ&s' }
+          };
+        
+          const network = networks[networkName.toLowerCase()] || networks['airtel'];
+          appState.operator = network.name.toLowerCase();
+        
+          const logoEl = document.getElementById('selectedNetworkLogo');
+          const nameEl = document.getElementById('selectedNetworkName');
+          const selector = document.querySelector('.network-selector');
+        
+          if (!logoEl || !nameEl || !selector) {
+            console.error('❌ Network elements not found in DOM');
+            return;
+          }
+        
+          const img = new Image();
+          img.onload = function () {
+            logoEl.src = network.logo;
+            logoEl.alt = network.name;
+            logoEl.style.display = 'block';
+            logoEl.style.visibility = 'visible';
+            nameEl.textContent = network.name;
+            selector.classList.add('selected');
+            console.log(`✅ Network set: ${network.name}`);
+          };
+          img.onerror = function () {
+            console.error(`❌ Failed to load logo: ${network.logo}`);
+            nameEl.textContent = network.name;
+            selector.classList.add('selected');
+          };
+          img.src = network.logo;
+        }
+        
+        function selectNetwork(name, logoUrl) {
+    const previousOperator = appState.operator;
+    appState.operator = name.toLowerCase();
+    
+    const logoEl = document.getElementById('selectedNetworkLogo');
+    const nameEl = document.getElementById('selectedNetworkName');
+    const selector = document.querySelector('.network-selector');
+    
+    if (logoEl) {
+        logoEl.src = logoUrl;
+        logoEl.alt = name;
+        logoEl.style.display = 'block';
+    }
+    if (nameEl) nameEl.textContent = name;
+    if (selector) selector.classList.add('selected');
+    
+    // ✅ CRITICAL FIX: Invalidate cached data on operator change
+    if (previousOperator !== appState.operator) {
+        appState.plansLoaded = false; // Force prepaid plans reload
+        appState.allPlans = [];
+        
+        // Reset postpaid state
+        resetPostpaidState();
+    }
+    
+    toggleNetworkModal();
+}function resetPostpaidState() {
+  const billSkeleton = document.getElementById('billSkeleton');
+  const billCard = document.getElementById('billCard');
+  const billError = document.getElementById('billError');
+  const manualForm = document.getElementById('manualInputForm');
+
+  billSkeleton?.classList.remove('hidden');   // show skeleton
+  billCard?.classList.add('hidden');          // hide bill
+  billError?.classList.add('hidden');         // hide error
+  manualForm?.classList.add('hidden');        // hide manual form
+
+  const monthEl = document.getElementById('billMonth');
+  const amountEl = document.getElementById('billAmount');
+  const dueEl = document.getElementById('billDueDate');
+  if (monthEl) monthEl.textContent = '-';
+  if (amountEl) amountEl.textContent = '₹0';
+  if (dueEl) dueEl.textContent = '-';
+}
+
+        
+function navigateToScreen(screenNumber) {
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+    const target = document.getElementById(`screen${screenNumber}`);
+    if (target) target.classList.add('active');
+    
+    appState.currentScreen = screenNumber;
+    
+    // ✅ Call setup functions with state awareness
+    if (screenNumber === 2) {
+        updateScreen2Display();
+        // Reset tab to prepaid by default
+        const plansTab = document.getElementById('plansTab');
+        if (plansTab && !plansTab.classList.contains('active')) {
+            switchTab('plans');
+        }
+    } else if (screenNumber === 3) {
+        updateScreen3Display();
+    } else if (screenNumber === 4) {
+        updateScreen4Display();
+    }
+    
+    window.scrollTo(0, 0);
+}
+
+        
+        function goBack() {
+          if (appState.currentScreen > 1) {
+            navigateToScreen(appState.currentScreen - 1);
+          }
+        }
+        
+        // ==================== SCREEN 1: PHONE INPUT ====================
+        async function confirmPhoneNumber(button) {
+          const phoneInputEl = document.getElementById('phoneInput');
+          const phoneInput = (phoneInputEl?.value || '').trim();
+          const selectedNetworkName = document.getElementById('selectedNetworkName')?.textContent.trim();
+          const selectedCountry = appState.selectedCountry;
+        
+          const cleanPhone = phoneInput.replace(/\D/g, '');
+        
+          let mobile;
+          if (cleanPhone.startsWith(selectedCountry.code)) {
+            mobile = cleanPhone.substring(selectedCountry.code.length);
+          } else {
+            mobile = cleanPhone;
+          }
+        
+          // IMPROVED: Use country-specific validation
+          if (!validatePhoneNumber(mobile, selectedCountry.code)) {
+            alert(`Please enter a valid ${selectedCountry.name} phone number`);
+            return;
+          }
+        
+          if (!selectedNetworkName || selectedNetworkName === 'Select Network') {
+            alert('Please select a network operator');
+            return;
+          }
+        
+          appState.phoneNumber = selectedCountry.code + mobile;
+          appState.mobile = mobile;
+          appState.operator = selectedNetworkName.toLowerCase();
+        
+          if (button) {
+            button.classList.add('clicked');
+            button.disabled = true;
+          }
+        
+          try {
+            await new Promise(resolve => setTimeout(resolve, 800));
+            navigateToScreen(2);
+          } catch (error) {
+            console.error('Error:', error);
+            alert('Something went wrong');
+          } finally {
+            if (button) {
+              setTimeout(() => {
+                button.classList.remove('clicked');
+                button.disabled = false;
+              }, 1000);
+            }
+          }
+        }
+        
+        // ==================== SCREEN 2: PLANS & POSTPAID ====================
+       // FIXED: Always load plans on screen 2 entry
+async function updateScreen2Display() {
+  // Update UI first
+  const flagEl = document.getElementById('displayFlag');
+  const phoneEl = document.getElementById('displayPhoneNumber');
+  if (flagEl) flagEl.textContent = appState.selectedCountry.flag;
+  if (phoneEl) phoneEl.textContent = appState.phoneNumber;
+  
+  // Update logo
+  const logoImg = document.querySelector('.logo-img');
+  const operatorLogos = {
+    'airtel': 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg',
+    'jio': 'https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg',
+    'vi': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s',
+    'bsnl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbYhIylCWlp7uCBkFoA7_uR8ahA_-78rCueQ&s'
+  };
+  const operatorKey = appState.operator.toLowerCase();
+  if (logoImg && operatorLogos[operatorKey]) {
+    logoImg.src = operatorLogos[operatorKey];
+    logoImg.alt = appState.operator;
+  }
+
+  // ✅ CRITICAL FIX: Always load plans for prepaid tab (default)
+  const plansScreen = document.getElementById('plansScreen');
+  if (plansScreen && !plansScreen.classList.contains('hidden') && !appState.plansLoaded) {
+    await loadPrepaidPlans();
+  }
+}
+async function switchTab(tab) {
+    const plansTab = document.getElementById('plansTab');
+    const topupTab = document.getElementById('topupTab');
+    const plansScreen = document.getElementById('plansScreen');
+    const postpaidScreen = document.getElementById('postpaidScreen');
+
+    if (tab === 'plans') {
+        plansTab?.classList.add('active');
+        topupTab?.classList.remove('active');
+        plansScreen?.classList.remove('hidden');
+        postpaidScreen?.classList.add('hidden');
+        appState.operatorType = 'prepaid';
+        
+        // ✅ Clear postpaid data when switching to prepaid
+        if (appState.selectedPlan?.isPostpaid) {
+            appState.selectedPlan = null;
+            appState.quote = null;
+        }
+        
+        // Always reload if plans not loaded
+        if (!appState.plansLoaded) {
+            await loadPrepaidPlans();
+        }
+    } else {
+        topupTab?.classList.add('active');
+        plansTab?.classList.remove('active');
+        plansScreen?.classList.add('hidden');
+        postpaidScreen?.classList.remove('hidden');
+        appState.operatorType = 'postpaid';
+        
+        // ✅ Clear prepaid data when switching to postpaid
+        if (appState.selectedPlan && !appState.selectedPlan.isPostpaid) {
+            appState.selectedPlan = null;
+            appState.quote = null;
+        }
+        
+        // Always reset and re-fetch postpaid bill
+        resetPostpaidState();
+        await fetchPostpaidBill();
+    }
+}
+
+
+        
+async function fetchPostpaidBill() {
+  const billSkeleton = document.getElementById('billSkeleton');
+  const billCard = document.getElementById('billCard');
+  const billError = document.getElementById('billError');
+  const manualForm = document.getElementById('manualInputForm');
+
+  billSkeleton?.classList.remove('hidden'); // show skeleton
+  billCard?.classList.add('hidden');
+  billError?.classList.add('hidden');
+  manualForm?.classList.add('hidden');
+
+  if (!appState.mobile || !appState.operator) {
+    showBillError();
+    return;
+  }
+
+  try {
+    const response = await fetch(`${API_BASE}/api/postpaid/fetch-bill`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-UID': USER_UID },
+      body: JSON.stringify({ mobile: appState.mobile, operator: appState.operator.toUpperCase() })
+    });
+    const data = await response.json();
+    if (!data.success) throw new Error(data.error || 'Failed to fetch bill');
+
+    billSkeleton?.classList.add('hidden');    // hide skeleton
+    billCard?.classList.remove('hidden');     // show bill
+    manualForm?.classList.add('hidden');      // keep manual hidden
+    billError?.classList.add('hidden');       // ensure error hidden
+
+    document.getElementById('billMonth').textContent = data.billMonth || 'Current Month';
+    document.getElementById('billAmount').textContent = `₹${data.billAmount || 0}`;
+    document.getElementById('billDueDate').textContent = data.dueDate || 'N/A';
+
+    appState.selectedPlan = {
+      price: data.billAmount,
+      name: `${appState.operator.toUpperCase()} Postpaid Bill`,
+      type: 'postpaid'
+    };
+  } catch (e) {
+    showBillError();
+  }
+}
+function showBillError() {
+  const billSkeleton = document.getElementById('billSkeleton');
+  const billCard = document.getElementById('billCard');
+  const billError = document.getElementById('billError');
+  const manualForm = document.getElementById('manualInputForm');
+
+  billSkeleton?.classList.add('hidden');     // hide skeleton
+  billCard?.classList.add('hidden');         // hide bill
+  billError?.classList.remove('hidden');     // show error
+  manualForm?.classList.remove('hidden');    // show manual form
+}
+
+        
+async function proceedWithPostpaid(button) {
+    const manualForm = document.getElementById('manualInputForm');
+    const billCard = document.getElementById('billCard');
+    
+    const isManualEntry = manualForm && !manualForm.classList.contains('hidden');
+    const isBillFetched = billCard && !billCard.classList.contains('hidden');
+
+    let billAmount = 0;
+    let billMonth = 'Current Month';
+
+    if (isManualEntry) {
+        const amountEl = document.getElementById('manualBillAmount');
+        const monthEl = document.getElementById('manualBillMonth');
+
+        billAmount = parseFloat(amountEl?.value || '0');
+        billMonth = (monthEl?.value || 'Current Month').trim();
+
+        if (!billAmount || billAmount < 10) {
+            alert('Please enter a bill amount of at least ₹10');
+            return;
+        }
+        
+        if (billAmount > 10000) {
+            alert('Maximum bill amount is ₹10,000');
+            return;
+        }
+
+    } else if (isBillFetched) {
+        const billAmountEl = document.getElementById('billAmount');
+        const billMonthEl = document.getElementById('billMonth');
+        
+        const billAmountText = billAmountEl?.textContent || '₹0';
+        billAmount = parseFloat(billAmountText.replace(/[^0-9.]/g, ''));
+        billMonth = billMonthEl?.textContent || 'Current Month';
+
+        if (!billAmount || billAmount < 10) {
+            alert('Fetched bill amount is invalid. Please enter manually below.');
+            showBillError();
+            return;
+        }
+        
+        if (billAmount > 10000) {
+            alert('Bill amount exceeds ₹10,000. Please contact support.');
+            return;
+        }
+    } else {
+        alert('Please enter bill amount or retry fetching');
+        return;
+    }
+
+    console.log(`💰 Getting quote for postpaid bill: ₹${billAmount}`);
+    showLoading(true);
+    
+    try {
+        // Get quote from server
+        const res = await fetch(`${API_BASE}/api/topup/quote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-UID': USER_UID
+            },
+            body: JSON.stringify({
+                mobile: appState.mobile,
+                network: appState.operator.toUpperCase(),
+                type: 'postpaid',
+                amount: billAmount,  // ✅ Send amount for postpaid
+                useLoyaltyPoints: false
+            })
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'Failed to get quote');
+        }
+
+        console.log('✅ Postpaid quote received:', data.quote);
+
+        const q = data.quote;
+        
+        // ✅ Store quote
+        appState.quote = q;
+        
+        // ✅ Store selected plan with correct structure
+        appState.selectedPlan = {
+            price: billAmount,  // ✅ Original bill amount (for /continue endpoint)
+            planId: `postpaid_${Date.now()}`,  // Temporary ID
+            name: `${appState.operator.toUpperCase()} Postpaid Bill - ${billMonth}`,
+            totalINR: q.totalPayableINR,
+            totalNGN: q.totalPayableNGN,
+            convenienceFee: q.convenienceFeeINR,
+            isPostpaid: true  // ✅ Critical flag
+        };
+
+        console.log('✅ Selected plan set:', appState.selectedPlan);
+
+        // Navigate to checkout
+        if (button) {
+            button.classList.add('clicked');
+            button.disabled = true;
+            setTimeout(() => {
+                button.classList.remove('clicked');
+                button.disabled = false;
+                navigateToScreen(3);
+            }, 600);
+        } else {
+            navigateToScreen(3);
+        }
+
+    } catch (err) {
+        console.error('❌ Failed to get postpaid quote:', err);
+        showError(err.message || 'Failed to get quote');
+    } finally {
+        showLoading(false);
+    }
+}
+
+
+        
+async function loadPrepaidPlans() {
+    if (!appState.operator) {
+        console.warn('⚠️ No operator selected');
+        return;
+    }
+
+    // ✅ Show skeleton loading
+    const plansList = document.querySelector('.plans-list');
+    if (plansList) {
+        plansList.innerHTML = `
+            <div class="skeleton-container">
+                ${generateSkeletonCards(3)}
+            </div>
+        `;
+    }
+
+    showLoading(true);
+    
+    try {
+        const network = appState.operator.toUpperCase();
+        const res = await fetch(`${API_BASE}/api/topup/plans?network=${encodeURIComponent(network)}`, {
+            headers: { 'X-User-UID': USER_UID }
+        });
+        
+        const data = await res.json();
+
+        if (!data.success) throw new Error(data.error || 'Failed to load plans');
+
+        appState.allPlans = data.plans;
+        appState.exchangeRate = data.exchangeRate || 17.0;
+        appState.plansLoaded = true;
+        
+        renderPlans(data.plans);
+        
+    } catch (err) {
+        console.error('❌ Plan loading failed:', err);
+        if (plansList) {
+            plansList.innerHTML = `
+                <div style="text-align:center;padding:2rem;">
+                    <p style="color:#dc2626;margin-bottom:1rem;">Failed to load plans</p>
+                    <button onclick="loadPrepaidPlans()" 
+                            style="background:#dc2626;color:white;border:none;padding:12px 24px;border-radius:80px;cursor:pointer;font-weight:600;">
+                        Retry
+                    </button>
+                </div>
+            `;
+        }
+        showError(err.message);
+        appState.plansLoaded = false;
+    } finally {
+        showLoading(false);
+    }
+}
+
+// ✅ Generate skeleton cards
+function generateSkeletonCards(count) {
+    let cards = '';
+    for (let i = 0; i < count; i++) {
+        cards += `
+            <div class="skeleton-plan-card ${i === 0 ? 'popular' : ''}">
+                ${i === 0 ? '<div class="skeleton skeleton-badge"></div>' : ''}
+                <div class="skeleton-header">
+                    <div class="skeleton-info">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-validity"></div>
+                    </div>
+                    <div class="skeleton skeleton-btn"></div>
+                </div>
+                <div class="skeleton skeleton-description"></div>
+                <div class="skeleton skeleton-description"></div>
+                <div class="skeleton skeleton-description"></div>
+            </div>
+        `;
+    }
+    return cards;
+}
+
+
+        
+        function renderPlans(plans) {
+          const plansList = document.querySelector('.plans-list');
+          if (!plansList) {
+            console.error('❌ .plans-list element not found in DOM');
+            return;
+          }
+        
+          if (!plans || plans.length === 0) {
+            plansList.innerHTML = '<p style="text-align:center;padding:2rem;">No plans available for this network.</p>';
+            return;
+          }
+        
+          plansList.innerHTML = plans.slice(0, 6).map((plan, index) => `
+            <div class="plan-card ${index === 0 ? 'popular' : ''}"
+                 onclick="selectPlan('${plan.id}')">
+              ${index === 0 ? '<span class="badge">Most Popular</span>' : ''}
+              <div class="plan-header">
+                <div class="plan-info">
+                  <div class="plan-title">₹${plan.amount}: ${plan.data || 'N/A'}</div>
+                  <div class="plan-validity">Valid for ${plan.validity}</div>
+                </div>
+                <button class="plan-btn"
+                        onclick="event.stopPropagation(); selectPlan('${plan.id}')">
+                  ₹${plan.amount}
+                </button>
+              </div>
+              <p class="plan-description">
+                • ${plan.calls || 'Calls included'}
+                • ${plan.data || 'Data included'}
+                • ${plan.sms || 'SMS included'}
+              </p>
+            </div>
+          `).join('');
+        
+          console.log(`✅ Rendered ${plans.slice(0, 6).length} plans`);
+        }
+        
+        // ==================== SELECT PLAN & GET QUOTE ====================
+        async function selectPlan(planId) {
+    showLoading(true);
+    
+    try {
+        const payload = {
+            mobile: appState.mobile,
+            network: appState.operator.toUpperCase(),
+            type: 'prepaid',
+            planId: planId,
+            useLoyaltyPoints: false  // Initial quote
+        };
+
+        const res = await fetch(`${API_BASE}/api/topup/quote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-UID': USER_UID
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        
+        if (!data.success) {
+            throw new Error(data.error || 'Failed to get quote');
+        }
+
+        // ✅ LIKE YOUR CONVERT PAGE: Store server quote
+        appState.quote = data.quote;
+        appState.selectedPlan = {
+            planId: data.quote.planId,
+            price: data.quote.rechargeAmountINR,
+            totalINR: data.quote.totalPayableINR,      // ← From server
+            totalNGN: data.quote.totalPayableNGN,       // ← From server
+            convenienceFee: data.quote.convenienceFeeINR
+        };
+
+        console.log('✅ Quote stored:', appState.quote);
+        navigateToScreen(3);
+
+    } catch (error) {
+        showError(error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+        
+        // ==================== SCREEN 3: ORDER SUMMARY ====================
+        function updateScreen3Display() {
+    if (!appState.quote || !appState.selectedPlan) {
+        console.warn('⚠️ No quote data available');
+        return;
+    }
+
+    const quote = appState.quote; // Backend quote response
+    const loyalty = quote.loyaltyInfo || {};
+
+    // 1. Update phone number
+    document.getElementById('orderPhoneNumber').textContent = appState.phoneNumber;
+
+    // 2. Update plan name using planDetails from quote
+    const planDetails = quote.planDetails || {};
+    const planText = `₹${planDetails.amount || quote.rechargeAmountINR}: ${planDetails.data || ''} ${planDetails.calls || ''}`.trim();
+    document.getElementById('orderPlanName').textContent = planText;
+
+    // 3. Update operator logo with ACTUAL network logo image
+    const logoSection = document.getElementById('operatorLogoSection');
+    const operatorLogos = {
+        'airtel': 'https://i.pinimg.com/736x/86/f4/d6/86f4d647b439f5f07e04f6ec15790cd7.jpg',
+        'jio': 'https://rilstaticasset.akamaized.net/sites/default/files/2024-03/JPEG_Download_Jio-Logo-Colour-Pink-Midnight.jpg',
+        'vi': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_UKG95_H4_FyIgLr_KhxOmcsnr3VR_4YV0A&s',
+        'bsnl': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbYhIylCWlp7uCBkFoA7_uR8ahA_-78rCueQ&s'
+    };
+    
+    const operatorKey = appState.operator.toLowerCase();
+    const logoUrl = operatorLogos[operatorKey] || operatorLogos['airtel'];
+    
+    if (logoSection) {
+        logoSection.innerHTML = `
+            <img src="${logoUrl}" alt="${appState.operator}" 
+                 style="width: 48px; height: 48px; border-radius: 12px; object-fit: contain;">
+        `;
+    }
+
+    // 4. Show/Hide LP Points Card based on user's LP balance
+    const lpCard = document.getElementById('lpPointsCard');
+    if (loyalty.currentLP && loyalty.currentLP > 0) {
+        // User has points - show the card
+        lpCard?.classList.remove('hidden');
+        document.getElementById('userLPPoints').textContent = loyalty.currentLP;
+        document.getElementById('feeSaved').textContent = quote.convenienceFeeINR.toFixed(2);
+    } else {
+        // User has no points - hide the card
+        lpCard?.classList.add('hidden');
+    }
+document.querySelector('.points-value').textContent = `+${loyalty.lpToEarn || 0} Points`;
+    // 5. Update points to earn
+    document.getElementById('earnPointsText').textContent = 
+        `You will earn +${loyalty.lpToEarn || 0} points`;
+
+    // 6. Update breakdown with BACKEND amounts (no calculation!)
+    updateBreakdownFromQuote(quote);
+
+    // 7. Update pay button with actual total
+    updatePayButton(quote);
+}
+
+function updateBreakdownFromQuote(quote) {
+    // ✅ LIKE YOUR CONVERT PAGE: Just display, don't calculate!
+    document.getElementById('breakdownPlanAmount').textContent = `₹${quote.rechargeAmountINR.toFixed(2)}`;
+    document.getElementById('breakdownFee').textContent = `₹${quote.convenienceFeeINR.toFixed(2)}`;
+    document.getElementById('breakdownTotal').textContent = `₹${quote.totalPayableINR.toFixed(2)}`;
+    
+    // Display NGN total
+    document.getElementById('displayTotal').textContent = 
+        `₦${quote.totalPayableNGN.toLocaleString('en-NG', {minimumFractionDigits: 2})}`;
+    
+    // Update pay button
+    document.getElementById('payBtnText').textContent = 
+        `Pay ₦${quote.totalPayableNGN.toLocaleString('en-NG', {minimumFractionDigits: 2})}`;
+}
+
+function calculateAndUpdateAmounts() {
+    const planAmount = parseFloat(appState.selectedPlan.price) || 0;
+    const fee = planAmount * 0.17;
+    const isLPUsed = document.getElementById('useLPPoints')?.checked || false;
+    const discount = isLPUsed ? fee : 0;
+    const totalINR = planAmount + fee - discount;
+    
+    const exchangeRate = appState.exchangeRate || 17.0;
+    const currency = appState.selectedCurrency || 'NGN';
+    const symbol = currency === 'NGN' ? '₦' : '₮';
+    const totalConverted = totalINR * exchangeRate;
+
+    // Update breakdown
+    document.getElementById('breakdownPlanAmount').textContent = `₹${planAmount.toFixed(2)}`;
+    document.getElementById('breakdownFee').textContent = `₹${fee.toFixed(2)}`;
+    document.getElementById('feeSaved').textContent = fee.toFixed(2);
+    document.getElementById('breakdownTotal').textContent = `₹${totalINR.toFixed(2)}`;
+    
+    // Show/hide LP discount row
+    const lpDiscountRow = document.getElementById('lpDiscountRow');
+    const feeRow = document.getElementById('feeRow');
+    if (isLPUsed) {
+        lpDiscountRow.style.display = 'flex';
+        feeRow.querySelector('.breakdown-value').style.textDecoration = 'line-through';
+        feeRow.querySelector('.breakdown-value').style.color = '#9ca3af';
+        document.getElementById('breakdownDiscount').textContent = `-₹${discount.toFixed(2)}`;
+    } else {
+        lpDiscountRow.style.display = 'none';
+        feeRow.querySelector('.breakdown-value').style.textDecoration = 'none';
+        feeRow.querySelector('.breakdown-value').style.color = '#000000';
+    }
+
+    // Update total display
+    document.getElementById('displayTotal').textContent = `${symbol}${totalConverted.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    document.getElementById('totalConverted').textContent = `(₹${totalINR.toFixed(2)})`;
+
+    // Update pay button
+    const methodNames = {
+       
+       
+        'paystack': 'Paystack'
+    };
+    const method = appState.paymentMethod || 'paystack';
+    document.getElementById('payBtnText').textContent = `Pay ${symbol}${totalConverted.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
+function updatePayButton(quote) {
+    const isLPUsed = document.getElementById('useLPPoints')?.checked || false;
+    const totalNGN = isLPUsed ? 
+        (quote.rechargeAmountINR * quote.exchangeRate) : 
+        quote.totalPayableNGN;
+
+    document.getElementById('payBtnText').textContent = 
+        `Pay ₦${totalNGN.toLocaleString('en-NG', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+}
+
+async function toggleLPPoints() {
+    const isChecked = document.getElementById('useLPPoints').checked;
+
+    showLoading(true);
+
+    try {
+        // ✅ Build correct payload
+        const payload = {
+            mobile: appState.mobile,
+            network: appState.operator.toUpperCase(),
+            type: appState.selectedPlan.isPostpaid ? 'postpaid' : 'prepaid',
+            useLoyaltyPoints: isChecked
+        };
+
+        // ✅ Add correct field based on type
+        if (appState.selectedPlan.isPostpaid) {
+            payload.amount = appState.selectedPlan.price;
+        } else {
+            payload.planId = appState.selectedPlan.planId;
+        }
+
+        const res = await fetch(`${API_BASE}/api/topup/quote`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-UID': USER_UID
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            throw new Error(data.error);
+        }
+
+        // Update state with fresh quote
+        appState.quote = data.quote;
+        appState.selectedPlan.totalINR = data.quote.totalPayableINR;
+        appState.selectedPlan.totalNGN = data.quote.totalPayableNGN;
+        appState.lpUsed = isChecked;
+
+        // Update UI
+        updateBreakdownFromQuote(appState.quote);
+
+        console.log('✅ Quote refreshed with LP:', isChecked);
+
+    } catch (error) {
+        showError('Failed to update pricing');
+        document.getElementById('useLPPoints').checked = !isChecked;
+    } finally {
+        showLoading(false);
+    }
+}
+
+
+        function toggleBreakdown() {
+          const breakdown = document.getElementById('breakdown');
+          const chevron = document.getElementById('chevron');
+        
+          breakdown?.classList.toggle('open');
+          chevron?.classList.toggle('rotated');
+        }
+        
+        async function handleCheckout(button) {
+          if (!appState.selectedPlan) {
+            alert('No plan selected');
+            return;
+          }
+        
+          if (button) button.classList.add('clicked');
+          
+          setTimeout(() => {
+            if (button) button.classList.remove('clicked');
+            navigateToScreen(4);
+          }, 600);
+        }
+        
+        // ==================== SCREEN 4: PAYMENT ====================
+        function updateScreen4Display() {
+          if (!appState.selectedPlan) {
+            console.warn('⚠️ No plan selected, cannot update screen 4');
+            return;
+          }
+        
+          const phoneEl = document.getElementById('paymentPhoneNumber');
+          const nameEl = document.getElementById('paymentPlanName');
+        
+          if (phoneEl) phoneEl.textContent = appState.phoneNumber;
+          if (nameEl) nameEl.textContent = `₹${appState.selectedPlan.price}: ${appState.selectedPlan.name}`;
+        
+          updateAmounts();
+          updateExchangeRate();
+        }
+        
+        function selectCurrency(currency) {
+          appState.currency = currency;
+        
+          const ngnBtn = document.getElementById('ngnBtn');
+          if (ngnBtn) ngnBtn.classList.toggle('active', currency === 'NGN');
+        
+          const ngnOptions = document.querySelectorAll('.ngn-option');
+          const usdtOptions = document.querySelectorAll('.usdt-option');
+        
+          if (currency === 'NGN') {
+            ngnOptions.forEach(opt => opt.style.display = 'flex');
+            usdtOptions.forEach(opt => opt.style.display = 'none');
+            appState.paymentMethod = 'paystack'; // Default to Paystack for NGN
+          } else {
+            ngnOptions.forEach(opt => opt.style.display = 'none');
+            usdtOptions.forEach(opt => opt.style.display = 'flex');
+            appState.paymentMethod = 'coinbase';
+          }
+        
+          document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+          selectPayment(appState.paymentMethod);
+        
+          updateAmounts();
+        }
+        
+        function selectPayment(payment) {
+          appState.paymentMethod = payment;
+        
+          document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+          const selectedOption = document.querySelector(`[onclick*="${payment}"]`);
+          if (selectedOption) selectedOption.classList.add('selected');
+        
+          const paymentNames = {
+          
+            'paystack': 'Paystack',
+            
+          };
+        
+          const payBtnText = document.getElementById('payBtnText');
+          if (payBtnText) {
+            payBtnText.textContent = `Pay now with ${paymentNames[payment] || 'Paystack'}`;
+          }
+        }
+        
+        function updateAmounts() {
+          if (!appState.selectedPlan) return;
+        
+          const amountNGN = appState.selectedPlan.totalNGN || 0;
+          const amountINR = appState.selectedPlan.totalINR || 0;
+        
+          const orderAmountEl = document.getElementById('orderAmount');
+          const totalAmountEl = document.getElementById('totalAmount');
+          const totalConvertedEl = document.getElementById('totalConverted');
+        
+          if (orderAmountEl) orderAmountEl.textContent = `₦${amountNGN.toLocaleString()}`;
+          if (totalAmountEl) totalAmountEl.textContent = `₦${amountNGN.toLocaleString()}`;
+          if (totalConvertedEl) totalConvertedEl.textContent = `(₹${amountINR.toFixed(2)})`;
+        }
+        
+        function updateExchangeRate() {
+          const rate = appState.exchangeRate;
+          const rateEl = document.getElementById('rateValue');
+          if (rateEl) rateEl.textContent = `1 INR = ₦${rate.toFixed(2)}`;
+        }
+        
+        // ==================== PAYMENT INITIALIZATION ====================
+        
+
+
+
+
+
+
+       
+        // ==================== PAYMENT - PRODUCTION READY ====================
+        async function processPayment() {
+    // 1. Validate everything upfront
+    if (!appState.quote || !appState.selectedPlan) {
+        showError('No plan selected');
+        return;
+    }
+
+    if (!appState.mobile || !appState.operator) {
+        showError('Missing phone or operator info');
+        return;
+    }
+
+    showLoading(true, 'Initializing payment...');
+
+    try {
+        // 2. Check LP checkbox
+        const useLPCheckbox = document.getElementById('useLPPoints');
+        const useLoyaltyPoints = useLPCheckbox ? useLPCheckbox.checked : false;
+
+        // 3. Build payload with correct field based on type
+        const payload = {
+            mobile: appState.mobile,
+            network: appState.operator.toUpperCase(),
+            type: appState.selectedPlan.isPostpaid ? 'postpaid' : 'prepaid',
+            email: `${appState.mobile}@paydrak.com`,
+            customerName: 'User',
+            phone: appState.phoneNumber || `91${appState.mobile}`,
+            useLoyaltyPoints: useLoyaltyPoints
+        };
+
+        // ✅ CRITICAL: Add correct field based on type
+        if (appState.selectedPlan.isPostpaid) {
+            payload.amount = appState.selectedPlan.price;  // For postpaid
+        } else {
+            payload.planId = appState.selectedPlan.planId; // For prepaid
+        }
+
+        console.log('💳 Payload:', payload);
+
+        // 4. Create payment session
+        const response = await fetch(`${API_BASE}/api/topup/continue`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-UID': USER_UID
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'Failed to initialize payment');
+        }
+
+        console.log('✅ Server response:', data);
+
+        // 5. Extract amount with multiple fallbacks
+        let totalAmountNGN;
+        
+        // Try nested quote first
+        if (data.quote && data.quote.totalPayableNGN) {
+            totalAmountNGN = data.quote.totalPayableNGN;
+        } 
+        // Try top-level
+        else if (data.totalAmountNGN) {
+            totalAmountNGN = data.totalAmountNGN;
+        }
+        // Fallback to stored quote
+        else if (appState.quote && appState.quote.totalPayableNGN) {
+            totalAmountNGN = appState.quote.totalPayableNGN;
+        }
+
+        // ✅ CRITICAL: Validate amount before Paystack
+        if (!totalAmountNGN || totalAmountNGN <= 0 || isNaN(totalAmountNGN)) {
+            console.error('❌ Invalid amount from server:', {
+                'data.quote': data.quote,
+                'data.totalAmountNGN': data.totalAmountNGN,
+                'appState.quote': appState.quote,
+                'fullResponse': data
+            });
+            throw new Error('Server did not return a valid payment amount');
+        }
+
+        const amountInKobo = Math.round(totalAmountNGN * 100);
+
+        console.log('📊 Amount validated:', {
+            NGN: totalAmountNGN,
+            Kobo: amountInKobo
+        });
+
+        // 6. Store session info
+        appState.sessionId = data.sessionId;
+        appState.paymentReference = data.payment.reference;
+
+        sessionStorage.setItem('pay_session', data.sessionId);
+        sessionStorage.setItem('pay_ref', data.payment.reference);
+
+        // 7. Open Paystack with NEW API (fix deprecation warning)
+        const paystackHandler = new PaystackPop();
+        
+        paystackHandler.newTransaction({
+            key: 'pk_live_f96903b2fd3d000630ed00330120524503bea232',
+            email: payload.email,
+            amount: amountInKobo,  // ✅ Validated amount
+            currency: 'NGN',
+            ref: data.payment.reference,
+            
+            onSuccess: (transaction) => {
+                console.log('✅ Payment success:', transaction);
+                verifyAndComplete(transaction.reference, data.sessionId);
+            },
+            
+            onCancel: () => {
+                console.log('❌ Payment cancelled');
+                showError('Payment was cancelled');
+                showLoading(false);
+            }
+        });
+
+    } catch (error) {
+        console.error('❌ Payment error:', error);
+        showError(error.message || 'Payment initialization failed');
+        showLoading(false);
+    }
+}
+
+
+
+
+async function verifyAndComplete(reference, sessionId) {
+    showLoading(true, 'Verifying payment...');
+
+    try {
+        const response = await fetch(`${API_BASE}/api/topup/verify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-User-UID': USER_UID
+            },
+            body: JSON.stringify({
+                reference: reference,
+                sessionId: sessionId
+            })
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'Verification failed');
+        }
+
+        console.log('✅ Recharge completed!', data);
+        
+        // Clear session storage
+        sessionStorage.removeItem('pay_session');
+        sessionStorage.removeItem('pay_ref');
+
+        // Show success screen (like your showPaymentSuccess)
+        showSuccessScreen(data);
+
+    } catch (error) {
+        console.error('❌ Verification failed:', error);
+        showError(error.message);
+    } finally {
+        showLoading(false);
+    }
+}
+
+// BONUS: Fallback status checker
+async function checkPaymentStatus(sessionId) {
+    try {
+        console.log('🔄 Checking payment status...', sessionId);
+        const response = await fetch(`${API_BASE}/api/topup/status/${sessionId}`);
+        const data = await response.json();
+        
+        if (data.success && data.status === 'completed') {
+            console.log('✅ Payment already completed via webhook!');
+            showSuccessScreen(data);
+            return true;
+        }
+        
+        console.log('📊 Current status:', data.status);
+        return false;
+    } catch (error) {
+        console.error('Status check failed:', error);
+        return false;
+    }
+}
+
+
+// Show success screen (replaces screen 3)
+function showSuccessScreen(data) {
+    const recharge = data.recharge || {};
+    const loyalty = data.loyaltyReward || {};
+    
+    // Get screen 3 container
+    const screen3 = document.getElementById('screen3');
+    if (!screen3) return;
+
+    // Replace content with success message
+    screen3.innerHTML = `
+        <div class="container">
+            <div class="content" style="text-align: center; padding: 60px 20px;">
+                
+                <!-- Success Icon -->
+                <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; margin: 0 auto 32px; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(16, 185, 129, 0.3);">
+                    <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                </div>
+                
+                <!-- Title -->
+                <h1 style="font-size: 32px; font-weight: 700; color: #000000; margin-bottom: 12px; letter-spacing: -0.5px;">
+                    Recharge Successful!
+                </h1>
+                
+                <p style="font-size: 16px; color: #6b7280; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+                    Your mobile recharge has been completed successfully. The airtime will be delivered within seconds.
+                </p>
+                
+                <!-- Details Card -->
+                <div style="background: #f9fafb; border: 2px solid #e5e7eb; border-radius: 16px; padding: 24px; margin-bottom: 32px; text-align: left; max-width: 400px; margin-left: auto; margin-right: auto;">
+                    
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px; color: #6b7280;">Mobile Number</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #000000;">${recharge.mobile || appState.phoneNumber}</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px; color: #6b7280;">Operator</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #000000;">${appState.operator.toUpperCase()}</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px; color: #6b7280;">Amount Paid</span>
+                        <span style="font-size: 14px; font-weight: 600; color: #000000;">${recharge.totalPaid || '₦0'}</span>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e5e7eb;">
+                        <span style="font-size: 14px; color: #6b7280;">Transaction ID</span>
+                        <span style="font-size: 12px; font-weight: 500; color: #000000; font-family: monospace;">${recharge.transactionId || 'N/A'}</span>
+                    </div>
+                    
+                    ${loyalty.lpEarned ? `
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; background: #f0fdf4; margin: 16px -24px -24px; padding: 16px 24px; border-radius: 0 0 14px 14px;">
+                        <span style="font-size: 14px; color: #16a34a; font-weight: 600;">⭐ LP Points Earned</span>
+                        <span style="font-size: 18px; font-weight: 700; color: #16a34a;">+${loyalty.lpEarned}</span>
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <!-- Action Button -->
+                <button onclick="window.location.reload()" 
+                        style="width: 100%; max-width: 400px; padding: 18px; background: #6366F1; color: white; border: none; border-radius: 80px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);"
+                        onmouseover="this.style.background='#5558E3'; this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.background='#6366F1'; this.style.transform='translateY(0)'">
+                    Make Another Recharge
+                </button>
+                
+            </div>
+        </div>
+    `;
+
+    console.log('🎉 Success screen displayed');
+}
+        
+        // ==================== INITIALIZATION (CONSOLIDATED) ====================
+        window.addEventListener('DOMContentLoaded', function () {
+          console.log('✅ Paydrak Platform Loaded');
+          console.log(`📡 API Base: ${API_BASE}`);
+          console.log(`👤 User UID: ${USER_UID}`);
+        
+          const urlParams = new URLSearchParams(window.location.search);
+          const phoneParam = urlParams.get('phonenumber');
+          const networkParam = urlParams.get('network')?.toLowerCase();
+          const countryParam = urlParams.get('country')?.toLowerCase();
+          const reference = urlParams.get('reference');
+          const hasStoredPayment = localStorage.getItem('topup_reference') || localStorage.getItem('postpaid_reference');
+        
+          // Check if this is a payment callback
+          if (reference || hasStoredPayment) {
+            console.log('🔄 Payment callback detected');
+       
+            return;
+          }
+        
+          // Initialize country modal
+          updateCountryModalHTML();
+        
+          // Auto-detect country
+          let selectedCountry = 'india'; // Default
+          if (countryParam && SUPPORTED_COUNTRIES[countryParam]) {
+            selectedCountry = countryParam;
+          } else if (phoneParam) {
+            if (phoneParam.startsWith('91')) selectedCountry = 'india';
+            else if (phoneParam.startsWith('234')) selectedCountry = 'nigeria';
+          }
+        
+          const country = SUPPORTED_COUNTRIES[selectedCountry];
+          selectCountry(country.flag, country.code, country.name, true);
+        
+          // Auto-fill phone number
+          if (phoneParam) {
+            const phoneInput = document.getElementById('phoneInput');
+            if (phoneInput) {
+              let phoneNumber = phoneParam;
+              if (phoneNumber.startsWith(country.code)) {
+                phoneNumber = phoneNumber.substring(country.code.length);
+              }
+              phoneInput.value = country.code + phoneNumber;
+              console.log('📱 Phone auto-filled:', phoneInput.value);
+            }
+          }
+        
+          // Auto-select network
+          setTimeout(() => {
+            const defaultNetwork = networkParam || country.networks[0].name.toLowerCase();
+            const networkData = country.networks.find(n => n.name.toLowerCase() === defaultNetwork);
+            if (networkData) {
+              setNetworkSilent(networkData.name);
+              console.log('📡 Network auto-selected:', networkData.name);
+            }
+          }, 150);
+        
+          console.log('✅ Initialization complete');
+        });
+        </script>
+        
+</body>
+</html>
+
+

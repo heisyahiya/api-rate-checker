@@ -3,10 +3,11 @@
 // ============================================================================
 const API_BASE_URL = 'https://secrets-of-secrets.onrender.com/api';
 const RATE_REFRESH_INTERVAL = 20000;
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 // Transaction limits
 const TRANSACTION_LIMITS = {
-    guest: { min: 1000, max: 125000 },
+    guest: { min: 1000, max: 350000 },
     authenticated: { min: 1000, max: 10000000 }
 };
 
@@ -46,14 +47,140 @@ let auth, db;
 // AUDIO MANAGEMENT
 // ============================================================================
 function playSuccessSound() {
-    try {
-        const audio = new Audio('success.mp3');
-        audio.volume = 0.5;
-        audio.play().catch(err => console.log('Audio playback blocked:', err));
-    } catch (error) {
-        console.log('Could not play success sound:', error);
-    }
+    const ctx = audioContext;
+    const now = ctx.currentTime;
+  
+    // ---------- MASTER GAIN ----------
+    const master = ctx.createGain();
+    master.gain.value = 0.6;
+    master.connect(ctx.destination);
+  
+    // ---------- LAYER 1: Soft Bell (Instant Reward) ----------
+    const bell = ctx.createOscillator();
+    const bellGain = ctx.createGain();
+  
+    bell.type = 'sine';
+    bell.frequency.setValueAtTime(1800, now);
+    bell.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+  
+    bellGain.gain.setValueAtTime(0.0001, now);
+    bellGain.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
+    bellGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+  
+    bell.connect(bellGain);
+    bellGain.connect(master);
+  
+    bell.start(now);
+    bell.stop(now + 0.3);
+  
+    // ---------- LAYER 2: Ascending Major Confirmation ----------
+    const notes = [659.25, 783.99]; // E5 → G5 (universally "positive")
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+  
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+  
+      const t = now + 0.12 + i * 0.1;
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.25, t + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+  
+      osc.connect(gain);
+      gain.connect(master);
+  
+      osc.start(t);
+      osc.stop(t + 0.25);
+    });
+  
+    // ---------- LAYER 3: Warm Low Resolve (Closure) ----------
+    const resolve = ctx.createOscillator();
+    const resolveGain = ctx.createGain();
+  
+    resolve.type = 'sine';
+    resolve.frequency.setValueAtTime(220, now + 0.35); // A3
+    resolve.frequency.exponentialRampToValueAtTime(196, now + 0.6); // G3
+  
+    resolveGain.gain.setValueAtTime(0.0001, now + 0.35);
+    resolveGain.gain.exponentialRampToValueAtTime(0.18, now + 0.4);
+    resolveGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.65);
+  
+    resolve.connect(resolveGain);
+    resolveGain.connect(master);
+  
+    resolve.start(now + 0.35);
+    resolve.stop(now + 0.65);
 }
+// ============================================================================
+// TERMS & CONDITIONS HANDLER
+// ============================================================================
+
+(function initTermsHandler() {
+    const termsCheckbox = document.getElementById('termsCheckbox');
+    const continueBtn = document.getElementById('continueBtn');
+    const termsSection = document.querySelector('.terms-section');
+    
+    if (!termsCheckbox || !continueBtn) return;
+    
+    // Handle checkbox change
+    termsCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            continueBtn.disabled = false;
+            termsSection.classList.add('active');
+            
+            // Optional: Store acceptance in localStorage
+            localStorage.setItem('termsAccepted', 'true');
+            localStorage.setItem('termsAcceptedTimestamp', Date.now());
+            
+          
+        } else {
+            continueBtn.disabled = true;
+            termsSection.classList.remove('active');
+            localStorage.removeItem('termsAccepted');
+            
+           
+        }
+    });
+    
+    // Prevent form submission if terms not accepted
+    continueBtn.addEventListener('click', function(e) {
+        if (!termsCheckbox.checked) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Shake the terms section to draw attention
+            termsSection.style.animation = 'shake 0.5s ease-in-out';
+            setTimeout(() => {
+                termsSection.style.animation = '';
+            }, 500);
+            
+            // Optional: Scroll to terms checkbox
+            termsSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+            
+            return false;
+        }
+    });
+    
+    // Check if terms were previously accepted (within last 24 hours)
+    const termsAccepted = localStorage.getItem('termsAccepted');
+    const acceptedTimestamp = localStorage.getItem('termsAcceptedTimestamp');
+    
+    if (termsAccepted === 'true' && acceptedTimestamp) {
+        const hoursSinceAcceptance = (Date.now() - parseInt(acceptedTimestamp)) / (1000 * 60 * 60);
+        
+        // Auto-check if accepted within last 24 hours
+        if (hoursSinceAcceptance < 24) {
+            termsCheckbox.checked = true;
+            continueBtn.disabled = false;
+            termsSection.classList.add('active');
+            console.log('✅ Terms previously accepted (auto-checked)');
+        }
+    }
+})();
 
 // ============================================================================
 // TOAST NOTIFICATION SYSTEM
@@ -251,6 +378,25 @@ function showToast(type = 'success', title, message, duration = 5000) {
         setTimeout(() => toast.remove(), 300);
     }, duration);
 }
+// Close notice bar functionality with localStorage
+const noticeBar = document.getElementById('noticeBar');
+const closeBtn = noticeBar?.querySelector('.notice-close');
+
+// Check if user previously closed the notice
+if (localStorage.getItem('noticeBarClosed') === 'true') {
+    noticeBar?.classList.add('hidden');
+}
+
+// Handle close button click
+closeBtn?.addEventListener('click', () => {
+    noticeBar.classList.add('hidden');
+    localStorage.setItem('noticeBarClosed', 'true');
+    
+    // Optional: Set expiry (remove after 24 hours)
+    setTimeout(() => {
+        localStorage.removeItem('noticeBarClosed');
+    }, 24 * 60 * 60 * 1000);
+});
 
 // ============================================================================
 // FIREBASE AUTHENTICATION - OPTIMIZED FOR SPEED
@@ -364,10 +510,13 @@ function updateCTALink(isAuthenticated) {
     const ctaLink = document.querySelector('.cta-link');
     
     if (ctaLink) {
+        // ✅ ALWAYS re-enable clicks (in case auth loading disabled it)
+        ctaLink.style.pointerEvents = 'auto';
+        
         if (isAuthenticated) {
             // ✅ Logged-in users see reward offer
             ctaLink.innerHTML = 'Send & Receive a $50 Reward →';
-            ctaLink.href = '../rewards/'; // Or wherever rewards page is
+            ctaLink.href = '../rewards/';
             ctaLink.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
         } else {
             // ✅ Guests see sign-in prompt
@@ -377,6 +526,7 @@ function updateCTALink(isAuthenticated) {
         }
     }
 }
+
 
 
 function updateTransactionLimitUI() {
@@ -562,6 +712,9 @@ async function makeApiCall(endpoint, options = {}) {
     }
 }
 
+// ============================================================================
+// UPDATED: FETCH EXCHANGE RATES WITH ERROR HANDLING
+// ============================================================================
 async function fetchExchangeRates() {
     try {
         const data = await makeApiCall('/rates');
@@ -570,17 +723,118 @@ async function fetchExchangeRates() {
         state.exchangeRate = data.rates.horizonPayRate;
         state.lastRateUpdate = new Date();
         
-    
-        
         if (!state.lockedRate) {
             updateExchangeRate();
             updateRateDisplay(data);
         }
+        
+        // ✅ Reset error states
+        updateNoticeBarError(false);
+        showFormContent(true);
+        
     } catch (error) {
         console.error('Failed to fetch rates:', error);
-        showToast('warning', 'Rate Update Failed', 'Using cached exchange rate');
+        
+        // ✅ Show error in notice bar
+        updateNoticeBarError(true);
+        
+        // ✅ Show error state in form if no cached rates
+        if (!state.rateData) {
+            showFormContent(false);
+            showToast('error', 'Connection Error', 'Unable to load exchange rates');
+        } else {
+            // ✅ Has cached rates, just show warning toast
+            showToast('warning', 'Rate Update Failed', 'Using cached exchange rate');
+        }
     }
 }
+
+// ============================================================================
+// NEW: TOGGLE FORM CONTENT / ERROR STATE
+// ============================================================================
+function showFormContent(show) {
+    const formContent = document.getElementById('formContent');
+    const errorState = document.getElementById('errorState');
+    
+    if (!formContent || !errorState) return;
+    
+    if (show) {
+        // ✅ Show form, hide error
+        formContent.classList.remove('hidden');
+        errorState.classList.add('hidden');
+    } else {
+        // ✅ Hide form, show error
+        formContent.classList.add('hidden');
+        errorState.classList.remove('hidden');
+    }
+}
+
+// ============================================================================
+// NEW: RETRY FETCHING RATES
+// ============================================================================
+async function retryFetchRates() {
+    const retryButton = document.querySelector('.retry-button');
+    
+    if (retryButton) {
+        retryButton.disabled = true;
+        retryButton.textContent = 'Retrying...';
+    }
+    
+    try {
+        await fetchExchangeRates();
+        
+        if (state.rateData) {
+            showToast('success', 'Connected!', 'Exchange rates loaded successfully');
+        }
+    } catch (error) {
+        showToast('error', 'Still Unable to Connect', 'Please try again later');
+    } finally {
+        if (retryButton) {
+            retryButton.disabled = false;
+            retryButton.textContent = 'Try Again';
+        }
+    }
+}
+
+// ============================================================================
+// UPDATED: NOTICE BAR ERROR STATE
+// ============================================================================
+function updateNoticeBarError(hasError) {
+    const noticeBar = document.querySelector('.notice-bar');
+    const rateBadge = document.querySelector('.notice-bar .rate-badge');
+    
+    if (!noticeBar || !rateBadge) return;
+    
+    if (hasError) {
+        // ✅ Change entire notice-bar to orange gradient
+        noticeBar.style.background = 'linear-gradient(90deg, #ff8c42 0%, #ff6b35 100%)';
+        
+        // ✅ Update rate badge content
+        rateBadge.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            Sorry, no rates available 😢 Check back later
+        `;
+    } else {
+        // ✅ Reset to normal purple gradient
+        noticeBar.style.background = 'linear-gradient(90deg, #6b4ef6 0%, #5a3dd9 100%)';
+        
+        // ✅ Reset to normal rate display
+        const rate = state.lockedRate || state.exchangeRate;
+        rateBadge.innerHTML = `
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+            ${state.lockedRate ? '🔒 Locked Rate' : 'Live Rate'}: 1 ${state.receiveCurrency} = ${rate.toFixed(2)} ${state.sendCurrency}
+        `;
+    }
+}
+
+
+
 
 async function createConversion() {
     try {
@@ -663,7 +917,13 @@ async function createConversion() {
             from: state.sendCurrency,
             to: state.receiveCurrency,
             customerName: receiverName,
-            email: email
+            email: email,
+            receiveMethod: receiverDetails.receiveMethod,
+    upiId: receiverDetails.upiId || null,
+    accountNumber: receiverDetails.accountNumber || null,
+    ifscCode: receiverDetails.ifscCode || null,
+    accountName: receiverDetails.accountName || null,
+    receiverName: receiverDetails.receiverName || null
         };
 
         const data = await makeApiCall('/convert', {
@@ -691,7 +951,6 @@ async function createConversion() {
         showLoading(false);
     }
 }
-
 async function initializePayment(sessionId) {
     try {
         showLoading(true, 'Initializing payment gateway...');
@@ -718,6 +977,10 @@ async function initializePayment(sessionId) {
         showLoading(false);
     }
 }
+// ============================================================================
+// UPDATED: INITIALIZATION
+// ============================================================================
+
 
 function openPaystackPayment(paymentData) {
     try {
@@ -742,13 +1005,44 @@ function openPaystackPayment(paymentData) {
                     }
                 ]
             },
+            // ✅ FIX: Remove 'async' keyword here
             callback: function(response) {
-                console.log('✅ Payment successful:', response);
-                showToast('success', 'Payment Successful', 'Processing your transaction...');
-                pollPaymentStatus(state.sessionId, response.reference);
+                console.log('✅ Paystack payment successful:', response);
+                showToast('success', 'Payment Received', 'Verifying with backend...');
+                
+                // ✅ Call async verification (wrap in IIFE or separate function)
+                (async () => {
+                    try {
+                        const verifyResponse = await fetch(`${API_BASE_URL}/payment/verify-manual`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                reference: response.reference,
+                                sessionId: state.sessionId
+                            })
+                        });
+                        
+                        const verifyData = await verifyResponse.json();
+                        
+                        if (verifyData.success && verifyData.status === 'completed') {
+                            console.log('✅ Backend verification successful:', verifyData);
+                            showPaymentSuccess(verifyData);
+                        } else {
+                            throw new Error(verifyData.error || 'Verification failed');
+                        }
+                        
+                    } catch (error) {
+                        console.error('❌ Backend verification failed:', error);
+                        showToast('warning', 'Verification Delayed', 'Checking status...');
+                        pollPaymentStatus(state.sessionId, response.reference);
+                    }
+                })();
             },
+            
             onClose: function() {
-                console.log('Payment window closed');
+                console.log('⚠️ Payment window closed');
                 showToast('warning', 'Payment Cancelled', 'You closed the payment window');
             }
         });
@@ -759,6 +1053,7 @@ function openPaystackPayment(paymentData) {
         showToast('error', 'Payment Error', error.message);
     }
 }
+
 
 async function pollPaymentStatus(sessionId, paymentReference = null, maxAttempts = 30) {
     let attempts = 0;
@@ -919,7 +1214,7 @@ function showPaymentSuccess(data) {
             </div>
             
             <h1 style="font-size: 28px; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 8px;">Payment Successful</h1>
-            <p style="font-size: 15px; color: #6c757d; font-weight: 500; margin-bottom: 36px;">Your transaction has been completed</p>
+            <p style="font-size: 15px; color: #6c757d; font-weight: 500; margin-bottom: 36px;">Your funds are on the way Est.15minutes</p>
             
             <div style="background: #f8f9fa; border-radius: 12px; padding: 24px; margin-bottom: 28px;">
                 <div style="font-size: 13px; color: #6c757d; font-weight: 600; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">Amount Paid</div>
@@ -945,7 +1240,7 @@ function showPaymentSuccess(data) {
                 </div>
                 <div style="display: flex; justify-content: space-between; padding: 14px 0;">
                     <span style="font-size: 14px; color: #6c757d; font-weight: 500;">Status</span>
-                    <span style="font-size: 14px; color: #00d4aa; font-weight: 600;">Completed</span>
+                    <span style="font-size: 14px; color: #d4aa00; font-weight: 600;">Processing</span>
                 </div>
             </div>
             
@@ -1318,7 +1613,7 @@ async function initializeApp() {
     
     try {
         // ✅ STEP 1: Initialize Firebase and wait for auth
-        console.log('⏳ Checking authentication...');
+        console.log('🔐 Checking authentication...');
         showAuthLoadingState();
         await initFirebase();
         const authTime = performance.now() - startTime;
@@ -1326,7 +1621,12 @@ async function initializeApp() {
         
         // ✅ STEP 2: Fetch rates
         console.log('⏳ Loading exchange rates...');
-        await fetchExchangeRates();
+        try {
+            await fetchExchangeRates();
+        } catch (error) {
+            console.error('❌ Initial rate fetch failed:', error);
+            // Error state already handled in fetchExchangeRates()
+        }
         
         // ✅ STEP 3: Setup rate refresh
         state.rateRefreshInterval = setInterval(fetchExchangeRates, RATE_REFRESH_INTERVAL);
@@ -1339,9 +1639,10 @@ async function initializeApp() {
         setupEventListeners();
         
         const totalTime = performance.now() - startTime;
-            
+        console.log(`✅ Initialized in ${totalTime.toFixed(0)}ms`);
+        
     } catch (error) {
-        console.error('❌ Initialization error:', error);
+        console.error('Initialization error:', error);
         showToast('error', 'Initialization Failed', 'Some features may be limited');
     } finally {
         // Hide preloader
@@ -1351,6 +1652,7 @@ async function initializeApp() {
         }
     }
 }
+
 
 // Start app
 if (document.readyState === 'loading') {
